@@ -1,1 +1,0 @@
-[https://www.notion.so/uijinlee/GIT-2e27b78fb98b8032a2ddfc8d74db0db8?source=copy_link](https://www.notion.so/uijinlee/GIT-2e27b78fb98b8032a2ddfc8d74db0db8?source=copy_link)

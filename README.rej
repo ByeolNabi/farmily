@@ -1,7 +1,0 @@
-diff a/README b/README	(rejected hunks)
-@@ -0,4 +0,5 @@
- ---
- develop 브랜치 테스트 중입니다.
- -> camera기능 개발중입니다. 개발완료
-+>>>>>>> master
- >>>>>>> master
