@@ -1,0 +1,1 @@
+https://www.notion.so/uijinlee/JIRA-2e27b78fb98b80ecb900ce0ca0915510?source=copy_link
