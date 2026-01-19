@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d101.farmily.base.ApplicationClass
+import com.d101.farmily.ui.login.LoginScreen
 import com.d101.farmily.ui.theme.FarmilyTheme
 
 private const val TAG = "Farm"
@@ -38,51 +39,8 @@ class LoginActivity : ComponentActivity() {
 
         setContent {
             FarmilyTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Temp(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                LoginScreen()
             }
         }
-    }
-}
-
-@Composable
-fun Temp(modifier: Modifier = Modifier) {
-    val context : Context = LocalContext.current
-
-    Box(
-        modifier = modifier
-            .padding(top = 200.dp)
-            .clickable {
-                Log.d(TAG, "Temp: clicked")
-                Intent(context, MainActivity::class.java).apply {
-
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    context.startActivity(this)
-                }
-            },
-
-    ) {
-        Text(
-            text = "로그인 했음 ㅋ"
-        )
-    }
-}
-
-@Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview2() {
-    FarmilyTheme {
-        Greeting2("Android")
     }
 }

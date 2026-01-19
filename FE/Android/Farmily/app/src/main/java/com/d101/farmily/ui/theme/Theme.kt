@@ -18,9 +18,17 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = mainGreen,
+
+    secondary = subGreen,
+
+    background = lightGreen,
+
+    surface = deepGreen,
+
+    tertiary = Pink40,
+
+    //border = borderGreen,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -51,7 +59,9 @@ fun FarmilyTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        //colorScheme = colorScheme,
+        //일단 무조건 밝은 테마로
+        colorScheme = LightColorScheme,
         typography = Typography,
         content = content
     )
