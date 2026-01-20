@@ -18,7 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.base.ApplicationClass
+import com.d101.farmily.ui.login.JoinScreen
 import com.d101.farmily.ui.login.LoginScreen
 import com.d101.farmily.ui.theme.FarmilyTheme
 
@@ -29,18 +36,51 @@ class LoginActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         if(ApplicationClass.sharedPreferencesUtil.userExist()) {
-            Intent(this, MainActivity::class.java).apply {
 
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(this)
-            }
-
+            openMainActivity()
         }
 
         setContent {
             FarmilyTheme {
-                LoginScreen()
+                val navController = rememberNavController()
+
+                LoginNavHost(navController, ::openMainActivity)
             }
         }
     }
+
+    fun openMainActivity() {
+        Intent(this, MainActivity::class.java).apply {
+
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(this)
+        }
+    }
+}
+
+@Composable
+fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
+
+    NavHost(navController = navController, startDestination = LoginNavScreen.Login.route) {
+
+        composable(LoginNavScreen.Login.route) {
+            LoginScreen {
+                navController.navigate(LoginNavScreen.Join.route)
+            }
+        }
+
+        composable(LoginNavScreen.Join.route) {
+            JoinScreen()
+        }
+
+        composable(LoginNavScreen.Main.route){
+            openMain()
+        }
+    }
+}
+
+sealed class LoginNavScreen(val route: String) {
+    data object Login : LoginNavScreen("login")
+    data object Join : LoginNavScreen("join")
+    data object Main : LoginNavScreen("Main")
 }
