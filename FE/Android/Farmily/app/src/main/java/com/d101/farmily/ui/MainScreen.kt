@@ -2,15 +2,12 @@ package com.d101.farmily.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -18,12 +15,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.R
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.NavHost
+import com.d101.farmily.ui.home.EnvInfoScreen
 
 @Composable
 fun MainScreen () {
@@ -46,7 +43,7 @@ fun MainScreen () {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) {
-
+                EnvInfoScreen()
             }
 
             composable(BottomNavItem.Map.route) {
@@ -93,20 +90,21 @@ fun BottomNavigationBar(
                     Icon(
                         painter = painterResource(item.icon),
                         contentDescription = item.label,
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(30.dp),
                         tint = if (selected)  MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.secondary
                 ),
-                label = {
-                    Text(
-                        item.label,
-                        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
-                    )
-                },
-                //alwaysShowLabel = true
+                // 라벨 없이 라벨 넣으면 선택 시 올라가는데 은근 낫베드임
+//                label = {
+//                    Text(
+//                        item.label,
+//                        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+//                    )
+//                },
+                alwaysShowLabel = false
             )
         }
     }
