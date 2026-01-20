@@ -1,31 +1,38 @@
-package com.d101.farmily.ui.login
+package com.d101.farmily.ui.plantInfo
 
-import android.R.attr.top
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,26 +42,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.d101.farmily.R
 import com.d101.farmily.ui.component.WideButton
+import com.d101.farmily.ui.login.ButtonWide
 import com.d101.farmily.ui.theme.borderGreen
 import com.d101.farmily.ui.theme.deepGreen
-import com.d101.farmily.ui.theme.mainGreen
 import com.d101.farmily.ui.theme.middleGreen
 
-
 @Composable
-fun LoginScreen(
-    navToJoinScreen : () -> Unit,
-    navToInfoScreen : () -> Unit
+fun PlantInfoScreen(
+    navToMain : () -> Unit
 ) {
 
     val context = LocalContext.current
 
-    var id by  remember { mutableStateOf("")  }
-    var pw by remember { mutableStateOf("") }
+    var plantType by remember { mutableStateOf("") }
+    var plantNickName by remember { mutableStateOf("") }
+
+    var expanded by remember { mutableStateOf(false) }
+
+    val OPTIONS = listOf("몬스테라", "장미", "다육이", "스투키", "상추")
 
     Scaffold(
         modifier = Modifier
@@ -93,20 +103,21 @@ fun LoginScreen(
                     )
 
                     Text(
-                        text = "FARM-ILY",
+                        text = "Farm-liy",
                         modifier = Modifier
                             .padding(top = 10.dp),
                         style = MaterialTheme.typography.titleLarge.copy(fontSize = 48.sp),
                         color = deepGreen
                     )
 
+                    //회원가입 서브 텍스트 존재 안해도 될듯함
                     Text(
-                        text = "식물을 가족처럼 키워보세요",
+                        text = "반려 식물을 등록해주세요",
                         color = borderGreen
                     )
 
                     Text(
-                        text = "아이디",
+                        text = "식물 종류",
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 28.dp)
@@ -115,31 +126,76 @@ fun LoginScreen(
                         color = middleGreen
                     )
 
-                    OutlinedTextField(
-                        value = id,
-                        onValueChange = {
-                            id = it
-                        },
-                        label = {
-                            Text(
-                                text = "아이디를 입력하세요"
-                            )
-                        },
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp,),
-                        shape = RoundedCornerShape(21.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color(0xFF4CAF50),
-                            unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
-                            unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
+                            .padding(horizontal = 16.dp,)
+                            .height(IntrinsicSize.Min)
+                            //.background(Color.Red),
+                    ) {
+
+                        OutlinedTextField(
+                            value = plantType,
+                            onValueChange = {
+                                plantType = it
+                            },
+                            label = {
+                                Text(
+                                    text = "예: 몬스테라, 스투키"
+                                )
+                            },
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .padding(end = 16.dp,),
+
+                            shape = RoundedCornerShape(21.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF4CAF50),
+                                unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
+                                //focusedLabelColor = Color(0xFF4CAF50),
+                                unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
+                                //cursorColor = Color(0xFF4CAF50)
+                            )
                         )
-                    )
+                        IconButton(
+                            onClick = { expanded = true },
+                            modifier = Modifier
+                                .padding(top = 8.dp)
+                                .border(1.dp, borderGreen,  RoundedCornerShape(21.dp))
+                                .fillMaxHeight()
+                                .align(Alignment.Bottom)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "열기",
+                                tint = borderGreen
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                            modifier = Modifier.background(Color.White)
+                                //.fillMaxWidth()
+                                .heightIn(max = 220.dp),
+                            //offset = DpOffset(x = 0.dp, y = 10.dp)// 배경색은 보통 흰색 권장
+                        ) {
+                            OPTIONS.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(option) },
+                                    onClick = {
+                                        plantType = option // 선택한 값을 텍스트 필드에 넣기
+                                        expanded = false
+                                        Log.d("reart", "선택된 식물: $option")
+                                    }
+                                )
+                            }
+                        }
+
+                    }
 
                     Text(
-                        text = "비밀번호",
+                        text = "식물 애칭",
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 28.dp)
@@ -149,13 +205,13 @@ fun LoginScreen(
                     )
 
                     OutlinedTextField(
-                        value = pw,
+                        value = plantNickName,
                         onValueChange = {
-                            pw = it
+                            plantNickName = it
                         },
                         label = {
                             Text(
-                                text = "비밀번호를 입력하세요"
+                                text = "반려 식물의 애칭을 지어주세요"
                             )
                         },
                         modifier = Modifier
@@ -174,54 +230,20 @@ fun LoginScreen(
 
                     ButtonWide()
                     WideButton(
-                        "로그인",
+                        "시작하기",
                         modifier = Modifier
                             .padding(horizontal = 16.dp, vertical = 20.dp),
 
-                    ) {
-                        Log.d("reart", "LoginScreen: login 처리")
-                        navToInfoScreen()
+                        ) {
+                        navToMain()
+                        Log.d("reart", "navToMain")
                     }
 
-                    //라인하나
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp), // 위아래 간격
-                        thickness = 0.5.dp, // 선 두께
-                        color = MaterialTheme.colorScheme.outlineVariant // 선 색상
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                    ) {
-                        Text(
-                            text = "아직 계정이 없으신가요?",
-                            color = middleGreen
-                        )
-                        Text(
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                                .clickable {
-                                    //Log.d("reart", "LoginScreen: go to join")
-                                    navToJoinScreen()
-                                },
-                            text = "회원가입",
-                            style = MaterialTheme.typography.titleLarge.copy(fontSize = 22.sp),
-                            color = deepGreen
-                        )
-                    }
                 }
             }
 
         }
 
     }
-}
-
-
-@Composable
-fun ButtonWide() {
 
 }
-
-

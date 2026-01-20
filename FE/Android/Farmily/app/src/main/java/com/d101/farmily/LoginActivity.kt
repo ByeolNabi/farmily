@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.ui.login.JoinScreen
 import com.d101.farmily.ui.login.LoginScreen
+import com.d101.farmily.ui.plantInfo.PlantInfoScreen
 import com.d101.farmily.ui.theme.FarmilyTheme
 
 private const val TAG = "Farm"
@@ -64,9 +65,20 @@ fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
     NavHost(navController = navController, startDestination = LoginNavScreen.Login.route) {
 
         composable(LoginNavScreen.Login.route) {
-            LoginScreen {
-                navController.navigate(LoginNavScreen.Join.route)
-            }
+            LoginScreen (
+                navToJoinScreen = {navController.navigate(LoginNavScreen.Join.route)},
+                navToInfoScreen = {
+                    navController.navigate(LoginNavScreen.Info.route) {
+                        popUpTo(LoginNavScreen.Login.route) {
+                            inclusive = true
+                        }
+
+                        launchSingleTop = true
+                    }
+                }
+            )
+
+
         }
 
         composable(LoginNavScreen.Join.route) {
@@ -76,6 +88,11 @@ fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
         composable(LoginNavScreen.Main.route){
             openMain()
         }
+
+        composable(LoginNavScreen.Info.route){
+            PlantInfoScreen{openMain()}
+
+        }
     }
 }
 
@@ -83,4 +100,6 @@ sealed class LoginNavScreen(val route: String) {
     data object Login : LoginNavScreen("login")
     data object Join : LoginNavScreen("join")
     data object Main : LoginNavScreen("Main")
+
+    data object Info : LoginNavScreen("Info")
 }
