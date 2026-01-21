@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.R
 import com.d101.farmily.ui.home.EnvInfoScreen
+import com.d101.farmily.ui.userInfo.UserInfoScreen
 
 @Composable
 fun MainScreen () {
@@ -51,7 +52,9 @@ fun MainScreen () {
             }
 
             composable(BottomNavItem.Setting.route) {
-
+                UserInfoScreen(
+                    {}
+                )
             }
         }
 
