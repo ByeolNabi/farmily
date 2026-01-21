@@ -17,19 +17,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -51,6 +48,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d101.farmily.R
+import com.d101.farmily.data.model.StatInfo
+import com.d101.farmily.ui.component.StatBox
 import com.d101.farmily.ui.theme.middleGreen
 
 @Composable
@@ -73,12 +72,11 @@ fun UserInfoScreen(
     }
 
     val stats = listOf(
-        StatItem(Icons.Default.ThumbUp, "쓰다듬기", "${interactions.petCount}회 달성",
-            Color(0xFFEC4899), Color(0xFFFDF2F8)),
-        StatItem(Icons.Default.AccountCircle, "같이 사진 찍기", "${interactions.photoCount}회 달성", Color(0xFFA855F7), Color(0xFFFAF5FF)),
-        StatItem(Icons.Default.LocationOn, "물주기", "${interactions.waterCount}회 달성", Color(0xFF3B82F6), Color(0xFFEFF6FF)),
-        StatItem(Icons.Default.MailOutline, "대화하기", "${interactions.chatDays}일 달성", Color(0xFF22C55E), Color(0xFFF0FDF4)),
-        StatItem(Icons.Default.DateRange, "우리 만난 지", "${interactions.daysTogether}일", Color(0xFFF97316), Color(0xFFFFF7ED))
+        StatInfo("stroking", "${interactions.petCount}"),
+        StatInfo("photo", "${interactions.photoCount}"),
+        StatInfo("watering", "${interactions.waterCount}"),
+        StatInfo("chatting", "${interactions.chatDays}"),
+        StatInfo("만난 지", "${interactions.daysTogether}")
     )
 
     Scaffold(
@@ -101,7 +99,7 @@ fun UserInfoScreen(
                 )
             }
 
-            // 내 식물 카드 (React의 Card 대응)
+
             InfoCard {
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -171,24 +169,28 @@ fun UserInfoScreen(
                 }
             }
 
-            // 통계 그리드 (Grid 대응)
+
             Text(text = "함께한 추억",
                 style = MaterialTheme.typography.bodySmall,
                 color = middleGreen)
-            // 2개씩 배치하는 로직
-            stats.chunked(2).forEach { rowItems ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    rowItems.forEach { item ->
-                        StatCard(item, modifier = Modifier.weight(1f))
-                    }
-                    if (rowItems.size == 1) Spacer(modifier = Modifier.weight(1f))
+
+            LazyRow(
+                modifier = Modifier.fillMaxWidth()
+                    .background(Color.White, RoundedCornerShape(24.dp))
+                    .padding(horizontal = 8.dp)
+                ,
+                //horizontalArrangement = Arrangement.spacedBy(12.dp),
+                //contentPadding = PaddingValues(horizontal = 4.dp) // 양 끝에 약간의 여백
+            ) {
+                items(stats) { item ->
+                    StatBox(
+                        item = item,
+                        modifier = Modifier
+                            .fillParentMaxWidth(0.2f)// 적당한 가로 크기 지정
+                    )
                 }
             }
 
-            // 일반 설정 섹션
             Text(text = "일반", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
 
             // 식물 변경 클릭 가능한 카드
