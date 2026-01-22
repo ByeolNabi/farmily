@@ -4,7 +4,7 @@ import time
 # --- 설정 정보 ---
 BROKER_HOST = "i14d101.p.ssafy.io"
 BROKER_PORT = 443
-TOPIC = "test/topic"
+TOPIC = "#"
 TRANSPORT = "websockets"  # 웹소켓 방식 설정
 PATH = "/mqtt"            # Nginx에서 설정한 경로
 
