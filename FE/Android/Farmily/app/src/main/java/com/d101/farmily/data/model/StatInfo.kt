@@ -9,38 +9,38 @@ data class StatInfo(
 ) {
     val unit: String
         get() = when (type) {
-            "stroking" -> "회"
-            "photo" -> "회"
-            "watering" -> "회"
-            "chatting" -> "일"
-            else -> "회"
+            "쓰다듬기" -> "회"
+            "사진찍기" -> "회"
+            "물 주기" -> "회"
+            "대화하기" -> "일"
+            else -> "일"
         }
 
     val color: Color
         get() = when (type) {
-            "stroking" -> Color(0xFF22C55E)
-            "photo"-> Color(0xFFA855F7)
-            "watering"-> Color(0xFF3B82F6)
-            "chatting"-> Color(0xFFEC4899)
+            "쓰다듬기" -> Color(0xFF22C55E)
+            "사진찍기"-> Color(0xFFA855F7)
+            "물 주기"-> Color(0xFF3B82F6)
+            "대화하기"-> Color(0xFFEC4899)
             else -> Color(0xFFF97316)
         }
 
     val backColor: Color
         get() = when (type) {
-            "stroking" -> Color(0xFFF0FDF4)
-            "photo" -> Color(0xFFFAF5FF)
-            "watering" -> Color(0xFFEFF6FF)
-            "chatting" -> Color(0xFFFDF2F8)
+            "쓰다듬기" -> Color(0xFFF0FDF4)
+            "사진찍기" -> Color(0xFFFAF5FF)
+            "물 주기" -> Color(0xFFEFF6FF)
+            "대화하기" -> Color(0xFFFDF2F8)
             else -> Color(0xFFFFF7ED)
         }
 
 
     val iconId: Int
         get() = when (type) {
-            "stroking" -> R.drawable.stroking
-            "photo" -> R.drawable.photo
-            "watering" -> R.drawable.watering
-            "chatting" -> R.drawable.chatting
+            "쓰다듬기" -> R.drawable.stroking
+            "사진찍기" -> R.drawable.photo
+            "물 주기" -> R.drawable.watering
+            "대화하기" -> R.drawable.chatting
             else -> R.drawable.date
         }
 }

@@ -1,0 +1,1 @@
+[피그마 와이어 프레임](https://www.figma.com/design/0I1AyRn7e8I7EBCH6nuyAO/%EC%A0%9C%EB%AA%A9-%EC%97%86%EC%9D%8C?node-id=0-1&t=NpezEEqhAuWcpHNO-1)

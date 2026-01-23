@@ -45,10 +45,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d101.farmily.R
+import com.d101.farmily.data.model.AchievInfo
 import com.d101.farmily.data.model.StatInfo
+import com.d101.farmily.ui.component.AchievBox
 import com.d101.farmily.ui.component.StatBox
 import com.d101.farmily.ui.theme.middleGreen
 
@@ -56,6 +59,7 @@ import com.d101.farmily.ui.theme.middleGreen
 fun UserInfoScreen(
     onLogout: () -> Unit
 ) {
+    val context = LocalContext.current
 
     var plantType by remember { mutableStateOf("산세베리아") }
     var plantName by remember { mutableStateOf("릴리 블리") }
@@ -72,11 +76,19 @@ fun UserInfoScreen(
     }
 
     val stats = listOf(
-        StatInfo("stroking", "${interactions.petCount}"),
-        StatInfo("photo", "${interactions.photoCount}"),
-        StatInfo("watering", "${interactions.waterCount}"),
-        StatInfo("chatting", "${interactions.chatDays}"),
+        StatInfo("쓰다듬기", "${interactions.petCount}"),
+        StatInfo("사진찍기", "${interactions.photoCount}"),
+        StatInfo("물 주기", "${interactions.waterCount}"),
+        StatInfo("대화하기", "${interactions.chatDays}"),
         StatInfo("만난 지", "${interactions.daysTogether}")
+    )
+
+    val achievements = listOf(
+        AchievInfo("첫 접촉", "fst"),
+        AchievInfo("첫 추억", "fca"),
+        AchievInfo("첫 식사", "fwa"),
+        AchievInfo("첫 대화", "fch"),
+        AchievInfo("첫 만남", "fme")
     )
 
     Scaffold(
@@ -184,6 +196,30 @@ fun UserInfoScreen(
             ) {
                 items(stats) { item ->
                     StatBox(
+                        item = item,
+                        modifier = Modifier
+                            .fillParentMaxWidth(0.2f)// 적당한 가로 크기 지정
+                    )
+                }
+            }
+
+            Text(text = "달성한 업적",
+                style = MaterialTheme.typography.bodySmall,
+                color = middleGreen)
+
+
+
+            LazyRow(
+                modifier = Modifier.fillMaxWidth()
+                    .background(Color.White, RoundedCornerShape(24.dp))
+                    .padding(horizontal = 8.dp)
+                ,
+                //horizontalArrangement = Arrangement.spacedBy(12.dp),
+                //contentPadding = PaddingValues(horizontal = 4.dp) // 양 끝에 약간의 여백
+            ) {
+                items(achievements) { item ->
+                    AchievBox(
+                        context,
                         item = item,
                         modifier = Modifier
                             .fillParentMaxWidth(0.2f)// 적당한 가로 크기 지정
