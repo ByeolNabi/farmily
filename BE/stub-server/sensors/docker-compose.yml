@@ -1,0 +1,21 @@
+# docker compose up --build
+version: '3.8'
+
+services:
+  # LiDAR 센서 시뮬레이터 (Jetson)
+  jetson-lidar:
+    build: .
+    container_name: stub_jetson_lidar
+    command: python -u jetson_lidar-pub.py
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # 각종 센서 시뮬레이터 (Raspi)
+  raspi-sensors:
+    build: .
+    container_name: stub_raspi_sensors
+    command: python -u raspi_sensors-pub.py
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
