@@ -1,6 +1,5 @@
 package com.d101.farmily.ui.component
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -15,7 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,18 +26,9 @@ import com.d101.farmily.data.model.EnvInfo
 
 @Composable
 fun InfoBox(
-    context : Context,
     envInfo: EnvInfo,
     modifier: Modifier
 ) {
-
-    val resourceId = remember(envInfo.type) {
-        context.resources.getIdentifier(
-            envInfo.type,      // 파일 이름 (확장자 제외)
-            "drawable",    // 리소스 폴더명
-            context.packageName
-        )
-    }
 
     Box(
         modifier = modifier
@@ -73,14 +62,14 @@ fun InfoBox(
                     Box(
                         modifier = Modifier
                             .size(70.dp)
-                            .background(Color(0xFFFFF7ED),
+                            .background(envInfo.backColor,
                                 RoundedCornerShape(35.dp))
                         ,contentAlignment = (Alignment.Center)
                     ) {
                         Icon(
-                            painter = painterResource(id = resourceId),
+                            painter = painterResource(id = envInfo.iconId),
                             contentDescription = envInfo.type,
-                            tint = Color(0xFFed8936),
+                            tint = envInfo.color,
                             modifier = Modifier
                                 .size(42.dp)
                             //.background(Color(0xFFFFF7ED))
@@ -120,12 +109,12 @@ fun InfoBox(
 
                 Text(
                     text = envInfo.type,
-                    fontSize = 12.sp,
+                    fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
-                    text = envInfo.value.toString(),
+                    text = envInfo.value.toString() + " " + envInfo.unit,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 30.sp),
                     color = MaterialTheme.colorScheme.surface
                 )

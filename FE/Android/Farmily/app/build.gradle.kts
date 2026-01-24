@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -35,6 +37,16 @@ android {
     buildFeatures {
         compose = true
     }
+
+    packaging {
+        resources {
+            // 중복되는 INDEX.LIST 파일을 빌드에서 제외하거나 하나만 선택합니다.
+            excludes += "/META-INF/INDEX.LIST"
+
+            // 만약 나중에 다른 Netty 관련 파일도 에러가 난다면 아래 주석을 참고하세요.
+            excludes += "/META-INF/io.netty.versions.properties"
+        }
+    }
 }
 
 dependencies {
@@ -67,4 +79,11 @@ dependencies {
 
     // 자동 암호화 해주는 SH PF
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+    // HiveMQ MQTT Client (안드로이드 최적화 버전)
+    implementation("com.hivemq:hivemq-mqtt-client:1.3.0")
+    implementation("io.netty:netty-codec-http:4.1.48.Final")
+    implementation("io.netty:netty-handler:4.1.48.Final")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
