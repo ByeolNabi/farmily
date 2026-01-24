@@ -1,0 +1,6 @@
+{
+  "name": "MyTemplate",
+  "description": "Custom WebGL template with mqtt.js",
+  "author": "SSAFY",
+  "version": "1.0"
+}
