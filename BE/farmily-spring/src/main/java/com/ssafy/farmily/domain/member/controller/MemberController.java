@@ -37,6 +37,14 @@ public class MemberController {
         return Map.of("userId", userId);
     }
 
+    // 4. 로그인 (POST /users/login)
+    @PostMapping("/users/login")
+    public Map<String, String> login(@RequestBody LoginRequest request) {
+        String token = memberService.login(request.email, request.password);
+        return Map.of("accessToken", token);
+    }
+
     // 가입용 DTO (Inner Class)
     public record SignupRequest(String email, String password) {}
+    public record LoginRequest(String email, String password) {}
 }
