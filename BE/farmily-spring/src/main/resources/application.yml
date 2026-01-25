@@ -5,14 +5,14 @@ spring:
   application:
     name: farmily
 
-  # 1. DB ?? ?? (??? ??! spring ??? 2? ???? ??? ?)
+  # 1. DB
   datasource:
     url: jdbc:postgresql://localhost:5433/farmily
     username: ssafy
     password: ssafy
     driver-class-name: org.postgresql.Driver
 
-  # 2. JPA ??
+  # 2. JPA
   jpa:
     hibernate:
       ddl-auto: update
@@ -34,7 +34,7 @@ spring:
           starttls:
             enable: true
 
-  # 3. Redis ??
+  # 3. Redis
   data:
     redis:
       host: localhost

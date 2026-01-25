@@ -119,9 +119,23 @@ public class MemberService {
         );
     } // 로그인 메서드 끝
 
+    // 5. 토큰 재발급 (Auto Login)
+    public String reissue(String email, String refreshToken) {
+        // 1. Redis에서 해당 이메일의 RT 가져오기
+        String savedRefreshToken = redisTemplate.opsForValue().get("RT:" + email);
+
+        // 2. Redis에 없거나, 보낸 토큰이랑 다르면 에러!
+        if (savedRefreshToken == null || !savedRefreshToken.equals(refreshToken)) {
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
+        }
+
+        // 3. 다 맞으면 새로운 Access Token 발급해서 리턴
+        return jwtUtil.createToken(email);
+    }
+
     // 👇 [누락된 부분] 이 코드가 없어서 에러가 나는 중입니다!
     private String createCode() {
         return String.valueOf(new java.util.Random().nextInt(900000) + 100000);
     }
 
-} // Class 끝
+}
