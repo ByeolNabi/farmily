@@ -51,10 +51,23 @@ public class MemberController {
         return Map.of("accessToken", newAccessToken);
     }
 
-    // DTO
-    public record ReissueRequest(String email, String refreshToken) {}
+    // 6. 회원 탈퇴 (PATCH /users/withdraw) - 내 정보 수정이라 보통 PATCH나 DELETE 씀
+    @PatchMapping("/users/withdraw")
+    public String withdraw(@RequestBody Map<String, String> request) {
+        memberService.withdraw(request.get("email"));
+        return "회원 탈퇴 처리되었습니다.";
+    }
 
-    // 가입용 DTO (Inner Class)
+    // 7. 비밀번호 재설정 (PATCH /users/password)
+    @PatchMapping("/users/password")
+    public String resetPassword(@RequestBody PasswordResetRequest request) {
+        memberService.resetPassword(request.email(), request.newPassword());
+        return "비밀번호가 재설정되었습니다.";
+    }
+
+    // DTO
+    public record PasswordResetRequest(String email, String newPassword) {}
+    public record ReissueRequest(String email, String refreshToken) {}
     public record SignupRequest(String email, String password) {}
     public record LoginRequest(String email, String password) {}
 }
