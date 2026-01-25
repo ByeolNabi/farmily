@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.R
 import com.d101.farmily.ui.home.EnvInfoScreen
 import com.d101.farmily.ui.lidarMap.LidarMapScreen
+import com.d101.farmily.ui.memory.MemoryScreen
 import com.d101.farmily.ui.userInfo.UserInfoScreen
 
 @Composable
@@ -52,6 +53,10 @@ fun MainScreen () {
                 LidarMapScreen()
             }
 
+            composable(BottomNavItem.Memory.route) {
+                MemoryScreen()
+            }
+
             composable(BottomNavItem.UserInfo.route) {
                 UserInfoScreen(
                     {}
@@ -69,7 +74,8 @@ fun BottomNavigationBar(
     items: List<BottomNavItem> = listOf(
         BottomNavItem.Home,
         BottomNavItem.Map,
-        BottomNavItem.UserInfo
+        BottomNavItem.Memory,
+        BottomNavItem.UserInfo,
     )
 ) {
 

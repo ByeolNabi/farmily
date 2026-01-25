@@ -1,6 +1,7 @@
 package com.d101.farmily.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -64,27 +65,37 @@ fun EnvInfoScreen(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(start = 24.dp)
-                    .padding(top = 12.dp)
+                    .padding(vertical = 12.dp)
             )
 
-            envInfoList.chunked(2).forEach { rowItems ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 32.dp)
-                ) {
-                    rowItems.forEach { item ->
-                        InfoBox(
+            if(envInfoList.isEmpty()) {
+                Box(
 
-                            item,
-                            modifier = Modifier
-                                .weight(1f)
-                                .aspectRatio(1f)
-                        )
+                ) {
+                    Text(
+                        text = "... 환경 정보를 불러오는 중 입니다."
+                    )
+                }
+            } else {
+                envInfoList.chunked(2).forEach { rowItems ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        rowItems.forEach { item ->
+                            InfoBox(
+
+                                item,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .aspectRatio(1f)
+                            )
+                        }
                     }
                 }
             }
+
 
 //            Row(
 //                modifier = Modifier
