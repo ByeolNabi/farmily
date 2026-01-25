@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  # 1. 메인 데이터베이스 (위치 정보 저장을 위해 PostGIS 사용)
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: farmily-db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: farmily
+      POSTGRES_USER: ssafy
+      POSTGRES_PASSWORD: ssafy
+      TZ: Asia/Seoul
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  # 2. Redis (로그인 토큰 & 임시 데이터 저장)
+  redis:
+    image: redis:alpine
+    container_name: farmily-redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  # 3. MQTT 브로커 (로봇 - 서버 통신용)
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: farmily-mqtt
+    ports:
+      - "1883:1883" # MQTT 기본 포트
+      - "9001:9001" # 웹소켓용 포트
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: always
+
+volumes:
+  postgres_data:

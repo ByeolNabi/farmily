@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: farmily
+
+  # 1. DB ?? ?? (??? ??! spring ??? 2? ???? ??? ?)
+  datasource:
+    url: jdbc:postgresql://localhost:5433/farmily
+    username: ssafy
+    password: ssafy
+    driver-class-name: org.postgresql.Driver
+
+  # 2. JPA ??
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        # ?? ?? ???? ?? ?? ??? ??? ? ????.
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: psy987411@gmail.com  # ? ??? ??? ?? ??
+    password: fgxywomvrvevlonj                # ? ?? ? ???? ?? (16??)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # 3. Redis ??
+  data:
+    redis:
+      host: localhost
+      port: 6379
