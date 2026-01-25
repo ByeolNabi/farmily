@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.R
 import com.d101.farmily.ui.home.EnvInfoScreen
+import com.d101.farmily.ui.lidarMap.LidarMapScreen
 import com.d101.farmily.ui.userInfo.UserInfoScreen
 
 @Composable
@@ -48,10 +49,10 @@ fun MainScreen () {
             }
 
             composable(BottomNavItem.Map.route) {
-
+                LidarMapScreen()
             }
 
-            composable(BottomNavItem.Setting.route) {
+            composable(BottomNavItem.UserInfo.route) {
                 UserInfoScreen(
                     {}
                 )
@@ -68,7 +69,7 @@ fun BottomNavigationBar(
     items: List<BottomNavItem> = listOf(
         BottomNavItem.Home,
         BottomNavItem.Map,
-        BottomNavItem.Setting
+        BottomNavItem.UserInfo
     )
 ) {
 
@@ -118,6 +119,7 @@ sealed class BottomNavItem(val route: String, val icon: Int, val label: String) 
 
     data object Home : BottomNavItem("home", R.drawable.home, "")
     data object Map : BottomNavItem("map", R.drawable.map, "") //home으로 되어있는 라우트명 싹 다 수정하기
-    data object Setting : BottomNavItem("setting", R.drawable.setting, "")
+    data object UserInfo : BottomNavItem("userInfo", R.drawable.user, "")
 
+    data object Memory : BottomNavItem("memory", R.drawable.water, "")
 }
