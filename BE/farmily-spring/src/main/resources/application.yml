@@ -19,15 +19,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        # ?? ?? ???? ?? ?? ??? ??? ? ????.
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: psy987411@gmail.com  # ? ??? ??? ?? ??
-    password: fgxywomvrvevlonj                # ? ?? ? ???? ?? (16??)
+    username: psy987411@gmail.com
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:

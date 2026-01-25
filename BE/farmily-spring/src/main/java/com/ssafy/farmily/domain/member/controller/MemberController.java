@@ -40,8 +40,8 @@ public class MemberController {
     // 4. 로그인 (POST /users/login)
     @PostMapping("/users/login")
     public Map<String, String> login(@RequestBody LoginRequest request) {
-        String token = memberService.login(request.email, request.password);
-        return Map.of("accessToken", token);
+        // 서비스가 이제 Map을 리턴해줍니다 (accessToken, refreshToken)
+        return memberService.login(request.email(), request.password());
     }
 
     // 가입용 DTO (Inner Class)
