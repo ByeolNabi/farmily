@@ -11,6 +11,7 @@ from app.modules.edge_devices.router import router as edge_devices_router
 from app.modules.sensors.router import router as sensors_router
 from app.modules.ai_inference.router import router as ai_inference_router
 from app.modules.plants.router import router as plants_router
+from app.modules.pages.router import router as pages_router
 
 
 @asynccontextmanager
@@ -60,6 +61,7 @@ app.include_router(edge_devices_router, prefix="/api/v1/devices", tags=["Edge De
 app.include_router(sensors_router, prefix="/api/v1/sensors", tags=["Sensors"])
 app.include_router(ai_inference_router, prefix="/api/v1/ai", tags=["AI Inference"])
 app.include_router(plants_router, prefix="/api/v1/plants", tags=["Plants"])
+app.include_router(pages_router, prefix="/api/v1/pages", tags=["Pages"])
 
 
 @app.get("/", tags=["Health"])
