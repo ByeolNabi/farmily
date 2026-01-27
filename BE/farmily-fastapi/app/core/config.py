@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     APP_ENV: str = "development"
     DEBUG: bool = True
     
+    # Database Mode
+    USE_MOCK_DB: bool = True
+    
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./farmily.db"
     

@@ -1,12 +1,10 @@
 """
-Plants - Repository (Mock Data)
-DB 없이 더미 데이터를 제공하는 저장소
+Plants - Mock Repository implementation
 """
-from typing import Optional, List, Dict, Any
+from typing import List, Optional, Dict, Any
+from app.modules.plants.repository.interface import PlantRepositoryInterface
 
 # 더미 데이터
-# - 리스트 조회용: id, name, thumbnail
-# - 상세 조회용: id, name, soil_moisture, temperature, humidity, image_url
 _MOCK_PLANT_DB = [
     {
         "id": 1,
@@ -46,19 +44,14 @@ _MOCK_PLANT_DB = [
     }
 ]
 
-class PlantRepository:
-    """식물 데이터 저장소 (Mock)"""
+class MockPlantRepository(PlantRepositoryInterface):
+    """메모리 상의 더미 데이터를 사용하는 리포지토리"""
     
     async def get_all(self) -> List[Dict[str, Any]]:
-        """모든 식물 데이터 반환"""
         return _MOCK_PLANT_DB
     
     async def get_by_id(self, plant_id: int) -> Optional[Dict[str, Any]]:
-        """ID로 식물 조회"""
         for plant in _MOCK_PLANT_DB:
             if plant["id"] == plant_id:
                 return plant
         return None
-
-# 리포지토리 인스턴스
-plant_repo = PlantRepository()
