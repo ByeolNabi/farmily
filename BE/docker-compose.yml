@@ -7,18 +7,20 @@ services:
     container_name: farmily-db
     restart: always
     ports:
-      - "127.0.0.1:5432:5432"  # ← 여기 수정!
+      - "127.0.0.1:5432:5432"
+    env_file:
+      - .env  # .env 파일을 읽어옵니다
     environment:
-      POSTGRES_DB: farmily_db
-      POSTGRES_USER: ssafy
-      POSTGRES_PASSWORD: ssafy1234!
+      POSTGRES_DB: ${POSTGRES_DB}            # .env에서 값 대입
+      POSTGRES_USER: ${POSTGRES_USER}        # .env에서 값 대입
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # .env에서 값 대입
       TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - farmily-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ssafy -d farmily_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,12 +46,15 @@ services:
       - ./farmily-spring/build/libs:/app
     working_dir: /app
     command: java -jar farmily-0.0.1-SNAPSHOT.jar
+    env_file:
+      - .env  # .env 파일을 읽어서 컨테이너에 모든 변수를 주입합니다 (MAIL_PASSWORD 포함)
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/farmily_db
-      SPRING_DATASOURCE_USERNAME: ssafy
-      SPRING_DATASOURCE_PASSWORD: ssafy1234!
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
+      # 명시적으로 .env 값을 매핑 (가독성을 위해 남겨둠)
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_REDIS_HOST: ${SPRING_REDIS_HOST}
+      SPRING_REDIS_PORT: ${SPRING_REDIS_PORT}
       TZ: Asia/Seoul
     depends_on:
       db:
