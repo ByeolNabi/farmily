@@ -1,41 +1,35 @@
-server:
-  port: 8080
-
 spring:
-  application:
-    name: farmily
-
-  # 1. DB
   datasource:
-    url: jdbc:postgresql://localhost:5433/farmily
+    # 1. 주소: EC2 도메인 주소 (또는 퍼블릭 IP)
+    # 2. 포트: 5432 (아까 docker-compose에서 5432:5432로 맞췄죠?)
+    # 3. DB이름: farmily_db (아까 설정한 이름)
+    url: jdbc:postgresql://localhost:5432/farmily_db
+
+    # 4. 계정 정보 (docker-compose.yml과 똑같아야 함)
     username: ssafy
     password: ssafy
     driver-class-name: org.postgresql.Driver
 
-  # 2. JPA
+  data:
+    redis:
+      # Redis도 같은 EC2에 있으니 주소가 같습니다.
+      host: i14d101.p.ssafy.io
+      port: 6379
+
   jpa:
+    # DB 스키마 자동 관리 (update: 기존 데이터 유지하면서 변경사항만 반영)
     hibernate:
       ddl-auto: update
+
+    # 실행되는 SQL 눈으로 확인하기 (디버깅용)
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: team.farmily@gmail.com
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
-  # 3. Redis
-  data:
-    redis:
-      host: localhost
-      port: 6379
+  # (선택) 파일 업로드 용량 제한 늘리기 (이미지 업로드 대비)
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
