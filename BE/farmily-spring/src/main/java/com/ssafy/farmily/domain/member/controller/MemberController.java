@@ -45,7 +45,7 @@ public class MemberController {
     }
 
     // 5. 토큰 재발급 요청 (POST /auth/reissue)
-    @PostMapping("/auth/reissue")
+    @PostMapping("/auth/refresh")
     public Map<String, String> reissue(@RequestBody ReissueRequest request) {
         String newAccessToken = memberService.reissue(request.email(), request.refreshToken());
         return Map.of("accessToken", newAccessToken);
