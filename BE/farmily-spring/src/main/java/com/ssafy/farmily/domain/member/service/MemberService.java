@@ -133,9 +133,31 @@ public class MemberService {
         return jwtUtil.createToken(email);
     }
 
-    // 👇 [누락된 부분] 이 코드가 없어서 에러가 나는 중입니다!
     private String createCode() {
         return String.valueOf(new java.util.Random().nextInt(900000) + 100000);
+    }
+
+    // 6. 비밀번호 재설정
+    @Transactional
+    public void resetPassword(String email, String newPassword) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
+
+        // 새 비밀번호 암호화해서 저장
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        member.updatePassword(encodedPassword);
+    }
+
+    // 7. 회원 탈퇴
+    @Transactional
+    public void withdraw(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("회원이 없습니다."));
+
+        member.withdraw(); // isDeleted = true로 변경
+
+        // (선택) Redis에 저장된 Refresh Token도 삭제해주는 게 깔끔함
+        redisTemplate.delete("RT:" + email);
     }
 
 }
