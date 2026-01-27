@@ -1,0 +1,123 @@
+📂 1. 폴더 구조 및 역할 정의서 (Architecture Blueprint)
+이 구조의 핵심 철학은 **"관심사의 분리(Separation of Concerns)"**와 **"모듈형 설계(Modular Design)"**입니다.
+
+Plaintext
+backend/
+├── .env                       # [설정] 비밀번호, API 키, DB URL 등 민감 정보 (Git 제외)
+├── .gitignore                 # [설정] Git 추적 제외 파일 목록
+├── requirements.txt           # [설정] 프로젝트 의존성 패키지 목록
+├── main.py                    # [진입점] 앱 실행, Lifespan 관리, 라우터 통합
+├── alembic.ini                # [DB] 마이그레이션 설정 파일
+│
+├── app/
+│   ├── __init__.py
+│   │
+│   ├── core/                  # [핵심] 프로젝트의 뼈대 (변하지 않는 공통 로직)
+│   │   ├── config.py          # 환경변수 관리 (Pydantic Settings)
+│   │   ├── database.py        # 비동기 DB 세션 관리 및 의존성 주입(DI)
+│   │   ├── exceptions.py      # 전역 예외 처리 (Global Exception Handler)
+│   │   └── logger.py          # 로그 포맷 설정 (Loguru)
+│   │
+│   ├── infra/                 # [인프라] 외부 시스템과의 통신 담당 (비즈니스 로직 X)
+│   │   ├── mqtt_client.py     # MQTT 브로커 연결/구독/발행 래퍼
+│   │   └── ai_client.py       # 외부 AI API 호출 래퍼 (HTTPX)
+│   │
+│   ├── modules/               # [도메인] 실제 비즈니스 로직 (기능별 격리)
+│   │   ├── __init__.py
+│   │   │
+│   │   ├── edge_devices/      # [모듈 1] 장비 관리 및 제어 (Command)
+│   │   │   ├── router.py      # API 엔드포인트 (안드로이드 요청 수신)
+│   │   │   ├── service.py     # 제어 로직 (검증 -> MQTT 발행 요청)
+│   │   │   ├── models.py      # 장비 정보 테이블 (Device ID, Status)
+│   │   │   └── schemas.py     # 데이터 검증 스키마 (Pydantic)
+│   │   │
+│   │   ├── sensors/           # [모듈 2] 데이터 수집 및 통계 (Query/Data)
+│   │   │   ├── router.py      # 통계 조회 API
+│   │   │   ├── service.py     # 데이터 가공, 이상치 탐지 로직
+│   │   │   ├── repository.py  # 복잡한 통계 쿼리 분리 (DB 접근 계층)
+│   │   │   ├── models.py      # 센서 데이터 테이블 (Time-series)
+│   │   │   └── schemas.py
+│   │   │
+│   │   └── ai_inference/      # [모듈 3] AI 기능 (API Wrapper)
+│   │       ├── router.py
+│   │       ├── service.py     # AI 클라이언트 호출 및 결과 포맷팅
+│   │       └── schemas.py
+│   │
+│   └── common/                # [공통] 유틸리티
+│       └── utils.py           # 날짜 변환, 파싱 등 잡동사니 함수
+│
+└── tests/                     # [테스트] 기능 테스트 코드
+📝 2. 작업 지시서 (Work Instruction)
+아래 순서대로 개발을 진행하세요. 각 단계는 면접에서 어필할 수 있는 기술적 포인트를 포함하고 있습니다.
+
+[Step 1] 환경 설정 및 코어 구축 (Foundation)
+목표: 확장 가능한 프로젝트의 기반을 다진다.
+
+작업 내용:
+
+requirements.txt 작성: fastapi, uvicorn, sqlalchemy, asyncpg(또는 aiosqlite), gmqtt, pydantic-settings 포함.
+
+.env 및 core/config.py 작성: 하드코딩을 없애고 모든 설정을 환경변수로 관리하도록 BaseSettings 활용.
+
+core/database.py 작성: 비동기(Async) 세션을 생성하는 get_db 의존성 함수 작성.
+
+✅ Check Point: DB 연결 URL을 .env에서만 변경해도 코드 수정 없이 DB가 바뀌어야 함.
+
+[Step 2] 인프라 계층 구현 (Infrastructure Layer)
+목표: 외부 시스템(MQTT, AI API)과 비즈니스 로직을 분리한다.
+
+작업 내용:
+
+infra/mqtt_client.py: gmqtt 라이브러리를 사용하여 비동기 Pub/Sub 클래스 구현.
+
+중요: 연결 끊김 시 자동 재접속 로직 고려할 것.
+
+infra/ai_client.py: httpx를 사용하여 비동기 HTTP 요청 클래스 구현.
+
+💡 면접 어필: "MQTT 라이브러리가 바뀌거나 AI 모델이 바뀌어도, 비즈니스 로직은 수정할 필요 없도록 인프라 계층을 격리했습니다."
+
+[Step 3] 도메인 모듈 구현 - (1) Edge Devices
+목표: 안드로이드의 명령을 받아 장비(Jetson/Raspi)로 전달한다.
+
+작업 내용:
+
+modules/edge_devices/models.py: 장비 ID, 별명, 최종 접속 시간 등을 저장할 테이블 정의.
+
+modules/edge_devices/router.py: POST /devices/{id}/command 엔드포인트 생성.
+
+modules/edge_devices/service.py: 들어온 명령을 검증하고 infra.mqtt_client를 호출하여 메시지 발행.
+
+💡 면접 어필: "장비 제어(Command)는 즉각적인 반응이 중요하므로 센서 데이터 처리 로직과 완전히 분리했습니다."
+
+[Step 4] 도메인 모듈 구현 - (2) Sensors
+목표: 쏟아지는 데이터를 받아 저장하고 통계를 제공한다.
+
+작업 내용:
+
+modules/sensors/models.py: 시계열 데이터(Timestamp, Type, Value) 저장 테이블 정의.
+
+modules/sensors/repository.py: 평균, 최대/최소값 등 통계 쿼리 작성 (Service 로직과 DB 쿼리 분리).
+
+MQTT Subscriber 구현: main.py 또는 별도 데몬에서 MQTT 메시지를 수신하여 sensors/service.py의 저장 로직 호출.
+
+[Step 5] 도메인 모듈 구현 - (3) AI Inference
+목표: 복잡한 AI 로직을 API로 래핑하여 단순화한다.
+
+작업 내용:
+
+안드로이드에서 이미지를 받거나, S3 URL을 받아 infra/ai_client.py를 통해 외부 AI 엔진에 분석 요청.
+
+결과를 받아 DB에 로그로 저장 후 반환.
+
+[Step 6] 통합 및 Lifespan 관리 (Integration)
+목표: 앱 시작/종료 시 리소스(DB, MQTT)를 안전하게 관리한다.
+
+작업 내용:
+
+main.py에 lifespan 함수 작성:
+
+Startup: DB 테이블 생성 확인, MQTT 브로커 연결.
+
+Shutdown: MQTT 연결 해제, DB 세션 정리.
+
+각 모듈의 router를 app.include_router()로 등록.
