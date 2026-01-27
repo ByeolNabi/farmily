@@ -1,19 +1,27 @@
 version: '3.8'
+
 services:
-  # 1. 메인 데이터베이스
+  # 1. PostgreSQL 데이터베이스
   db:
     image: postgis/postgis:15-3.3
     container_name: farmily-db
     restart: always
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"  # ← 여기 수정!
     environment:
       POSTGRES_DB: farmily_db
       POSTGRES_USER: ssafy
-      POSTGRES_PASSWORD: ssafy
+      POSTGRES_PASSWORD: ssafy1234!
       TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - farmily-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ssafy -d farmily_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # 2. Redis
   redis:
@@ -22,6 +30,38 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    networks:
+      - farmily-network
+
+  # 3. Spring Boot
+  spring:
+    image: eclipse-temurin:17-jre-alpine
+    container_name: farmily-spring
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./farmily-spring/build/libs:/app
+    working_dir: /app
+    command: java -jar farmily-0.0.1-SNAPSHOT.jar
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/farmily_db
+      SPRING_DATASOURCE_USERNAME: ssafy
+      SPRING_DATASOURCE_PASSWORD: ssafy1234!
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      TZ: Asia/Seoul
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - farmily-network
 
 volumes:
   postgres_data:
+
+networks:
+  farmily-network:
+    driver: bridge
