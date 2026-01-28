@@ -123,6 +123,8 @@ CREATE TABLE plant_diary (
     plant_id   BIGINT NOT NULL REFERENCES plant(id) ON DELETE CASCADE,
     title      VARCHAR(200),
     content    TEXT,
+    image_url  TEXT,
+    recorded_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 COMMENT ON TABLE plant_diary IS '식물 성장 일기';

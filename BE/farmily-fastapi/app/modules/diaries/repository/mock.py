@@ -33,7 +33,7 @@ _NEXT_ID = 3
 class MockDiaryRepository(DiaryRepositoryInterface):
     """메모리 상의 더미 데이터를 사용하는 리포지토리"""
     
-    async def get_all(self, owner_id: int) -> List[Dict[str, Any]]:
+    async def get_all(self, owner_id: int, plant_id: Optional[int] = None) -> List[Dict[str, Any]]:
         """사용자의 모든 일기 조회 (recorded_at 최신순)"""
         user_diaries = [d for d in _MOCK_DIARY_DB if d["owner_id"] == owner_id]
         return sorted(user_diaries, key=lambda x: x["recorded_at"], reverse=True)
@@ -50,7 +50,8 @@ class MockDiaryRepository(DiaryRepositoryInterface):
         owner_id: int,
         content: str,
         recorded_at: datetime,
-        image_url: Optional[str] = None
+        image_url: Optional[str] = None,
+        plant_id: Optional[int] = None
     ) -> Dict[str, Any]:
         """새 일기 생성"""
         global _NEXT_ID

@@ -21,9 +21,8 @@ def get_diary_repository(
     if settings.USE_MOCK_DB:
         return MockDiaryRepository()
     
-    # TODO: 실제 DB 모드일 때는 DB 세션을 주입하여 SQL Repository 반환
-    # return SQLDiaryRepository(session=db)
-    return MockDiaryRepository()  # Fallback
+    from app.modules.diaries.repository.sql import SQLDiaryRepository
+    return SQLDiaryRepository(session=db)
 
 
 async def get_current_user() -> Dict[str, int]:

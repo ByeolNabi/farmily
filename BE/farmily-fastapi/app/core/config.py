@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     # Database Mode
     USE_MOCK_DB: bool = True
     
+    # JWT Auth
+    SECRET_KEY: str = "farmily_secret_key_farmily_secret_key_1234"
+    AUTH_ENABLED: bool = True
+    
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///./farmily.db"
     

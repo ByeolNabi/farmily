@@ -35,6 +35,7 @@ def get_service(
     401: {"model": ErrorResponse, "description": "인증 실패"}
 })
 async def get_diaries(
+    plant_id: Optional[int] = None,
     service: DiaryService = Depends(get_service),
     current_user: Dict = Depends(get_current_user)
 ):
@@ -42,7 +43,11 @@ async def get_diaries(
     전체 일기 목록 조회
     사용자의 모든 일기를 recorded_at 최신순으로 반환합니다.
     """
-    diaries = await service.get_diary_list(owner_id=current_user["user_id"])
+
+    diaries = await service.get_diary_list(
+        owner_id=current_user["user_id"],
+        plant_id=plant_id
+    )
     return DiaryListResponse(
         total_count=len(diaries),
         diaries=diaries
@@ -54,6 +59,7 @@ async def get_diaries(
     413: {"model": ErrorResponse, "description": "파일 용량 초과"}
 })
 async def create_diary(
+    plant_id: int = Form(..., description="연관된 식물 ID"),
     content: str = Form(..., description="일기 본문 내용"),
     recorded_at: datetime = Form(..., description="기록 시점 (ISO 8601)"),
     image: Optional[UploadFile] = File(None, description="식물 사진 파일"),
@@ -73,7 +79,8 @@ async def create_diary(
         owner_id=current_user["user_id"],
         content=content,
         recorded_at=recorded_at,
-        image_url=image_url
+        image_url=image_url,
+        plant_id=plant_id
     )
     return result
 

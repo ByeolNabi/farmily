@@ -19,13 +19,14 @@ class DiaryService:
     def __init__(self, repository: DiaryRepositoryInterface):
         self.repository = repository
     
-    async def get_diary_list(self, owner_id: int) -> List[DiarySummary]:
-        """사용자의 모든 일기 조회"""
-        raw_data = await self.repository.get_all(owner_id)
+    async def get_diary_list(self, owner_id: int, plant_id: Optional[int] = None) -> List[DiarySummary]:
+        """사용자의 모든 일기 또는 특정 식물의 일기 조회"""
+        raw_data = await self.repository.get_all(owner_id, plant_id)
         
         return [
             DiarySummary(
                 id=item["id"],
+                plant_id=item.get("plant_id", 0), # Mock 호환성 위해 get 사용
                 content=item["content"],
                 image_url=item["image_url"],
                 recorded_at=item["recorded_at"],
@@ -43,6 +44,7 @@ class DiaryService:
         
         return DiaryDetailResponse(
             id=data["id"],
+            plant_id=data.get("plant_id", 0),
             content=data["content"],
             image_url=data["image_url"],
             recorded_at=data["recorded_at"],
@@ -54,18 +56,21 @@ class DiaryService:
         owner_id: int,
         content: str,
         recorded_at: datetime,
-        image_url: Optional[str] = None
+        image_url: Optional[str] = None,
+        plant_id: Optional[int] = None
     ) -> DiaryCreateResponse:
         """새 일기 생성"""
         created = await self.repository.create(
             owner_id=owner_id,
             content=content,
             recorded_at=recorded_at,
-            image_url=image_url
+            image_url=image_url,
+            plant_id=plant_id
         )
         
         return DiaryCreateResponse(
             diary_id=created["id"],
+            plant_id=created.get("plant_id", 0),
             image_url=created["image_url"],
             recorded_at=created["recorded_at"],
             created_at=created["created_at"]

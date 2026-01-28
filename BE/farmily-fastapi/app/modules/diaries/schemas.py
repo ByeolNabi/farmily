@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 
 class DiaryCreateRequest(BaseModel):
     """일기 생성 요청"""
+    plant_id: int = Field(..., description="연관된 식물 ID")
     content: str = Field(..., min_length=1, description="일기 본문 내용")
     recorded_at: datetime = Field(..., description="기록 시점 (ISO 8601)")
 
@@ -25,6 +26,7 @@ class DiaryUpdateRequest(BaseModel):
 class DiarySummary(BaseModel):
     """일기 목록 조회용 요약 정보"""
     id: int = Field(..., description="일기 고유 PK")
+    plant_id: int = Field(..., description="식물 ID")
     content: str = Field(..., description="일기 본문 내용")
     image_url: Optional[str] = Field(None, description="이미지 경로")
     recorded_at: datetime = Field(..., description="사용자가 기록한 시간")
@@ -40,6 +42,7 @@ class DiaryListResponse(BaseModel):
 class DiaryDetailResponse(BaseModel):
     """일기 상세 조회 응답"""
     id: int = Field(..., description="일기 고유 PK")
+    plant_id: int = Field(..., description="식물 ID")
     content: str = Field(..., description="일기 본문 내용")
     image_url: Optional[str] = Field(None, description="고화질 이미지 URL")
     recorded_at: datetime = Field(..., description="사용자가 기록한 시간")
@@ -49,6 +52,7 @@ class DiaryDetailResponse(BaseModel):
 class DiaryCreateResponse(BaseModel):
     """일기 생성 응답"""
     diary_id: int = Field(..., description="생성된 일기 고유 ID")
+    plant_id: int = Field(..., description="식물 ID")
     image_url: Optional[str] = Field(None, description="저장된 이미지 URL")
     recorded_at: datetime = Field(..., description="기록 시점")
     created_at: datetime = Field(..., description="서버 저장 시간")

@@ -27,9 +27,10 @@ async def lifespan(app: FastAPI):
     logger.info(f"📌 Debug Mode: {settings.DEBUG}")
     
     # TODO: DB 연결 시 활성화
-    # from app.core.database import engine
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(Base.metadata.create_all)
+    from app.core.database import engine
+    from app.core.database import Base
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     
     # TODO: MQTT 연결 시 활성화
     # from app.infra.mqtt_client import mqtt_client
@@ -95,7 +96,7 @@ async def health_check():
         "status": "healthy",
         "services": {
             "api": "up",
-            "database": "mock",  # DB 연결 시 실제 상태로 변경
+            "database": "connected",  # DB 연결 시 실제 상태로 변경
             "mqtt": "mock"       # MQTT 연결 시 실제 상태로 변경
         }
     }

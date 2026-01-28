@@ -10,7 +10,7 @@ class DiaryRepositoryInterface(ABC):
     """일기 리포지토리가 구현해야 할 인터페이스"""
     
     @abstractmethod
-    async def get_all(self, owner_id: int) -> List[Any]:
+    async def get_all(self, owner_id: int, plant_id: Optional[int] = None) -> List[Any]:
         """사용자의 모든 일기 조회 (recorded_at 최신순)"""
         pass
     
@@ -25,7 +25,8 @@ class DiaryRepositoryInterface(ABC):
         owner_id: int,
         content: str,
         recorded_at: datetime,
-        image_url: Optional[str] = None
+        image_url: Optional[str] = None,
+        plant_id: Optional[int] = None
     ) -> Any:
         """새 일기 생성"""
         pass
