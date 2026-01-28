@@ -1,3 +1,0 @@
-"""
-Timelapse Repository
-"""
