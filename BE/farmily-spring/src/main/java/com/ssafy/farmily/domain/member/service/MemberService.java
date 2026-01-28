@@ -3,7 +3,6 @@ import com.ssafy.farmily.domain.member.entity.Member;
 import java.util.Map;
 import java.util.Random;
 
-import com.ssafy.farmily.domain.member.entity.Role;
 import com.ssafy.farmily.domain.member.repository.MemberRepository;
 import com.ssafy.farmily.global.util.JwtUtil;
 import jakarta.mail.MessagingException;
@@ -12,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder; // 👈 비밀번호 암호화
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,7 +88,6 @@ public class MemberService {
         Member member = Member.builder()
                 .email(email)
                 .password(encodedPassword)
-                .role(Role.USER)
                 .build();
         memberRepository.save(member);
         return member.getId();
