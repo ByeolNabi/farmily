@@ -7,17 +7,23 @@ import jwt
 from app.core.config import settings
 
 async def get_current_user(
-    authorization: Optional[str] = Header(None)
+    authorization: Optional[str] = Header(None),
+    x_dev_user_id: Optional[str] = Header(None)
 ) -> Dict:
     """
     현재 사용자 정보를 반환하는 의존성 함수.
-    AUTH_ENABLED가 False이면 무조건 기본 사용자 반환 (Dev Mode).
+    AUTH_ENABLED가 False이면(Dev Mode):
+      - x-dev-user-id 헤더가 있으면 해당 ID 사용
+      - 없으면 기본값(1) 사용
     True이면 JWT 토큰을 검증.
     """
     
     # 1. Dev Mode Bypass
     if not settings.AUTH_ENABLED:
-        return {"user_id": 1, "role": "dev_user"}
+        user_id = 1
+        if x_dev_user_id and x_dev_user_id.isdigit():
+            user_id = int(x_dev_user_id)
+        return {"user_id": user_id, "role": "dev_user"}
 
     # 2. Token Extraction
     if not authorization:

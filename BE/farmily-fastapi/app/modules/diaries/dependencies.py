@@ -25,16 +25,4 @@ def get_diary_repository(
     return SQLDiaryRepository(session=db)
 
 
-async def get_current_user() -> Dict[str, int]:
-    """
-    현재 인증된 사용자 정보를 반환합니다.
-    
-    TODO: 실제 JWT 인증 구현 시 이 함수를 수정하세요.
-    현재는 Mock으로 user_id=1을 반환합니다.
-    """
-    # Mock 사용자 (실제 JWT 구현 시 아래 코드로 교체)
-    # from fastapi import HTTPException, status
-    # from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-    # from jose import jwt, JWTError
-    
-    return {"user_id": 1}
+from app.core.security import get_current_user
