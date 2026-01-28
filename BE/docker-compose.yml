@@ -1,40 +1,72 @@
 version: '3.8'
+
 services:
-  # 1. 메인 데이터베이스 (위치 정보 저장을 위해 PostGIS 사용)
+  # 1. PostgreSQL 데이터베이스
   db:
     image: postgis/postgis:15-3.3
     container_name: farmily-db
+    restart: always
     ports:
-      - "5433:5432"
+      - "5432:5432"
+    env_file:
+      - .env  # .env 파일을 읽어옵니다
     environment:
-      POSTGRES_DB: farmily
-      POSTGRES_USER: ssafy
-      POSTGRES_PASSWORD: ssafy
+      POSTGRES_DB: ${POSTGRES_DB}            # .env에서 값 대입
+      POSTGRES_USER: ${POSTGRES_USER}        # .env에서 값 대입
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # .env에서 값 대입
       TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always
+    networks:
+      - farmily-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # 2. Redis (로그인 토큰 & 임시 데이터 저장)
+  # 2. Redis
   redis:
     image: redis:alpine
     container_name: farmily-redis
+    restart: always
     ports:
       - "6379:6379"
-    restart: always
+    networks:
+      - farmily-network
 
-  # 3. MQTT 브로커 (로봇 - 서버 통신용)
-  mosquitto:
-    image: eclipse-mosquitto
-    container_name: farmily-mqtt
-    ports:
-      - "1883:1883" # MQTT 기본 포트
-      - "9001:9001" # 웹소켓용 포트
-    volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
+  # 3. Spring Boot
+  spring:
+    image: eclipse-temurin:17-jre-alpine
+    container_name: farmily-spring
     restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./farmily-spring/build/libs:/app
+    working_dir: /app
+    command: java -jar farmily-0.0.1-SNAPSHOT.jar
+    env_file:
+      - .env  # .env 파일을 읽어서 컨테이너에 모든 변수를 주입합니다 (MAIL_PASSWORD 포함)
+    environment:
+      # 명시적으로 .env 값을 매핑 (가독성을 위해 남겨둠)
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_REDIS_HOST: ${SPRING_REDIS_HOST}
+      SPRING_REDIS_PORT: ${SPRING_REDIS_PORT}
+      TZ: Asia/Seoul
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - farmily-network
 
 volumes:
   postgres_data:
+
+networks:
+  farmily-network:
+    driver: bridge
