@@ -8,43 +8,41 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "users")
+@Table(name = "users") // 👈 친구가 만든 테이블 이름이 'users'입니다!
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+    private Long id; // SQL 컬럼명이 'id'이므로 변수명도 id로 맞춤 (자동 매핑)
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(length = 255)
+    private String password; // 소셜로그인 고려하면 nullable일 수도 있어서 체크 필요
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(length = 100)
+    private String name; // 👈 친구 SQL은 'nickname' 대신 'name'을 씀
+
+    @Column(name = "profile_image_url") // 👈 DB는 스네이크 표기법, 자바는 카멜 표기법 매핑
+    private String profileImageUrl;
+
+    @Column(name = "fcm_token")
+    private String fcmToken;
 
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
+//     @Column(name = "is_deleted")
+//     private boolean isDeleted = false;
 
     @Builder
-    public Member(String email, String password, Role role) {
+    public Member(String email, String password, String name, String profileImageUrl, String fcmToken) {
         this.email = email;
         this.password = password;
-        this.role = role;
-    }
-
-    // 6. 회원 탈퇴 (Setter 대신 비즈니스 메서드 사용)
-    public void withdraw() {
-        this.isDeleted = true;
-    }
-
-    // 7. 비밀번호 변경
-    public void updatePassword(String newPassword) {
-        this.password = newPassword;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.fcmToken = fcmToken;
     }
 }
