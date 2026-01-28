@@ -30,13 +30,12 @@ public class Member {
     @Column(name = "fcm_token")
     private String fcmToken;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-    // 👇 [유지] 회원 탈퇴 기능을 위해 필요
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
 
     @Builder
     public Member(String email, String password, String name, String profileImageUrl, String fcmToken) {

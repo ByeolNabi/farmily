@@ -1,8 +1,6 @@
 package com.ssafy.farmily.domain.member.service;
-import com.ssafy.farmily.domain.member.entity.Member;
-import java.util.Map;
-import java.util.Random;
 
+import com.ssafy.farmily.domain.member.entity.Member;
 import com.ssafy.farmily.domain.member.repository.MemberRepository;
 import com.ssafy.farmily.global.util.JwtUtil;
 import jakarta.mail.MessagingException;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,134 +27,80 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    private static final String AUTH_PREFIX = "AuthCode:";
-
-    // 1. 인증코드 발송
-    public void sendCode(String email) {
-        if (memberRepository.existsByEmail(email)) {
-            throw new IllegalStateException("이미 가입된 이메일입니다.");
-        }
-
-        String code = createCode();
-
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            helper.setTo(email);
-            helper.setSubject("[Farmily] 회원가입 인증코드입니다.");
-
-            // 이메일 HTML 디자인
-            String htmlContent = """
-                    <div style="background-color: #f8f9fa; padding: 20px; text-align: center; font-family: 'Malgun Gothic', sans-serif;">
-                        <div style="background-color: white; padding: 40px; border-radius: 10px; border: 1px solid #e9ecef; display: inline-block;">
-                            <h1 style="color: #2c3e50; margin-bottom: 30px;">🌿 Farmily</h1>
-                            <p style="font-size: 16px; color: #555;">아래 인증코드를 입력하여 가입을 완료해주세요.</p>
-                            <div style="background-color: #e8f5e9; padding: 15px 30px; margin: 20px 0; border-radius: 5px; display: inline-block;">
-                                <span style="font-size: 24px; font-weight: bold; letter-spacing: 5px; color: #2e7d32;">%s</span>
-                            </div>
-                            <p style="font-size: 14px; color: #888;">(인증코드는 3분간 유효합니다.)</p>
-                        </div>
-                    </div>
-                    """.formatted(code);
-
-            helper.setText(htmlContent, true);
-            mailSender.send(message);
-
-        } catch (MessagingException e) {
-            throw new RuntimeException("메일 발송에 실패했습니다.", e);
-        }
-
-        redisTemplate.opsForValue().set(AUTH_PREFIX + email, code, Duration.ofMinutes(3));
-    }
-
-    // 2. 인증코드 검증
-    public boolean verifyCode(String email, String code) {
-        String savedCode = redisTemplate.opsForValue().get(AUTH_PREFIX + email);
-        return savedCode != null && savedCode.equals(code);
-    }
-
-    // 3. 회원가입 (암호화 추가됨!)
+    // 1. 회원가입 (컨트롤러와 동일하게 3개의 인자를 받도록 수정!)
     @Transactional
-    public Long signup(String email, String password) {
+    public Long signup(String email, String password, String name) {
         if (memberRepository.existsByEmail(email)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-
-        // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(password);
-
         Member member = Member.builder()
                 .email(email)
                 .password(encodedPassword)
+                .name(name)
                 .build();
         memberRepository.save(member);
         return member.getId();
     }
 
-    // 4. 로그인 (새로 추가됨!)
+    // 2. 로그인
     public Map<String, String> login(String email, String password) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
-
         if (!passwordEncoder.matches(password, member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
         }
-
-        // 1. 토큰 2개 생성
-        String accessToken = jwtUtil.createToken(email);       // 1시간
-        String refreshToken = jwtUtil.createRefreshToken(email); // 2주
-
-        // 2. Refresh Token을 Redis에 저장 (키: "RT:이메일", 값: 토큰, 유효기간: 14일)
-        redisTemplate.opsForValue()
-                .set("RT:" + email, refreshToken, Duration.ofDays(14));
-
-        // 3. 둘 다 리턴
-        return Map.of(
-                "accessToken", accessToken,
-                "refreshToken", refreshToken
-        );
-    } // 로그인 메서드 끝
-
-    // 5. 토큰 재발급 (Auto Login)
-    public String reissue(String email, String refreshToken) {
-        // 1. Redis에서 해당 이메일의 RT 가져오기
-        String savedRefreshToken = redisTemplate.opsForValue().get("RT:" + email);
-
-        // 2. Redis에 없거나, 보낸 토큰이랑 다르면 에러!
-        if (savedRefreshToken == null || !savedRefreshToken.equals(refreshToken)) {
-            throw new IllegalArgumentException("토큰이 유효하지 않습니다.");
-        }
-
-        // 3. 다 맞으면 새로운 Access Token 발급해서 리턴
-        return jwtUtil.createToken(email);
+        String accessToken = jwtUtil.createToken(email);
+        String refreshToken = jwtUtil.createRefreshToken(email);
+        redisTemplate.opsForValue().set("RT:" + email, refreshToken, Duration.ofDays(14));
+        return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
     }
 
-    private String createCode() {
-        return String.valueOf(new java.util.Random().nextInt(900000) + 100000);
-    }
-
-    // 6. 비밀번호 재설정
+    // 3. 비밀번호 재설정
     @Transactional
     public void resetPassword(String email, String newPassword) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
-
-        // 새 비밀번호 암호화해서 저장
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        member.updatePassword(encodedPassword);
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+        member.updatePassword(passwordEncoder.encode(newPassword));
     }
 
-    // 7. 회원 탈퇴
+    // 4. 회원 탈퇴
     @Transactional
     public void withdraw(String email) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("회원이 없습니다."));
-
-        member.withdraw(); // isDeleted = true로 변경
-
-        // (선택) Redis에 저장된 Refresh Token도 삭제해주는 게 깔끔함
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+        member.withdraw();
         redisTemplate.delete("RT:" + email);
     }
 
+    // 5. 이메일 발송 (디자인 포함)
+    public void sendCode(String email) {
+        String code = String.valueOf(new java.util.Random().nextInt(900000) + 100000);
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(email);
+            helper.setSubject("[Farmily] 회원가입 인증코드입니다.");
+
+            String htmlContent = """
+                    <div style="background-color: #f8f9fa; padding: 20px; text-align: center;">
+                        <h1 style="color: #2c3e50;">🌿 Farmily</h1>
+                        <p>인증코드: <b style="font-size: 24px;">%s</b></p>
+                    </div>
+                    """.formatted(code);
+
+            helper.setText(htmlContent, true);
+            mailSender.send(message);
+        } catch (MessagingException e) { throw new RuntimeException(e); }
+        redisTemplate.opsForValue().set("AuthCode:" + email, code, Duration.ofMinutes(3));
+    }
+
+    public boolean verifyCode(String email, String code) {
+        String saved = redisTemplate.opsForValue().get("AuthCode:" + email);
+        return saved != null && saved.equals(code);
+    }
+
+    public String reissue(String email, String refreshToken) {
+        String saved = redisTemplate.opsForValue().get("RT:" + email);
+        if (saved == null || !saved.equals(refreshToken)) throw new IllegalArgumentException("무효한 토큰");
+        return jwtUtil.createToken(email);
+    }
 }
