@@ -33,7 +33,8 @@ public class MemberController {
     // 3. 회원가입 (POST /users/signup)
     @PostMapping("/users/signup")
     public Map<String, Long> signup(@RequestBody SignupRequest request) {
-        Long userId = memberService.signup(request.email, request.password);
+        // name을 추가로 전달해야 합니다.
+        Long userId = memberService.signup(request.email(), request.password(), request.name());
         return Map.of("userId", userId);
     }
 
@@ -68,6 +69,6 @@ public class MemberController {
     // DTO
     public record PasswordResetRequest(String email, String newPassword) {}
     public record ReissueRequest(String email, String refreshToken) {}
-    public record SignupRequest(String email, String password) {}
+    public record SignupRequest(String email, String password, String name) {}
     public record LoginRequest(String email, String password) {}
 }
