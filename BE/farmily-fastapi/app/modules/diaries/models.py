@@ -1,7 +1,7 @@
 """
 Diaries - 데이터베이스 모델
 """
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, TIMESTAMP, BigInteger
 from sqlalchemy.sql import func
 from app.core.database import Base
 try:
@@ -12,8 +12,8 @@ except ImportError:
 class PlantDiary(Base):
     __tablename__ = "plant_diary"
 
-    id = Column(Integer, primary_key=True, index=True)
-    plant_id = Column(Integer, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False)
+    id = Column(BigInteger, primary_key=True, index=True)
+    plant_id = Column(BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False)
     title = Column(String(200), nullable=True) # 제목은 API 스펙에서 빠졌지만 DB에는 있음
     content = Column(Text, nullable=True)
     image_url = Column(Text, nullable=True)

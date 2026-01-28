@@ -7,8 +7,7 @@ from sqlalchemy import select, update, delete, desc
 
 from app.modules.diaries.repository.interface import DiaryRepositoryInterface
 from app.modules.diaries.models import PlantDiary
-# Plant 모델이 필요하다면 import
-# from app.modules.plants.models import Plant 
+from app.modules.plants.models import Plant 
 
 class SQLDiaryRepository(DiaryRepositoryInterface):
     """실제 DB를 사용하는 리포지토리"""
@@ -22,7 +21,8 @@ class SQLDiaryRepository(DiaryRepositoryInterface):
         TODO: owner_id를 이용해 Plant 테이블과 조인하여 내 식물의 일기만 가져오는 로직이 이상적이나,
         현재는 plant_id가 주어지면 해당 식물의 일기를, 아니면 전체를 가져오게 구현 (임시)
         """
-        stmt = select(PlantDiary)
+        stmt = select(PlantDiary).join(Plant, PlantDiary.plant_id == Plant.id)
+        stmt = stmt.where(Plant.users_id == owner_id)
         
         if plant_id:
             stmt = stmt.where(PlantDiary.plant_id == plant_id)
@@ -39,7 +39,9 @@ class SQLDiaryRepository(DiaryRepositoryInterface):
     async def get_by_id(self, diary_id: int, owner_id: int) -> Optional[Any]:
         """일기 상세 조회"""
         # TODO: owner_id 체크 로직 필요 (내 식물의 일기인지)
-        stmt = select(PlantDiary).where(PlantDiary.id == diary_id)
+        stmt = select(PlantDiary).join(Plant, PlantDiary.plant_id == Plant.id)
+        stmt = stmt.where(PlantDiary.id == diary_id, Plant.users_id == owner_id)
+        
         result = await self.session.execute(stmt)
         diary = result.scalar_one_or_none()
         
@@ -49,8 +51,17 @@ class SQLDiaryRepository(DiaryRepositoryInterface):
 
     async def create(self, owner_id: int, content: str, recorded_at: Any, image_url: Optional[str] = None, plant_id: Optional[int] = None) -> Any:
         # plant_id는 필수여야 함 (Service 계층에서 체크하겠지만 여기서도 반영)
+        # plant_id는 필수여야 함 (Service 계층에서 체크하겠지만 여기서도 반영)
         if not plant_id:
             raise ValueError("plant_id is required for creating a diary")
+
+        # 소유권 체크
+        plant_stmt = select(Plant).where(Plant.id == plant_id, Plant.users_id == owner_id)
+        plant_result = await self.session.execute(plant_stmt)
+        plant = plant_result.scalar_one_or_none()
+        
+        if not plant:
+             raise ValueError("Plant not found or access denied")
 
         new_diary = PlantDiary(
             plant_id=plant_id,
@@ -66,7 +77,9 @@ class SQLDiaryRepository(DiaryRepositoryInterface):
 
     async def update(self, diary_id: int, owner_id: int, content: Optional[str] = None, recorded_at: Optional[Any] = None, image_url: Optional[str] = None) -> Optional[Any]:
         # TODO: owner_id 체크
-        stmt = select(PlantDiary).where(PlantDiary.id == diary_id)
+        stmt = select(PlantDiary).join(Plant, PlantDiary.plant_id == Plant.id)
+        stmt = stmt.where(PlantDiary.id == diary_id, Plant.users_id == owner_id)
+        
         result = await self.session.execute(stmt)
         diary = result.scalar_one_or_none()
         
@@ -86,7 +99,9 @@ class SQLDiaryRepository(DiaryRepositoryInterface):
 
     async def delete(self, diary_id: int, owner_id: int) -> bool:
         # TODO: owner_id 체크
-        stmt = select(PlantDiary).where(PlantDiary.id == diary_id)
+        stmt = select(PlantDiary).join(Plant, PlantDiary.plant_id == Plant.id)
+        stmt = stmt.where(PlantDiary.id == diary_id, Plant.users_id == owner_id)
+        
         result = await self.session.execute(stmt)
         diary = result.scalar_one_or_none()
         
