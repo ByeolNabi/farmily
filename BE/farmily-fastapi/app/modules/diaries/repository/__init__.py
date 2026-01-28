@@ -1,3 +1,0 @@
-"""
-Diaries Repository
-"""

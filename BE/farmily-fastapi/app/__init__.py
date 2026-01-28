@@ -1,1 +1,0 @@
-"""Farmily API Application Package"""
