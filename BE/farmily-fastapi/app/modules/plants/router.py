@@ -1,45 +1,44 @@
 """
 Plants - API 라우터
 """
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 
-from app.modules.plants.service import plant_service
+from app.modules.plants.service import PlantService
 from app.modules.plants.schemas import PlantListResponse, PlantDetailResponse, ErrorResponse
+from app.modules.plants.dependencies import get_plant_repository
+from app.modules.plants.repository.interface import PlantRepositoryInterface
 
 router = APIRouter()
 
+# === Dependencies ===
+def get_service(repo: PlantRepositoryInterface = Depends(get_plant_repository)) -> PlantService:
+    return PlantService(repository=repo)
+
 @router.get("", response_model=PlantListResponse)
-async def get_plants():
-    """file
-    식물 전체 목록 조회
-    
-    - **total_count**: 전체 식물 수
-    - **plants**: 식물 요약 정보 리스트
+async def get_plants(
+    service: PlantService = Depends(get_service)
+):
     """
-    plants = await plant_service.get_plant_list()
+    식물 전체 목록 조회
+    """
+    plants = await service.get_plant_list()
     return PlantListResponse(
         total_count=len(plants),
         plants=plants
     )
 
 @router.get("/{plant_id}", response_model=PlantDetailResponse, responses={
-    400: {"model": ErrorResponse, "description": "잘못된 요청"},
-    404: {"model": ErrorResponse, "description": "식물을 찾을 수 없음"},
-    500: {"model": ErrorResponse, "description": "서버 오류"}
+    404: {"model": ErrorResponse, "description": "식물을 찾을 수 없음"}
 })
-async def get_plant_detail(plant_id: int):
+async def get_plant_detail(
+    plant_id: int,
+    service: PlantService = Depends(get_service)
+):
     """
     식물 상세 정보 조회
-    
-    - **id**: 식물 고유 ID
-    - **name**: 식물 이름
-    - **soil_moisture**: 적정 토양 습도
-    - **temperature**: 적정 온도
-    - **humidity**: 적정 공기 습도
-    - **image_url**: 상세 이미지
     """
-    plant = await plant_service.get_plant_detail(plant_id)
+    plant = await service.get_plant_detail(plant_id)
     
     if not plant:
         return JSONResponse(
