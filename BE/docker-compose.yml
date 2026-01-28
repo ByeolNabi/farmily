@@ -7,7 +7,7 @@ services:
     container_name: farmily-db
     restart: always
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
     env_file:
       - .env  # .env 파일을 읽어옵니다
     environment:
@@ -63,21 +63,6 @@ services:
         condition: service_started
     networks:
       - farmily-network
-
-  # farmily-fastapi:  # <--- FastAPI 추가
-  #   build: ./FastAPI_폴더_경로
-  #   container_name: farmily-fastapi
-  #   ports:
-  #     - "8000:8000" # FastAPI 포트
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - farmily-network # <--- 핵심! 같은 네트워크 명찰 달기
-  #   environment:
-  #     - DB_HOST=farmily-db  # <--- localhost 아님! 컨테이너 이름으로 접속
-  #     - DB_PORT=5432
-  #     - DB_USER=ssafy
-  #     - DB_PASSWORD=...
 
 volumes:
   postgres_data:
