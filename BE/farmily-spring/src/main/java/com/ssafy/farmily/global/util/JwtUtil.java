@@ -21,7 +21,7 @@ public class JwtUtil {
         return createToken(email, validTime);
     }
 
-    // 2. Refresh Token 생성 (2주) - 👈 이 부분이 없어서 에러가 났던 겁니다!
+    // 2. Refresh Token 생성 (2주)
     public String createRefreshToken(String email) {
         long validTime = 1000L * 60 * 60 * 24 * 14; // 2주 (14일)
         return createToken(email, validTime);
@@ -35,5 +35,15 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + validTime))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    // 3. 토큰에서 이메일 추출
+    public String getEmailFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }

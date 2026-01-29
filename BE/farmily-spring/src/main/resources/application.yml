@@ -17,7 +17,7 @@ spring:
     #       Docker(배포)에서는 docker-compose가 이 값을 'farmily-db'로 덮어씌워 줍니다.
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/farmily_db}
     username: ${SPRING_DATASOURCE_USERNAME:ssafy}
-    password: ${SPRING_DATASOURCE_PASSWORD} # 로컬 실행 시엔 환경변수나 run configuration으로 비번 주입 필요
+    password: ${SPRING_DATASOURCE_PASSWORD:djfudnsqlqjs1@}
     driver-class-name: org.postgresql.Driver
 
   data:
