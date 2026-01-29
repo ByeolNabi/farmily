@@ -1,6 +1,7 @@
 from datetime import timedelta
 from typing import Any
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from app.core import security
 
@@ -15,14 +16,27 @@ def login_backdoor(request: BackdoorLoginRequest):
     Backdoor login for development.
     Generates an access token with 365 days expiration.
     """
+    return _generate_token(request.user_id)
+
+@router.post("/token")
+def login_oauth(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    Standard OAuth2 token endpoint for Swagger UI 'Authorize' button.
+    Use user_id in the 'username' field (password is ignored).
+    """
+    try:
+        user_id = int(form_data.username)
+        return _generate_token(user_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Username must be a valid User ID (Integer)")
+
+def _generate_token(user_id: int):
     access_token_expires = timedelta(days=365)
     
-    # Payload as per design doc: sub, user_id, role, etc.
-    # We will minimalistically satisfy the requirement: user_id
     user_payload = {
-        "sub": str(request.user_id),
-        "user_id": request.user_id,
-        "role": "user" # Defaulting to user for now
+        "sub": str(user_id),
+        "user_id": user_id,
+        "role": "user"
     }
     
     access_token = security.create_access_token(
