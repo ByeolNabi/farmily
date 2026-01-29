@@ -1,9 +1,11 @@
 from datetime import datetime
 from typing import Optional, List, TYPE_CHECKING
+from decimal import Decimal
 
-from sqlalchemy import BigInteger, String, Text, Integer, Numeric, ForeignKey
+from sqlalchemy import BigInteger, String, Text, Integer, Numeric, ForeignKey, Enum, UniqueConstraint
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from app.models.reference import PlantActionType
 
 from app.core.database import Base
 
@@ -21,10 +23,10 @@ class PlantSensorLog(Base):
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    temperature: Mapped[Optional[float]] = mapped_column(Numeric(5, 2), nullable=True)
-    humidity: Mapped[Optional[float]] = mapped_column(Numeric(5, 2), nullable=True)
-    soil_moisture: Mapped[Optional[float]] = mapped_column(Numeric(5, 2), nullable=True)
-    light_level: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    temperature: Mapped[Optional[Decimal]] = mapped_column(Numeric(5, 2), nullable=True)
+    humidity: Mapped[Optional[Decimal]] = mapped_column(Numeric(5, 2), nullable=True)
+    soil_moisture: Mapped[Optional[Decimal]] = mapped_column(Numeric(5, 2), nullable=True)
+    illuminance: Mapped[Optional[Decimal]] = mapped_column(Numeric(7, 2), nullable=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships
@@ -43,15 +45,17 @@ class PlantDiary(Base):
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    title: Mapped[Optional[str]] = mapped_column(String(200), nullable=True)
     content: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    image_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    happened_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships
     plant: Mapped["Plant"] = relationship("Plant", back_populates="diaries")
     
     def __repr__(self) -> str:
-        return f"<PlantDiary(id={self.id}, title={self.title})>"
+        return f"<PlantDiary(id={self.id}, happened_at={self.happened_at})>"
 
 
 class PlantActivityLog(Base):
@@ -63,7 +67,7 @@ class PlantActivityLog(Base):
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    type: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    type: Mapped[PlantActionType] = mapped_column(Enum(PlantActionType, name="plant_action_type"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships
@@ -73,24 +77,28 @@ class PlantActivityLog(Base):
         return f"<PlantActivityLog(id={self.id}, type={self.type})>"
 
 
-class PlantActivityStats(Base):
+class PlantActivityCounts(Base):
     """[user-plant] 상호작용 총합"""
     
-    __tablename__ = "plant_activity_stats"
+    __tablename__ = "plant_activity_counts"
     
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    activity_type: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
-    total_count: Mapped[int] = mapped_column(Integer, default=0, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+    activity_type: Mapped[PlantActionType] = mapped_column(Enum(PlantActionType, name="plant_action_type"), nullable=False)
+    total_count: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint('plant_id', 'activity_type'),
+    )
     
     # Relationships
     plant: Mapped["Plant"] = relationship("Plant", back_populates="activity_stats")
     
     def __repr__(self) -> str:
-        return f"<PlantActivityStats(id={self.id}, activity_type={self.activity_type})>"
+        return f"<PlantActivityCounts(id={self.id}, activity_type={self.activity_type})>"
 
 
 class PlantAchievement(Base):
@@ -151,6 +159,7 @@ class PlantHealthLog(Base):
     ref_plant_disease_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("ref_plant_disease.id"), nullable=False
     )
+    confidence: Mapped[Optional[Decimal]] = mapped_column(Numeric(5, 2), nullable=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships

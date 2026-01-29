@@ -1,11 +1,8 @@
 from datetime import datetime
 from typing import Optional, List, TYPE_CHECKING
-
-from sqlalchemy import BigInteger, String, Text, Integer, Boolean, ForeignKey
-from sqlalchemy.sql import func
+from sqlalchemy import BigInteger, String, Text, Integer, Boolean, ForeignKey, text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from geoalchemy2 import Geometry
-
 from app.core.database import Base
 
 if TYPE_CHECKING:
@@ -15,11 +12,10 @@ if TYPE_CHECKING:
         PlantSensorLog,
         PlantDiary,
         PlantActivityLog,
-        PlantActivityStats,
+        PlantActivityCounts,
         PlantAchievement,
         PlantTimelapse,
     )
-
 
 class Plant(Base):
     """유저별 반려 식물 정보"""
@@ -33,15 +29,16 @@ class Plant(Base):
     ref_plant_species_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("ref_plant_species.id"), nullable=False
     )
+    nickname: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     profile_image_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=True)
     health_status: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
-    signed_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
-    love_temperature: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    station_point = mapped_column(Geometry("POINT", srid=4326), nullable=True)  # WGS84 좌표계
-    nickname: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)  # 식물 애칭
-    started_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)  # 만난지
-    ended_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)  # 죽은지...ㅠ
+    health_checked_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
+    love_temperature: Mapped[int] = mapped_column(Integer, server_default=text("0"), nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, server_default=text("true"), nullable=True)
+    # Using SRID 0 as defined in db_init.sql
+    station_point = mapped_column(Geometry("POINT", srid=0), nullable=True)
+    started_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
+    ended_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships
@@ -57,8 +54,8 @@ class Plant(Base):
     activity_logs: Mapped[List["PlantActivityLog"]] = relationship(
         "PlantActivityLog", back_populates="plant", cascade="all, delete-orphan"
     )
-    activity_stats: Mapped[List["PlantActivityStats"]] = relationship(
-        "PlantActivityStats", back_populates="plant", cascade="all, delete-orphan"
+    activity_stats: Mapped[List["PlantActivityCounts"]] = relationship(
+        "PlantActivityCounts", back_populates="plant", cascade="all, delete-orphan"
     )
     achievements: Mapped[List["PlantAchievement"]] = relationship(
         "PlantAchievement", back_populates="plant", cascade="all, delete-orphan"
