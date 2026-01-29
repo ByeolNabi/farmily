@@ -26,7 +26,6 @@ fun StatBox(
     Column(modifier = modifier
         .padding(vertical = 16.dp)
         .padding(horizontal = 8.dp)
-        //.background(Color.Magenta)
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)

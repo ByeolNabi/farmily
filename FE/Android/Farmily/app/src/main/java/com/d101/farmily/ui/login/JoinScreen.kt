@@ -1,6 +1,5 @@
 package com.d101.farmily.ui.login
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -71,7 +70,7 @@ fun JoinScreen(
                     .wrapContentHeight()
                     .shadow(elevation = 16.dp, shape = RoundedCornerShape(16.dp))
                     .clip(RoundedCornerShape(16.dp))
-                    .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp)) // 보더 추가
+                    .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp))
                     .background(Color.White)
                     .padding(24.dp)
             ) {
@@ -83,7 +82,7 @@ fun JoinScreen(
                     Image(
                         painter = painterResource(id = R.drawable.templogo),
                         contentDescription = "로고",
-                        contentScale = ContentScale.Crop,//이미지 비율 유지한채로 부모 영역을 꽉 채움
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.width(180.dp)
                     )
 
@@ -95,7 +94,6 @@ fun JoinScreen(
                         color = deepGreen
                     )
 
-                    //회원가입 서브 텍스트 존재 안해도 될듯함
                     Text(
                         text = "",
                         color = borderGreen
@@ -128,9 +126,7 @@ fun JoinScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF4CAF50),
                             unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
                             unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
                         )
                     )
 
@@ -161,9 +157,7 @@ fun JoinScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF4CAF50),
                             unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
                             unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
                         )
 
                     )
@@ -175,14 +169,13 @@ fun JoinScreen(
                             .padding(horizontal = 16.dp, vertical = 20.dp),
 
                         ) {
-                        Log.d("reart", "JoinScreen: 회원 가입 처리")
                     }
 
-                    //라인하나
+
                     HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp), // 위아래 간격
-                        thickness = 0.5.dp, // 선 두께
-                        color = MaterialTheme.colorScheme.outlineVariant // 선 색상
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant
                     )
 
                     Row(

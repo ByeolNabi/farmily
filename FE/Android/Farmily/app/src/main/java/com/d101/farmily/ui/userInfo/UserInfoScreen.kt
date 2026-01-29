@@ -92,7 +92,7 @@ fun UserInfoScreen(
     )
 
     Scaffold(
-        bottomBar = { /* 바텀 네비게이션이 있다면 여기에 추가 */ }
+
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -191,14 +191,12 @@ fun UserInfoScreen(
                     .background(Color.White, RoundedCornerShape(24.dp))
                     .padding(horizontal = 8.dp)
                 ,
-                //horizontalArrangement = Arrangement.spacedBy(12.dp),
-                //contentPadding = PaddingValues(horizontal = 4.dp) // 양 끝에 약간의 여백
-            ) {
+                ) {
                 items(stats) { item ->
                     StatBox(
                         item = item,
                         modifier = Modifier
-                            .fillParentMaxWidth(0.2f)// 적당한 가로 크기 지정
+                            .fillParentMaxWidth(0.2f)
                     )
                 }
             }
@@ -214,22 +212,20 @@ fun UserInfoScreen(
                     .background(Color.White, RoundedCornerShape(24.dp))
                     .padding(horizontal = 8.dp)
                 ,
-                //horizontalArrangement = Arrangement.spacedBy(12.dp),
-                //contentPadding = PaddingValues(horizontal = 4.dp) // 양 끝에 약간의 여백
-            ) {
+               ) {
                 items(achievements) { item ->
                     AchievBox(
                         context,
                         item = item,
                         modifier = Modifier
-                            .fillParentMaxWidth(0.2f)// 적당한 가로 크기 지정
+                            .fillParentMaxWidth(0.2f)
                     )
                 }
             }
 
             Text(text = "일반", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
 
-            // 식물 변경 클릭 가능한 카드
+
             SettingItemCard(
                 icon = Icons.Default.Edit,
                 title = "식물 변경",
@@ -237,11 +233,11 @@ fun UserInfoScreen(
                 onClick = {  }
             )
 
-            // 계정 섹션 및 로그아웃
+
             Text(text = "계정", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
             LogoutButton(onClick = onLogout)
 
-            // 앱 정보
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -259,7 +255,6 @@ fun UserInfoScreen(
 
 }
 
-// 공통 UI 컴포넌트들
 @Composable
 fun InfoCard(content: @Composable () -> Unit) {
     Card(

@@ -96,52 +96,6 @@ fun EnvInfoScreen(
                 }
             }
 
-
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 16.dp)
-//                    .padding(top = 32.dp)
-//            ) {
-//
-//                InfoBox(
-//
-//                envInfoList[0],
-//                modifier = Modifier
-//                    .weight(1f)
-//                    .aspectRatio(1f)
-//                )
-//
-//                InfoBox(
-//
-//                    envInfoList[1],
-//                    modifier = Modifier
-//                        .weight(1f)
-//                        .aspectRatio(1f)
-//                )
-//            }
-//
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 16.dp)
-//            ) {
-//                InfoBox(
-//
-//                    envInfoList[2],
-//                    modifier = Modifier
-//                        .weight(1f)
-//                        .aspectRatio(1f)
-//                )
-//
-//                InfoBox(
-//
-//                    envInfoList[3],
-//                    modifier = Modifier
-//                        .weight(1f)
-//                        .aspectRatio(1f)
-//                )
-//            }
         }
     }
 

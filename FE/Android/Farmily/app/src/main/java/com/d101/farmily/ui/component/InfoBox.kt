@@ -35,7 +35,7 @@ fun InfoBox(
             .padding(all = 8.dp)
             .shadow(elevation = 16.dp, shape = RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
-            .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp)) // 보더 추가
+            .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp))
             .background(Color.White)
     ) {
 
@@ -47,7 +47,6 @@ fun InfoBox(
                 modifier = Modifier
                     .padding(vertical = 16.dp)
                     .weight(1f)
-                    //.background(MaterialTheme.colorScheme.surface),
                     .fillMaxHeight(),
 
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -56,7 +55,6 @@ fun InfoBox(
                 Box(
                     modifier = Modifier
                         .weight(1f)
-                        //.background(MaterialTheme.colorScheme.primary)
 
                 ) {
                     Box(
@@ -72,7 +70,6 @@ fun InfoBox(
                             tint = envInfo.color,
                             modifier = Modifier
                                 .size(42.dp)
-                            //.background(Color(0xFFFFF7ED))
                         )
                     }
                 }
@@ -101,7 +98,6 @@ fun InfoBox(
                     .padding(vertical = 16.dp)
                     .weight(1f)
                     .fillMaxHeight()
-                    //.background(MaterialTheme.colorScheme.surface)
                     ,
                 horizontalAlignment = Alignment.CenterHorizontally
 

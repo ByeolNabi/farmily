@@ -8,6 +8,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -107,14 +108,14 @@ fun BottomNavigationBar(
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.secondary
                 ),
-                // 라벨 없이 라벨 넣으면 선택 시 올라가는데 은근 낫베드임
-//                label = {
-//                    Text(
-//                        item.label,
-//                        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
-//                    )
-//                },
-                alwaysShowLabel = false
+                
+                label = {
+                    Text(
+                        item.label,
+                        color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                    )
+                },
+                alwaysShowLabel = true
             )
         }
     }
@@ -123,9 +124,9 @@ fun BottomNavigationBar(
 
 sealed class BottomNavItem(val route: String, val icon: Int, val label: String) {
 
-    data object Home : BottomNavItem("home", R.drawable.home, "")
-    data object Map : BottomNavItem("map", R.drawable.map, "") //home으로 되어있는 라우트명 싹 다 수정하기
-    data object UserInfo : BottomNavItem("userInfo", R.drawable.user, "")
+    data object Home : BottomNavItem("home", R.drawable.home, "환경 정보")
+    data object Map : BottomNavItem("map", R.drawable.map, "실내 지도") //home으로 되어있는 라우트명 싹 다 수정하기
+    data object UserInfo : BottomNavItem("userInfo", R.drawable.user, "나의 정보")
 
-    data object Memory : BottomNavItem("memory", R.drawable.water, "")
+    data object Memory : BottomNavItem("memory", R.drawable.water, "우리 추억")
 }

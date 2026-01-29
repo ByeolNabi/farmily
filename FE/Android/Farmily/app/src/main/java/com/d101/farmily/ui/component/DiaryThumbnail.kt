@@ -37,7 +37,6 @@ fun DiaryThumbnail(
 
     ){
         Box(modifier = Modifier
-            //.fillMaxSize()
             .height(120.dp)
         ){
             Image(

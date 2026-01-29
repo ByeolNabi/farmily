@@ -26,8 +26,8 @@ fun AchievBox(
 
     val resourceId = remember(item.description) {
         context.resources.getIdentifier(
-            item.description,      // 파일 이름 (확장자 제외)
-            "drawable",    // 리소스 폴더명
+            item.description,
+            "drawable",
             context.packageName
         )
     }
@@ -36,14 +36,12 @@ fun AchievBox(
     Column(modifier = modifier
         .padding(vertical = 16.dp)
         .padding(horizontal = 8.dp)
-        //.background(Color.Magenta)
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(
             modifier = Modifier.size(60.dp)
-                //.background(item.backColor, CircleShape)
             ,
             contentAlignment = Alignment.Center
         ) {
@@ -51,7 +49,6 @@ fun AchievBox(
             Image(
                 painter = painterResource(id = resourceId),
                 contentDescription = null,
-                //tint = item.color,
                 modifier = Modifier
                     .size(60.dp)
             )
@@ -59,7 +56,6 @@ fun AchievBox(
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            //Text(item.name, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
             Text(item.name, style = MaterialTheme.typography.titleSmall)
         }
     }

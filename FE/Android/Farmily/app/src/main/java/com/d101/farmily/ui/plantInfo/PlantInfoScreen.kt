@@ -1,6 +1,5 @@
 package com.d101.farmily.ui.plantInfo
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -84,7 +83,7 @@ fun PlantInfoScreen(
                     .wrapContentHeight()
                     .shadow(elevation = 16.dp, shape = RoundedCornerShape(16.dp))
                     .clip(RoundedCornerShape(16.dp))
-                    .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp)) // 보더 추가
+                    .border(0.25.dp, MaterialTheme.colorScheme.secondary, RoundedCornerShape(16.dp))
                     .background(Color.White)
                     .padding(24.dp)
             ) {
@@ -96,7 +95,7 @@ fun PlantInfoScreen(
                     Image(
                         painter = painterResource(id = R.drawable.templogo),
                         contentDescription = "로고",
-                        contentScale = ContentScale.Crop,//이미지 비율 유지한채로 부모 영역을 꽉 채움
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.width(180.dp)
                     )
 
@@ -108,7 +107,7 @@ fun PlantInfoScreen(
                         color = deepGreen
                     )
 
-                    //회원가입 서브 텍스트 존재 안해도 될듯함
+
                     Text(
                         text = "반려 식물을 등록해주세요",
                         color = borderGreen
@@ -129,7 +128,6 @@ fun PlantInfoScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp,)
                             .height(IntrinsicSize.Min)
-                            //.background(Color.Red),
                     ) {
 
                         OutlinedTextField(
@@ -150,9 +148,7 @@ fun PlantInfoScreen(
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = Color(0xFF4CAF50),
                                 unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                                //focusedLabelColor = Color(0xFF4CAF50),
                                 unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                                //cursorColor = Color(0xFF4CAF50)
                             )
                         )
                         IconButton(
@@ -184,8 +180,7 @@ fun PlantInfoScreen(
                                     onClick = {
                                         plantType = option // 선택한 값을 텍스트 필드에 넣기
                                         expanded = false
-                                        Log.d("reart", "선택된 식물: $option")
-                                    }
+                                        }
                                 )
                             }
                         }
@@ -219,9 +214,9 @@ fun PlantInfoScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF4CAF50),
                             unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
+
                             unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
+
                         )
 
                     )
@@ -234,7 +229,7 @@ fun PlantInfoScreen(
 
                         ) {
                         navToMain()
-                        Log.d("reart", "navToMain")
+
                     }
 
                 }

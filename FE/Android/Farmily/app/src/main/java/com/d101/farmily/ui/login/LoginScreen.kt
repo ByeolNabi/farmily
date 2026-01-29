@@ -1,6 +1,5 @@
 package com.d101.farmily.ui.login
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -85,7 +84,7 @@ fun LoginScreen(
                     Image(
                         painter = painterResource(id = R.drawable.templogo),
                         contentDescription = "로고",
-                        contentScale = ContentScale.Crop,//이미지 비율 유지한채로 부모 영역을 꽉 채움
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.width(180.dp)
                     )
 
@@ -129,9 +128,7 @@ fun LoginScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF4CAF50),
                             unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
                             unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
                         )
                     )
 
@@ -162,9 +159,7 @@ fun LoginScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF4CAF50),
                             unfocusedBorderColor = borderGreen.copy(alpha = 0.33f),
-                            //focusedLabelColor = Color(0xFF4CAF50),
                             unfocusedLabelColor = borderGreen.copy(alpha = 0.66f)
-                            //cursorColor = Color(0xFF4CAF50)
                         )
 
                     )
@@ -176,15 +171,14 @@ fun LoginScreen(
                             .padding(horizontal = 16.dp, vertical = 20.dp),
 
                     ) {
-                        Log.d("reart", "LoginScreen: login 처리")
                         navToInfoScreen()
                     }
 
-                    //라인하나
+
                     HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp), // 위아래 간격
-                        thickness = 0.5.dp, // 선 두께
-                        color = MaterialTheme.colorScheme.outlineVariant // 선 색상
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                        thickness = 0.5.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant
                     )
 
                     Row(
@@ -199,7 +193,6 @@ fun LoginScreen(
                             modifier = Modifier
                                 .padding(start = 8.dp)
                                 .clickable {
-                                    //Log.d("reart", "LoginScreen: go to join")
                                     navToJoinScreen()
                                 },
                             text = "회원가입",
