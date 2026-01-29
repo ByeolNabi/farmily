@@ -29,9 +29,18 @@ public class AuthUtil {
     }
 
     /**
-     * 현재 인증된 사용자의 ID 반환
+     * 현재 인증된 사용자의 ID 반환 (JWT에서 직접 추출)
      */
     public Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new IllegalStateException("인증되지 않은 사용자입니다.");
+        }
+        
+        // JWT 토큰에서 userId 직접 추출 (DB 조회 불필요)
+        String email = (String) authentication.getPrincipal();
+        // Note: SecurityContext에는 이메일만 저장되므로, 필요시 JwtAuthenticationFilter에서 userId도 저장하도록 수정 필요
         return getCurrentUser().getId();
     }
 

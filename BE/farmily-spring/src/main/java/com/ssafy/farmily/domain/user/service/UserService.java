@@ -50,8 +50,8 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
         }
-        String accessToken = jwtUtil.createToken(email);
-        String refreshToken = jwtUtil.createRefreshToken(email);
+        String accessToken = jwtUtil.createToken(email, user.getId());
+        String refreshToken = jwtUtil.createRefreshToken(email, user.getId());
         redisTemplate.opsForValue().set("RT:" + email, refreshToken, Duration.ofDays(14));
         return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
     }
@@ -101,6 +101,7 @@ public class UserService {
     public String reissue(String email, String refreshToken) {
         String saved = redisTemplate.opsForValue().get("RT:" + email);
         if (saved == null || !saved.equals(refreshToken)) throw new IllegalArgumentException("무효한 토큰");
-        return jwtUtil.createToken(email);
+        User user = userRepository.findByEmail(email).orElseThrow();
+        return jwtUtil.createToken(email, user.getId());
     }
 }

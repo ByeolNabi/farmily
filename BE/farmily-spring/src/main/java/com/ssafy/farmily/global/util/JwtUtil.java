@@ -16,21 +16,22 @@ public class JwtUtil {
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
     // 1. Access Token 생성 (1시간)
-    public String createToken(String email) {
+    public String createToken(String email, Long userId) {
         long validTime = 1000L * 60 * 60; // 1시간
-        return createToken(email, validTime);
+        return createToken(email, userId, validTime);
     }
 
     // 2. Refresh Token 생성 (2주)
-    public String createRefreshToken(String email) {
+    public String createRefreshToken(String email, Long userId) {
         long validTime = 1000L * 60 * 60 * 24 * 14; // 2주 (14일)
-        return createToken(email, validTime);
+        return createToken(email, userId, validTime);
     }
 
     // 내부적으로 쓰는 토큰 생성기
-    private String createToken(String email, long validTime) {
+    private String createToken(String email, Long userId, long validTime) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("userId", userId)  // ✅ userId 추가
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + validTime))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -45,5 +46,15 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    // 4. 토큰에서 userId 추출
+    public Long getUserIdFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("userId", Long.class);
     }
 }
