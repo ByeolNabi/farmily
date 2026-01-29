@@ -31,7 +31,7 @@ public class SecurityConfig {
             // 엔드포인트별 인증 설정
             .authorizeHttpRequests(auth -> auth
                 // 인증 불필요 (공개)
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**", "/error").permitAll() // ✅ 다시 원상복구
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
                 
                 // 나머지는 인증 필요
