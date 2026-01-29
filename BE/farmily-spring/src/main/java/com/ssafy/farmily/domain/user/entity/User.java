@@ -1,4 +1,4 @@
-package com.ssafy.farmily.domain.member.entity;
+package com.ssafy.farmily.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,26 +9,26 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
-public class Member {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 255)
-    private String email;
-
-    @Column(length = 255)
-    private String password;
-
-    @Column(length = 100)
-    private String name;
-
-    @Column(name = "profile_image_url")
+    @Column(name = "profile_image_url", columnDefinition = "TEXT")
     private String profileImageUrl;
 
-    @Column(name = "fcm_token")
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    @Column(name = "email", nullable = false, unique = true, length = 255)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "fcm_token", columnDefinition = "TEXT")
     private String fcmToken;
 
     @Column(name = "is_deleted")
@@ -38,8 +38,11 @@ public class Member {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @Builder
-    public Member(String email, String password, String name, String profileImageUrl, String fcmToken) {
+    public User(String email, String password, String name, String profileImageUrl, String fcmToken) {
         this.email = email;
         this.password = password;
         this.name = name;

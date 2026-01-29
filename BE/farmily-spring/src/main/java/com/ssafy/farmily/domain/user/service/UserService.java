@@ -1,7 +1,7 @@
-package com.ssafy.farmily.domain.member.service;
+package com.ssafy.farmily.domain.user.service;
 
-import com.ssafy.farmily.domain.member.entity.Member;
-import com.ssafy.farmily.domain.member.repository.MemberRepository;
+import com.ssafy.farmily.domain.user.entity.User;
+import com.ssafy.farmily.domain.user.repository.UserRepository;
 import com.ssafy.farmily.global.util.JwtUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -19,39 +19,39 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberService {
+public class UserService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final JavaMailSender mailSender;
     private final StringRedisTemplate redisTemplate;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    // 1. 회원가입 (컨트롤러와 동일하게 3개의 인자를 받도록 수정!)
+    // 1. 회원가입
     @Transactional
     public Long signup(String email, String password, String name) {
-        if (memberRepository.existsByEmail(email)) {
+        if (userRepository.existsByEmail(email)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
         String encodedPassword = passwordEncoder.encode(password);
-        Member member = Member.builder()
+        User user = User.builder()
                 .email(email)
                 .password(encodedPassword)
                 .name(name)
                 .build();
-        memberRepository.save(member);
-        return member.getId();
+        userRepository.save(user);
+        return user.getId();
     }
 
     // 2. 로그인
     public Map<String, String> login(String email, String password) {
-        Member member = memberRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
-        if (!passwordEncoder.matches(password, member.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
         }
-        String accessToken = jwtUtil.createToken(email);
-        String refreshToken = jwtUtil.createRefreshToken(email);
+        String accessToken = jwtUtil.createToken(email, user.getId());
+        String refreshToken = jwtUtil.createRefreshToken(email, user.getId());
         redisTemplate.opsForValue().set("RT:" + email, refreshToken, Duration.ofDays(14));
         return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
     }
@@ -59,19 +59,19 @@ public class MemberService {
     // 3. 비밀번호 재설정
     @Transactional
     public void resetPassword(String email, String newPassword) {
-        Member member = memberRepository.findByEmail(email).orElseThrow();
-        member.updatePassword(passwordEncoder.encode(newPassword));
+        User user = userRepository.findByEmail(email).orElseThrow();
+        user.updatePassword(passwordEncoder.encode(newPassword));
     }
 
     // 4. 회원 탈퇴
     @Transactional
     public void withdraw(String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow();
-        member.withdraw();
+        User user = userRepository.findByEmail(email).orElseThrow();
+        user.withdraw();
         redisTemplate.delete("RT:" + email);
     }
 
-    // 5. 이메일 발송 (디자인 포함)
+    // 5. 이메일 발송
     public void sendCode(String email) {
         String code = String.valueOf(new java.util.Random().nextInt(900000) + 100000);
         try {
@@ -101,6 +101,7 @@ public class MemberService {
     public String reissue(String email, String refreshToken) {
         String saved = redisTemplate.opsForValue().get("RT:" + email);
         if (saved == null || !saved.equals(refreshToken)) throw new IllegalArgumentException("무효한 토큰");
-        return jwtUtil.createToken(email);
+        User user = userRepository.findByEmail(email).orElseThrow();
+        return jwtUtil.createToken(email, user.getId());
     }
 }
