@@ -14,10 +14,14 @@ def generate_launch_description():
         print("Error: 'ydlidar_ros2_driver' 패키지를 찾을 수 없습니다.")
         sys.exit(1)
     
+    # 사용자 홈 디렉토리 자동 감지 (d101 등 사용자명이 바뀌어도 작동함)
     user_home = os.path.expanduser('~')
-    slam_params_file = '/home/d101/hyup_ros2_ws/my_slam_params.yaml'
+    workspace_dir = os.path.join(user_home, 'hyup_ros2_ws') # 워크스페이스 이름
+    
+    # SLAM 파라미터 파일 경로
+    slam_params_file = os.path.join(workspace_dir, 'my_slam_params.yaml')
 
-    print(f"Loading Params from: {slam_params_file}") 
+    print(f"Loading SLAM params: {slam_params_file}") 
 
     return LaunchDescription([
         # --- 노드 1: YDLidar 드라이버 ---
@@ -28,7 +32,7 @@ def generate_launch_description():
         ),
 
         # --- 노드 2: TF 연결 (Robot -> Laser) ---
-        # 로봇 몸체에서 라이다까지의 거리 (필요시 수정)
+        # 로봇 몸체에서 라이다까지의 거리
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
@@ -37,8 +41,8 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # --- [교체됨] 노드 3: 라이다 오도메트리 (RF2O) ---
-        # 기존의 Static TF(고정)를 삭제하고, 라이다로 움직임을 계산하는 노드를 추가함
+        # --- 노드 3: 라이다 오도메트리 (RF2O) ---
+        # 기존의 Static TF(고정)를 삭제하고, 라이다로 움직임을 계산하는 노드를 추가
         Node(
             package='rf2o_laser_odometry',
             executable='rf2o_laser_odometry_node',
@@ -51,7 +55,7 @@ def generate_launch_description():
                 'base_frame_id': 'base_link',
                 'odom_frame_id': 'odom',
                 'init_pose_from_topic': '',
-                'freq': 20.0
+                'freq': 20.0    # -> 변경
             }],
         ),
 
@@ -74,7 +78,7 @@ def generate_launch_description():
     ])
 
 # ==========================================
-# 실행 코드
+# 메인 실행 코드
 # ==========================================
 if __name__ == '__main__':
     ls = LaunchService()
