@@ -33,5 +33,5 @@ cp .env.example .env
 ### 4. 서버 실행
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
