@@ -11,6 +11,7 @@ import adafruit_dht
 # =====================
 # DHT 
 # =====================
+#
 
 DHT_GPIO = 17     
 DHT_TYPE = "DHT11" 
