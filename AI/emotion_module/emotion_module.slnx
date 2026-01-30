@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="emotion_module/emotion_module.vcxproj" Id="4fb58730-ddd7-4967-9acf-e624538144b4" />
+</Solution>
