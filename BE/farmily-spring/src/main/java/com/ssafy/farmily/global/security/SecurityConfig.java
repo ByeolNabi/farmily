@@ -33,6 +33,7 @@ public class SecurityConfig {
                 // 인증 불필요 (공개)
                 .requestMatchers("/auth/**", "/error").permitAll() // ✅ 다시 원상복구
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
+                .requestMatchers("/plants/*/points").permitAll() // FastAPI에서 호출 (포인트 지급/조회)
                 
                 // Swagger UI 경로 허용
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
