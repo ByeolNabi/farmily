@@ -34,6 +34,9 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**", "/error").permitAll() // ✅ 다시 원상복구
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
                 
+                // Swagger UI 경로 허용
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                
                 // 나머지는 인증 필요
                 .anyRequest().authenticated()
             )

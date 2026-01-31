@@ -1,6 +1,7 @@
 package com.ssafy.farmily.domain.user.controller;
 
 import com.ssafy.farmily.domain.user.service.UserService;
+import com.ssafy.farmily.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final AuthUtil authUtil;
 
     @PostMapping("/auth/email-req")
     public Map<String, String> sendAuthCode(@RequestBody Map<String, String> request) {
@@ -46,14 +48,32 @@ public class UserController {
         return Map.of("message", "탈퇴 완료");
     }
 
+    // 비밀번호 변경 (로그인 필요)
     @PatchMapping("/users/password")
-    public Map<String, String> resetPassword(@RequestBody PasswordResetRequest request) {
-        userService.resetPassword(request.email(), request.newPassword());
+    public Map<String, String> changePassword(@RequestBody PasswordChangeRequest request) {
+        // 현재 로그인한 사용자의 이메일을 가져옴
+        String currentUserEmail = authUtil.getCurrentEmail();
+        userService.resetPassword(currentUserEmail, request.newPassword());
         return Map.of("message", "변경 완료");
+    }
+
+    // 비밀번호 찾기 (로그인 불필요, 이메일 인증 필요)
+    @PostMapping("/auth/password-reset")
+    public Map<String, String> resetPasswordWithEmail(@RequestBody PasswordResetRequest request) {
+        // 1. 이메일 인증 코드 확인
+        boolean isVerified = userService.verifyCode(request.email(), request.code());
+        if (!isVerified) {
+            throw new IllegalArgumentException("인증 코드가 올바르지 않습니다.");
+        }
+        
+        // 2. 비밀번호 재설정
+        userService.resetPassword(request.email(), request.newPassword());
+        return Map.of("message", "비밀번호가 재설정되었습니다.");
     }
 
     public record SignupRequest(String email, String password, String name) {}
     public record LoginRequest(String email, String password) {}
-    public record PasswordResetRequest(String email, String newPassword) {}
+    public record PasswordChangeRequest(String newPassword) {}  // 로그인한 사용자의 비밀번호 변경
+    public record PasswordResetRequest(String email, String code, String newPassword) {}  // 비밀번호 찾기 (이메일 인증)
     public record ReissueRequest(String email, String refreshToken) {}
 }

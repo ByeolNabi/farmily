@@ -15,11 +15,10 @@ spring:
     # [수정 핵심] 기본값을 'farmily-db' -> 'localhost'로 변경!
     # 이유: 로컬에서 실행할 땐 터널(localhost)을 타야 하고,
     #       Docker(배포)에서는 docker-compose가 이 값을 'farmily-db'로 덮어씌워 줍니다.
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/farmily_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/farmily_db}
     username: ${SPRING_DATASOURCE_USERNAME:ssafy}
     password: ${SPRING_DATASOURCE_PASSWORD:djfudnsqlqjs1@}
     driver-class-name: org.postgresql.Driver
-
   data:
     redis:
       # Redis도 터널링 쓴다면 localhost, 아니면 로컬에 켜둔 Redis 사용
@@ -28,7 +27,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
