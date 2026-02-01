@@ -16,7 +16,7 @@ pydantic==2.6.1
 pydantic-settings==2.1.0
 
 # MQTT
-gmqtt==0.6.16
+paho-mqtt==2.1.0
 
 # HTTP Client (for external API calls)
 httpx==0.27.0

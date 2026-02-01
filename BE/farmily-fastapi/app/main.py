@@ -1,15 +1,42 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from loguru import logger
 import os
 import app.models  # Register all models
 
 from app.core.config import settings
+from app.mqtt.client import mqtt_client
+from app.mqtt.handlers.sensor_handler import register_sensor_handlers
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan manager for startup/shutdown events."""
+    # Startup
+    logger.info("Starting Farmily API...")
+    
+    # Connect MQTT client
+    try:
+        await mqtt_client.connect()
+        register_sensor_handlers(mqtt_client)
+        logger.info("MQTT client connected and handlers registered")
+    except Exception as e:
+        logger.error(f"Failed to connect MQTT: {e}")
+    
+    yield
+    
+    # Shutdown
+    logger.info("Shutting down Farmily API...")
+    await mqtt_client.disconnect()
+
 
 app = FastAPI(
     title=settings.APP_NAME,
     debug=settings.DEBUG,
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # CORS middleware

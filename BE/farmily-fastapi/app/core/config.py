@@ -23,6 +23,8 @@ class Settings(BaseSettings):
     MQTT_PORT: int = 1883
     MQTT_USERNAME: str | None = None
     MQTT_PASSWORD: str | None = None
+    MQTT_USE_WSS: bool = False
+    MQTT_WSS_PATH: str = "/mqtt"
     
     # AI Service
     AI_GMS_URL: str = "http://localhost:8001/api/v1"
