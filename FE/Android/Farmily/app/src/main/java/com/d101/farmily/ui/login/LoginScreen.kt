@@ -20,7 +20,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,7 +37,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d101.farmily.R
+import com.d101.farmily.data.remote.model.User
 import com.d101.farmily.ui.component.WideButton
 import com.d101.farmily.ui.theme.borderGreen
 import com.d101.farmily.ui.theme.deepGreen
@@ -44,13 +49,26 @@ import com.d101.farmily.ui.theme.middleGreen
 @Composable
 fun LoginScreen(
     navToJoinScreen : () -> Unit,
-    navToInfoScreen : () -> Unit
+    onLoginSuccess : () -> Unit
 ) {
 
     val context = LocalContext.current
 
+    var loginViewModel : LoginViewModel = viewModel()
+
     var id by  remember { mutableStateOf("")  }
     var pw by remember { mutableStateOf("") }
+
+    var attemptCount by remember { mutableIntStateOf(0) }
+
+    val loginSuccess by loginViewModel.loginSuccess.collectAsState()
+
+    LaunchedEffect(loginSuccess) {
+
+        if(loginSuccess) {
+            onLoginSuccess()
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -102,11 +120,11 @@ fun LoginScreen(
                     )
 
                     Text(
-                        text = "아이디",
+                        text = "이메일",
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 28.dp)
-                            .padding(top = 24.dp)
+                            .padding(top = 12.dp)
                             .align(Alignment.Start),
                         color = middleGreen
                     )
@@ -118,7 +136,7 @@ fun LoginScreen(
                         },
                         label = {
                             Text(
-                                text = "아이디를 입력하세요"
+                                text = "이메일을 입력하세요"
                             )
                         },
                         modifier = Modifier
@@ -168,10 +186,20 @@ fun LoginScreen(
                     WideButton(
                         "로그인",
                         modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 20.dp),
+                            .padding(horizontal = 16.dp, vertical = 20.dp)
+                        ,
+                        backgroundColor = if(id == "" || pw == "") MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                            else MaterialTheme.colorScheme.primary
 
                     ) {
-                        navToInfoScreen()
+                        //onLoginSuccess()
+                        if(id == "" || pw == "") {
+
+                        } else {
+                            attemptCount++
+                            loginViewModel.login(User(id, name = "", pw))
+                        }
+
                     }
 
 
@@ -200,6 +228,29 @@ fun LoginScreen(
                             color = deepGreen
                         )
                     }
+
+                    if(attemptCount >= 2) {
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                        ) {
+                            Text(
+                                text = "비밀번호를 잊으셨나요?",
+                                color = middleGreen
+                            )
+                            Text(
+                                modifier = Modifier
+                                    .padding(start = 8.dp)
+                                    .clickable {
+                                        navToJoinScreen()
+                                    },
+                                text = "비밀번호 찾기",
+                                style = MaterialTheme.typography.titleLarge.copy(fontSize = 19.sp),
+                                color = deepGreen
+                            )
+                        }
+                    }
+
                 }
             }
 

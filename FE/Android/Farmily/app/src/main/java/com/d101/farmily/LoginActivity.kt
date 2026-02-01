@@ -1,28 +1,14 @@
 package com.d101.farmily
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.ui.login.JoinScreen
@@ -36,18 +22,35 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        if(ApplicationClass.sharedPreferencesUtil.userExist()) {
+        if(ApplicationClass.sharedPreferencesUtil.getAccessToken() != "" &&
+            ApplicationClass.sharedPreferencesUtil.plantExist()
+        ) {
 
             openMainActivity()
+            finish()
+            return
         }
+        else if(ApplicationClass.sharedPreferencesUtil.getAccessToken() != "") {
+            setContent {
+                FarmilyTheme {
+                    PlantInfoScreen {
 
-        setContent {
-            FarmilyTheme {
-                val navController = rememberNavController()
+                        openMainActivity()
+                    }
+                }
+            }
 
-                LoginNavHost(navController, ::openMainActivity)
+        } else {
+            setContent {
+                FarmilyTheme {
+                    val navController = rememberNavController()
+
+                    LoginNavHost(navController, ::openMainActivity)
+                }
             }
         }
+
+
     }
 
     fun openMainActivity() {
@@ -67,14 +70,19 @@ fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
         composable(LoginNavScreen.Login.route) {
             LoginScreen (
                 navToJoinScreen = {navController.navigate(LoginNavScreen.Join.route)},
-                navToInfoScreen = {
-                    navController.navigate(LoginNavScreen.Info.route) {
-                        popUpTo(LoginNavScreen.Login.route) {
-                            inclusive = true
-                        }
+                onLoginSuccess = {
+                    if(ApplicationClass.sharedPreferencesUtil.plantExist()) {
+                        openMain()
+                    } else {
+                        navController.navigate(LoginNavScreen.Info.route) {
+                            popUpTo(LoginNavScreen.Login.route) {
+                                inclusive = true
+                            }
 
-                        launchSingleTop = true
+                            launchSingleTop = true
+                        }
                     }
+
                 }
             )
 
@@ -82,7 +90,17 @@ fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
         }
 
         composable(LoginNavScreen.Join.route) {
-            JoinScreen()
+            JoinScreen(
+                navToLoginScreen = {
+                    navController.navigate(LoginNavScreen.Login.route) {
+                        popUpTo(LoginNavScreen.Join.route) {
+                            inclusive = true
+                        }
+
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
 
         composable(LoginNavScreen.Main.route){
@@ -90,7 +108,10 @@ fun LoginNavHost(navController: NavHostController, openMain : () -> Unit) {
         }
 
         composable(LoginNavScreen.Info.route){
-            PlantInfoScreen{openMain()}
+            PlantInfoScreen{
+
+                openMain()
+            }
 
         }
     }

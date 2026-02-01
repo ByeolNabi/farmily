@@ -1,5 +1,6 @@
 package com.d101.farmily.ui
 
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -20,7 +21,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.d101.farmily.LoginActivity
 import com.d101.farmily.R
+import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.ui.home.EnvInfoScreen
 import com.d101.farmily.ui.lidarMap.LidarMapScreen
 import com.d101.farmily.ui.memory.MemoryScreen
@@ -60,7 +63,34 @@ fun MainScreen () {
 
             composable(BottomNavItem.UserInfo.route) {
                 UserInfoScreen(
-                    {}
+                    {
+                        ApplicationClass.sharedPreferencesUtil.deleteAccessToken()
+                        val intent = Intent(context, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(intent)
+                    },
+                    onWithdraw = {
+                        ApplicationClass.sharedPreferencesUtil.deleteAccessToken()
+                        ApplicationClass.sharedPreferencesUtil.deletePlantName()
+                        ApplicationClass.sharedPreferencesUtil.deletePlantType()
+                        val intent = Intent(context, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(intent)
+                    },
+                    navToPlantInfo = {
+
+                        ApplicationClass.sharedPreferencesUtil.deletePlantName()
+                        ApplicationClass.sharedPreferencesUtil.deletePlantType()
+                        val intent = Intent(context, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        context.startActivity(intent)
+                    }
                 )
             }
         }

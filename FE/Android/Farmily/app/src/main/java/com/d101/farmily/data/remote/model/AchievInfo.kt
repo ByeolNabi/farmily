@@ -1,4 +1,4 @@
-package com.d101.farmily.data.model
+package com.d101.farmily.data.remote.model
 
 data class AchievInfo(
     val name : String,

@@ -1,4 +1,4 @@
-package com.d101.farmily.data.model
+package com.d101.farmily.data.remote.model
 
 import androidx.compose.ui.graphics.Color
 import com.d101.farmily.R
