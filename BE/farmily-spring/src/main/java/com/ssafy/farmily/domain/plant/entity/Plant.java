@@ -47,7 +47,7 @@ public class Plant {
     private BigDecimal highTemperature;
 
     @Column(name = "love_temperature", precision = 5, scale = 2, nullable = false)
-    private BigDecimal statusPoint = BigDecimal.ZERO;  // 애착점수 (초기값 0)
+    private BigDecimal loveTemperature = BigDecimal.ZERO;  // 애착점수 (초기값 0)
 
     @Column(name = "started_at")
     private LocalDateTime startedAt;
@@ -63,18 +63,18 @@ public class Plant {
      * @param points 추가할 포인트
      */
     public void addPoints(BigDecimal points) {
-        this.statusPoint = this.statusPoint.add(points);
+        this.loveTemperature = this.loveTemperature.add(points);
         // 최대 100점 제한
-        if (this.statusPoint.compareTo(new BigDecimal("100")) > 0) {
-            this.statusPoint = new BigDecimal("100");
+        if (this.loveTemperature.compareTo(new BigDecimal("100")) > 0) {
+            this.loveTemperature = new BigDecimal("100");
         }
     }
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        if (this.statusPoint == null) {
-            this.statusPoint = BigDecimal.ZERO;
+        if (this.loveTemperature == null) {
+            this.loveTemperature = BigDecimal.ZERO;
         }
     }
 }

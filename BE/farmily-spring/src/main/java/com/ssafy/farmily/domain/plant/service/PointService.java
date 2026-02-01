@@ -1,10 +1,14 @@
 package com.ssafy.farmily.domain.plant.service;
 
+import com.ssafy.farmily.domain.plant.dto.AttachmentLevel;
+import com.ssafy.farmily.domain.plant.dto.AttachmentLevelResponse;
 import com.ssafy.farmily.domain.plant.dto.PointAction;
 import com.ssafy.farmily.domain.plant.entity.Plant;
 import com.ssafy.farmily.domain.plant.entity.PlantActivityLog;
 import com.ssafy.farmily.domain.plant.repository.PlantActivityLogRepository;
 import com.ssafy.farmily.domain.plant.repository.PlantRepository;
+import com.ssafy.farmily.global.exception.DailyLimitExceededException;
+import com.ssafy.farmily.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,7 +44,8 @@ public class PointService {
     public void earnPoint(Long plantId, PointAction action) {
         // 1. 식물 조회
         Plant plant = plantRepository.findById(plantId)
-                .orElseThrow(() -> new IllegalArgumentException("식물을 찾을 수 없습니다. ID: " + plantId));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "식물을 찾을 수 없습니다. ID: " + plantId));
 
         // 2. 일일 제한 체크
         LocalDate today = LocalDate.now();
@@ -49,14 +54,14 @@ public class PointService {
         );
 
         if (todayCount >= action.getDailyLimit()) {
-            throw new IllegalArgumentException(
+            throw new DailyLimitExceededException(
                     String.format("오늘 %s 활동은 이미 %d회 수행했습니다. (제한: %d회)",
                             action.name(), todayCount, action.getDailyLimit())
             );
         }
 
         // 3. 현재 포인트 조회
-        BigDecimal currentPoint = plant.getStatusPoint();
+        BigDecimal currentPoint = plant.getLoveTemperature();
 
         // 4. 체감형 포인트 계산
         // 공식: 지급 포인트 = 기본 포인트 × max(0.1, 1 - 현재점수/100)
@@ -82,7 +87,7 @@ public class PointService {
                 .build();
         activityLogRepository.save(activityLog);
 
-        log.info("포인트 지급 완료 - 식물ID: {}, 최종점수: {}", plantId, plant.getStatusPoint());
+        log.info("포인트 지급 완료 - 식물ID: {}, 최종점수: {}", plantId, plant.getLoveTemperature());
     }
 
     /**
@@ -92,7 +97,24 @@ public class PointService {
      */
     public BigDecimal getCurrentPoint(Long plantId) {
         Plant plant = plantRepository.findById(plantId)
-                .orElseThrow(() -> new IllegalArgumentException("식물을 찾을 수 없습니다. ID: " + plantId));
-        return plant.getStatusPoint();
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "식물을 찾을 수 없습니다. ID: " + plantId));
+        return plant.getLoveTemperature();
+    }
+
+    /**
+     * 식물의 애착 등급 조회
+     * @param plantId 식물 ID
+     * @return 애착 등급 정보
+     */
+    public AttachmentLevelResponse getAttachmentLevel(Long plantId) {
+        Plant plant = plantRepository.findById(plantId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "식물을 찾을 수 없습니다. ID: " + plantId));
+        
+        BigDecimal points = plant.getLoveTemperature();
+        AttachmentLevel level = AttachmentLevel.fromPoints(points);
+        
+        return AttachmentLevelResponse.from(level, points);
     }
 }
