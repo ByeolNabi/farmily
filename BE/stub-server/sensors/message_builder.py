@@ -34,6 +34,15 @@ class MessageBuilder:
             "payload": payload
         }, ensure_ascii=False)
 
+    def create_event(self, event_type):
+        """이벤트 메시지 생성 (WATER, TOUCH 등)"""
+        return json.dumps({
+            "header": self._create_header("event"),
+            "payload": {
+                "event": event_type
+            }
+        }, ensure_ascii=False)
+
 # --- 사용 예시 (Raspi - SmartFarm) ---
 farm_builder = MessageBuilder(device_id="Raspi_SmartFarm_01")
 
