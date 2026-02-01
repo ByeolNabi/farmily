@@ -10,14 +10,19 @@ Contains topic definitions and plant threshold values.
 class Topics:
     """MQTT topic constants."""
     
-    # Sensor data from Raspberry Pi
+    # Telemetry (Fixed Topic)
     SENSOR_ALL = "farmily/raspi/sensor/all"
+    
+    # Unified device topic (Events, Commands)
+    # farmily/devices/{device_id}/event
+    DEVICE_ALL_SUB = "farmily/devices/+/event"
     
     # Commands to Unity display
     UNITY_COMMAND = "farmily/unity/command"
     
-    # Events from sensors
-    SENSOR_EVENT = "farmily/raspi/event"
+    # Legacy support (Optional, can be removed if not needed)
+    # SENSOR_ALL = "farmily/raspi/sensor/all"
+    # SENSOR_EVENT = "farmily/raspi/event"
 
 
 # ============================================================

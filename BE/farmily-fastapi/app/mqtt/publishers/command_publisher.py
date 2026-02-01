@@ -73,7 +73,7 @@ async def publish_condition_update(mqtt_client, condition: str) -> None:
 async def publish_event(
     mqtt_client,
     event: str,
-    params: dict,
+    params: dict = None,
     device_id: str = "farmily-server"
 ) -> None:
     """Publish an event message.
@@ -91,6 +91,9 @@ async def publish_event(
         timestamp=datetime.now()
     )
     
+    if params is None:
+        params = {}
+        
     payload = {"event": event, "params": params}
     
     message = {"header": header.model_dump(), "payload": payload}

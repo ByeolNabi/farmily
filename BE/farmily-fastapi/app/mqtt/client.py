@@ -162,14 +162,19 @@ class MQTTClient:
             logger.debug(f"Received message on {topic}: {str(data)[:100]}...")
             
             # Dispatch to handlers using asyncio
-            if topic in self._handlers:
-                for handler in self._handlers[topic]:
-                    if self._loop and self._loop.is_running():
-                        asyncio.run_coroutine_threadsafe(
-                            handler(topic, data),
-                            self._loop
-                        )
-            else:
+            # Support wildcard matching (e.g. farmily/devices/+/event matches farmily/devices/1/event)
+            handled = False
+            for sub_topic, handlers in self._handlers.items():
+                if paho_mqtt.topic_matches_sub(sub_topic, topic):
+                    handled = True
+                    for handler in handlers:
+                        if self._loop and self._loop.is_running():
+                            asyncio.run_coroutine_threadsafe(
+                                handler(topic, data),
+                                self._loop
+                            )
+                            
+            if not handled:
                 logger.warning(f"No handler for topic: {topic}")
                 
         except json.JSONDecodeError as e:

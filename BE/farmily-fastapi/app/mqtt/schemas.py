@@ -67,15 +67,8 @@ class EventPayload(BaseModel):
     params: dict[str, Any] = Field(default_factory=dict)
 
 
-class WaterDetectedParams(BaseModel):
-    """Parameters for WATER_DETECTED event."""
-    soil_moisture_before: float
-    soil_moisture_current: float
 
 
-class TouchDetectedParams(BaseModel):
-    """Parameters for TOUCH_DETECTED event."""
-    duration_sec: float
 
 
 # ============================================================
