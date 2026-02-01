@@ -17,7 +17,7 @@ class ApplicationClass : Application() {
 
     companion object{
 
-        const val SERVER_URL ="https://0.0.0.1/"
+        const val SERVER_URL ="https://i14d101.p.ssafy.io/api/"
         const val MQTT_SERVER_URL = "i14d101.p.ssafy.io"
         const val MQTT_SERVER_PORT = 443
         const val MQTT_SERVER_PATH = "mqtt"
@@ -37,8 +37,10 @@ class ApplicationClass : Application() {
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
 
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(AddCookiesInterceptor())
-            .addInterceptor(ReceivedCookiesInterceptor()).build()
+            //.addInterceptor(AddCookiesInterceptor())
+            //.addInterceptor(ReceivedCookiesInterceptor())
+            .addInterceptor(AuthInterceptor())
+            .build()
 
         retrofit = Retrofit.Builder()
             .baseUrl(SERVER_URL)

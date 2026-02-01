@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.d101.farmily.data.model.AchievInfo
+import com.d101.farmily.data.remote.model.AchievInfo
 
 @Composable
 fun AchievBox(

@@ -1,6 +1,6 @@
 package com.d101.farmily.data.remote.Response
 
-import com.d101.farmily.data.model.EnvInfo
+import com.d101.farmily.data.remote.model.EnvInfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,5 +1,6 @@
 package com.d101.farmily.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.ui.component.InfoBox
 
 @Composable
@@ -33,10 +36,11 @@ fun EnvInfoScreen(
 
     val envInfoList by envInfoViewModel.envInfoList.collectAsState()
 
-    var plantNickName : String = "릴리 블리  🌿"
-    var plantType : String = "산세베리아"
+    var plantNickName : String = ApplicationClass.sharedPreferencesUtil.getPlantName()!! + " 🌿"
+    var plantType : String = ApplicationClass.sharedPreferencesUtil.getPlantType()!!
 
     LaunchedEffect (Unit){
+        Log.d("EnvInfoViewModel", "startMqtt called!")
         envInfoViewModel.startMqtt()
     }
 
@@ -70,10 +74,18 @@ fun EnvInfoScreen(
 
             if(envInfoList.isEmpty()) {
                 Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                    ,
 
+                    contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "... 환경 정보를 불러오는 중 입니다."
+                        text = "... 환경 정보를 불러오는 중 입니다.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.primary
+
                     )
                 }
             } else {

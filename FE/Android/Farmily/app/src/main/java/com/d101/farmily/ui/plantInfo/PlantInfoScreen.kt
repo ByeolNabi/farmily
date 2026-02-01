@@ -43,6 +43,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.d101.farmily.R
+import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.ui.component.WideButton
 import com.d101.farmily.ui.login.ButtonWide
 import com.d101.farmily.ui.theme.borderGreen
@@ -226,9 +227,19 @@ fun PlantInfoScreen(
                         "시작하기",
                         modifier = Modifier
                             .padding(horizontal = 16.dp, vertical = 20.dp),
+                        backgroundColor = if(plantType.isEmpty() || plantNickName.isEmpty()) MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                        else MaterialTheme.colorScheme.primary
 
                         ) {
-                        navToMain()
+                        if(plantType.isEmpty() || plantNickName.isEmpty()) {
+
+                        } else {
+                            ApplicationClass.sharedPreferencesUtil.addPlantName(plantNickName)
+                            ApplicationClass.sharedPreferencesUtil.addPlantType(plantType)
+
+                            navToMain()
+                        }
+
 
                     }
 
