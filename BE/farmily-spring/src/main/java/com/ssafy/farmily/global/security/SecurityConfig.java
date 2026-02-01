@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,9 +32,12 @@ public class SecurityConfig {
             // 엔드포인트별 인증 설정
             .authorizeHttpRequests(auth -> auth
                 // 인증 불필요 (공개)
-                .requestMatchers("/auth/**", "/error").permitAll() // ✅ 다시 원상복구
+                .requestMatchers("/auth/**", "/error").permitAll()
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
-                .requestMatchers("/plants/*/points").permitAll() // FastAPI에서 호출 (포인트 지급/조회)
+                
+                // 포인트 및 애착 등급 API는 인증 필요 (JWT 또는 API Key)
+                .requestMatchers("/plants/*/points").authenticated()
+                .requestMatchers("/plants/*/attachment-level").authenticated()
                 
                 // Swagger UI 경로 허용
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
@@ -42,6 +46,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             
+            // 기기 인증 필터 추가
+            .addFilterBefore(apiKeyAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             // JWT 필터 추가
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
