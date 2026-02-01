@@ -1,0 +1,20 @@
+# docker compose up --build -d
+
+version: '3.8'
+
+services:
+  farmily-backend:
+    build: .
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - farmily-network # DB와 같은 네트워크 이름 지정
+
+networks:
+  farmily-network:
+    external: true # 이 네트워크는 외부(DB쪽 compose)에서 이미 만들어졌음을 명시
+    name: be_farmily-network
