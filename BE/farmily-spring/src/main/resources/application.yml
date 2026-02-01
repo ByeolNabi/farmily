@@ -45,3 +45,5 @@ server:
 farmily:
   device:
     api-key: ${DEVICE_API_KEY:farmily-secret-device-key-2026}
+
+

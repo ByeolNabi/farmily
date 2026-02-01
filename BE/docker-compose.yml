@@ -9,10 +9,10 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - .env  # .env 파일을 읽어옵니다
+      - .env # .env 파일을 읽어옵니다
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}            # .env에서 값 대입
-      POSTGRES_USER: ${POSTGRES_USER}        # .env에서 값 대입
+      POSTGRES_DB: ${POSTGRES_DB} # .env에서 값 대입
+      POSTGRES_USER: ${POSTGRES_USER} # .env에서 값 대입
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # .env에서 값 대입
       TZ: Asia/Seoul
     volumes:
@@ -20,7 +20,7 @@ services:
     networks:
       - farmily-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -47,7 +47,7 @@ services:
     working_dir: /app
     command: java -jar farmily-0.0.1-SNAPSHOT.jar
     env_file:
-      - .env  # .env 파일을 읽어서 컨테이너에 모든 변수를 주입합니다 (MAIL_PASSWORD 포함)
+      - .env # .env 파일을 읽어서 컨테이너에 모든 변수를 주입합니다 (MAIL_PASSWORD 포함)
     environment:
       # 명시적으로 .env 값을 매핑 (가독성을 위해 남겨둠)
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
@@ -55,6 +55,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_REDIS_HOST: ${SPRING_REDIS_HOST}
       SPRING_REDIS_PORT: ${SPRING_REDIS_PORT}
+      DEVICE_API_KEY: ${DEVICE_API_KEY}
       TZ: Asia/Seoul
     depends_on:
       db:
@@ -66,6 +67,7 @@ services:
 
 volumes:
   postgres_data:
+
 
 networks:
   farmily-network:
