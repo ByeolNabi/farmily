@@ -13,16 +13,31 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
-        // JWT 인증 스키마 정의
+        // 인증 스키마 이름 정의
         String jwtSchemeName = "JWT Authorization";
-        SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+        String deviceKeySchemeName = "Device-Key";
         
+        // JWT 보안 설정
+        SecurityScheme jwtScheme = new SecurityScheme()
+            .name(jwtSchemeName)
+            .type(SecurityScheme.Type.HTTP)
+            .scheme("bearer")
+            .bearerFormat("JWT");
+            
+        // API Key (기기용) 보안 설정
+        SecurityScheme deviceKeyScheme = new SecurityScheme()
+            .name("X-Device-Key") // 헤더 이름
+            .type(SecurityScheme.Type.APIKEY)
+            .in(SecurityScheme.In.HEADER);
+
         Components components = new Components()
-            .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
-                .name(jwtSchemeName)
-                .type(SecurityScheme.Type.HTTP)
-                .scheme("bearer")
-                .bearerFormat("JWT"));
+            .addSecuritySchemes(jwtSchemeName, jwtScheme)
+            .addSecuritySchemes(deviceKeySchemeName, deviceKeyScheme);
+
+        // 기본 보안 요구사항 설정
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+            .addList(jwtSchemeName)
+            .addList(deviceKeySchemeName);
 
         return new OpenAPI()
             .info(new Info()

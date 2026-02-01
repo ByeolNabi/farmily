@@ -1,5 +1,6 @@
 package com.ssafy.farmily.domain.plant.controller;
 
+import com.ssafy.farmily.domain.plant.dto.AttachmentLevelResponse;
 import com.ssafy.farmily.domain.plant.dto.PointAction;
 import com.ssafy.farmily.domain.plant.service.PointService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,17 @@ public class PointController {
     @GetMapping("/{plantId}/points")
     public Map<String, BigDecimal> getCurrentPoint(@PathVariable Long plantId) {
         BigDecimal currentPoint = pointService.getCurrentPoint(plantId);
-        return Map.of("statusPoint", currentPoint);
+        return Map.of("loveTemperature", currentPoint);
+    }
+
+    /**
+     * 애착 등급 조회 API
+     * @param plantId 식물 ID
+     * @return 애착 등급 정보
+     */
+    @GetMapping("/{plantId}/attachment-level")
+    public AttachmentLevelResponse getAttachmentLevel(@PathVariable Long plantId) {
+        return pointService.getAttachmentLevel(plantId);
     }
 
     // Request DTO
