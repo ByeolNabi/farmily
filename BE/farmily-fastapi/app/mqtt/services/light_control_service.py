@@ -49,6 +49,7 @@ class LightControlService:
         self._state = ServiceState.MONITORING
         self._illuminance_buffer: deque = deque(maxlen=1200)  # 20min at 1/sec
         self._light_on_until: Optional[datetime] = None
+        self._last_light_off_time: Optional[datetime] = None
         
         # Plant config (loaded from API)
         self._plant_config: Optional[dict] = None
@@ -68,19 +69,66 @@ class LightControlService:
         self._mqtt_client = client
     
     async def load_config(self) -> None:
-        """Load plant config from internal API."""
+        """Load plant config directly from DB to avoid HTTP loopback issues."""
+        from sqlalchemy import select
+        from app.core.database import AsyncSessionLocal
+        from app.models.plant import Plant
+        from app.models.reference import RefPlantSpecies
+        from geoalchemy2.functions import ST_X, ST_Y
+        
         try:
-            async with httpx.AsyncClient() as client:
-                resp = await client.get(
-                    "http://localhost:8081/api/v1/internal/plant-config",
-                    timeout=10.0
+            async with AsyncSessionLocal() as db:
+                # Query: Get latest active plant with species info
+                stmt = (
+                    select(
+                        Plant.id,
+                        Plant.nickname,
+                        Plant.ref_plant_species_id,
+                        Plant.station_point,
+                        RefPlantSpecies.name.label("species_name"),
+                        RefPlantSpecies.illuminance,
+                    )
+                    .join(RefPlantSpecies, Plant.ref_plant_species_id == RefPlantSpecies.id)
+                    .where(Plant.users_id == MVP_USER_ID)
+                    .where(Plant.is_active == True)
+                    .order_by(Plant.created_at.desc())
+                    .limit(1)
                 )
-                if resp.status_code == 200:
-                    self._plant_config = resp.json()
+                
+                result = await db.execute(stmt)
+                row = result.first()
+                
+                if row:
+                    # Extract coordinates
+                    station_x = None
+                    station_y = None
+                    
+                    if row.station_point is not None:
+                        coord_stmt = select(
+                            ST_X(Plant.station_point).label("x"),
+                            ST_Y(Plant.station_point).label("y")
+                        ).where(Plant.id == row.id)
+                        coord_result = await db.execute(coord_stmt)
+                        coord_row = coord_result.first()
+                        if coord_row:
+                            station_x = coord_row.x
+                            station_y = coord_row.y
+                            
+                    self._plant_config = {
+                        "user_id": MVP_USER_ID,
+                        "plant_id": row.id,
+                        "plant_nickname": row.nickname,
+                        "ref_plant_species_id": row.ref_plant_species_id,
+                        "ref_plant_name": row.species_name,
+                        "illuminance_target": row.illuminance or 8000,
+                        "station_x": station_x,
+                        "station_y": station_y,
+                    }
                     self._config_loaded = True
-                    logger.info(f"[LightControl] Config loaded: {self._plant_config}")
+                    logger.info(f"[LightControl] Config loaded from DB: {self._plant_config}")
                 else:
-                    logger.error(f"[LightControl] Failed to load config: {resp.status_code}")
+                    logger.warning(f"[LightControl] No active plant found for user {MVP_USER_ID}")
+                    
         except Exception as e:
             logger.error(f"[LightControl] Config load error: {e}")
     
@@ -110,9 +158,20 @@ class LightControlService:
                 logger.info("[LightControl] Light duration ended, returning to MONITORING")
                 self._state = ServiceState.MONITORING
                 self._light_on_until = None
+                self._last_light_off_time = datetime.now()  # Record light off time
             else:
                 logger.debug("[LightControl] Light ON, skipping illuminance check")
                 return
+
+        # Check cooldown (e.g. 1 hour after light off)
+        LIGHT_OFF_COOLDOWN = 3600  # 1 hour
+        if self._last_light_off_time:
+            elapsed = (datetime.now() - self._last_light_off_time).total_seconds()
+            if elapsed < LIGHT_OFF_COOLDOWN:
+                logger.debug(f"[LightControl] Cooldown active ({int(elapsed)}/{LIGHT_OFF_COOLDOWN}s)")
+                return
+            else:
+                self._last_light_off_time = None  # Cooldown finished
         
         # Skip if returning (waiting for robot)
         if self._state == ServiceState.RETURNING:
@@ -131,6 +190,13 @@ class LightControlService:
             if not self._config_loaded:
                 return
         
+        # Check if we have enough data (at least 50% of window)
+        # Buffer maxlen is 1200 (20 min), so we need 600 (10 min) samples
+        min_samples = self._illuminance_buffer.maxlen // 2
+        if len(self._illuminance_buffer) < min_samples:
+            logger.debug(f"[LightControl] Gathering data... ({len(self._illuminance_buffer)}/{min_samples})")
+            return
+
         avg_illuminance = self._get_avg_illuminance()
         threshold = self._plant_config.get("illuminance_target", 8000)
         

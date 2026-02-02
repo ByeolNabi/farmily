@@ -51,12 +51,17 @@ async def handle_device_event(topic: str, data: dict) -> None:
 
 async def _send_points_api(action: str) -> None:
     """Send points update to API."""
-    url = "https://i14d101.p.ssafy.io/api/plants/1/points"
+    from app.core.jwt_utils import service_auth
+    
+    url = "https://i14d101.p.ssafy.io/api/plants/2/points"
     body = {"action": action}
+    
+    # Get JWT auth headers
+    headers = service_auth.get_auth_headers()
     
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=body)
+            response = await client.post(url, json=body, headers=headers)
             
             if response.status_code == 200:
                 logger.info(f"✅ API Call Success: {action} -> {response.json()}")

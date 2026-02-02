@@ -21,6 +21,13 @@ ILLUMINANCE_CONFIG = {
     "station_proximity_m": 0.2,   # 도착 판정 거리 (20cm)
 }
 
+# 센서 데이터 집계 설정 (수정 가능)
+SENSOR_AGGREGATION_CONFIG = {
+    "interval_sec": 600,  # 10분 (테스트용, 나중에 3600으로 변경 가능)
+    "api_base_url": "https://i14d101.p.ssafy.io",
+    "api_path_template": "/api/sensors/{plant_id}",
+}
+
 
 # ============================================================
 # MQTT Topics
