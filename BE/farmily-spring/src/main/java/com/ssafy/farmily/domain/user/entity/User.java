@@ -57,4 +57,10 @@ public class User {
     public void withdraw() {
         this.isDeleted = true;
     }
+
+    public void recover(String password, String name) {
+        this.isDeleted = false;
+        this.password = password;
+        this.name = name;
+    }
 }

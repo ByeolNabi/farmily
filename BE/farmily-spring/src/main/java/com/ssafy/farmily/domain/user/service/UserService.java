@@ -30,23 +30,41 @@ public class UserService {
     // 1. 회원가입
     @Transactional
     public Long signup(String email, String password, String name) {
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        // 기존 회원 조회
+        userRepository.findByEmail(email).ifPresent(user -> {
+            // 활동 중인 회원이면 에러
+            if (!user.isDeleted()) {
+                throw new IllegalStateException("이미 존재하는 회원입니다.");
+            }
+            // 탈퇴한 회원이면 복구 (재가입)
+            user.recover(passwordEncoder.encode(password), name);
+        });
+
+        // 회원이 없으면 신규 가입
+        if (!userRepository.existsByEmail(email)) {
+             String encodedPassword = passwordEncoder.encode(password);
+             User user = User.builder()
+                     .email(email)
+                     .password(encodedPassword)
+                     .name(name)
+                     .build();
+             userRepository.save(user);
+             return user.getId();
         }
-        String encodedPassword = passwordEncoder.encode(password);
-        User user = User.builder()
-                .email(email)
-                .password(encodedPassword)
-                .name(name)
-                .build();
-        userRepository.save(user);
-        return user.getId();
+        
+        return userRepository.findByEmail(email).get().getId();
     }
 
     // 2. 로그인
     public Map<String, String> login(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일입니다."));
+        
+        // 탈퇴한 회원 체크
+        if (user.isDeleted()) {
+            throw new IllegalArgumentException("회원 정보가 없습니다.");
+        }
+
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
         }
@@ -54,6 +72,12 @@ public class UserService {
         String refreshToken = jwtUtil.createRefreshToken(email, user.getId());
         redisTemplate.opsForValue().set("RT:" + email, refreshToken, Duration.ofDays(14));
         return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
+    }
+
+    // 3. 로그아웃
+    public void logout(String email, String accessToken) {
+        redisTemplate.opsForValue().set("BL:" + accessToken, "logout", Duration.ofMinutes(30)); 
+        redisTemplate.delete("RT:" + email);
     }
 
     // 3. 비밀번호 재설정
@@ -66,13 +90,22 @@ public class UserService {
     // 4. 회원 탈퇴
     @Transactional
     public void withdraw(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         user.withdraw();
         redisTemplate.delete("RT:" + email);
     }
 
     // 5. 이메일 발송
     public void sendCode(String email) {
+        // 이미 가입된 활동 중인 회원인지 확인
+        if (userRepository.existsByEmail(email)) {
+            User user = userRepository.findByEmail(email).get();
+            if (!user.isDeleted()) {
+                throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+            }
+        }
+
         String code = String.valueOf(new java.util.Random().nextInt(900000) + 100000);
         try {
             MimeMessage message = mailSender.createMimeMessage();
