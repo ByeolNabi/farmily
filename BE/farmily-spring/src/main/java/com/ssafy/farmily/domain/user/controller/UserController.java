@@ -42,6 +42,14 @@ public class UserController {
         return Map.of("accessToken", token);
     }
 
+    @PostMapping("/auth/logout")
+    public Map<String, String> logout(@RequestHeader("Authorization") String token) {
+        String accessToken = token.substring(7);
+        String email = authUtil.getCurrentEmail();
+        userService.logout(email, accessToken);
+        return Map.of("message", "로그아웃 완료");
+    }
+
     @PatchMapping("/users/withdraw")
     public Map<String, String> withdraw(@RequestBody Map<String, String> request) {
         userService.withdraw(request.get("email"));
