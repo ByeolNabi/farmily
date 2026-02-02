@@ -55,6 +55,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -68,6 +69,7 @@ import com.d101.farmily.data.remote.model.Auth
 import com.d101.farmily.data.remote.model.StatInfo
 import com.d101.farmily.ui.component.AchievBox
 import com.d101.farmily.ui.component.StatBox
+import com.d101.farmily.ui.dialog.ChangePasswordDialog
 import com.d101.farmily.ui.theme.middleGreen
 
 @Composable
@@ -83,6 +85,20 @@ fun UserInfoScreen(
     val withdrawal by userInfoViewModel.withdrawal.collectAsState()
 
     var showWithdrawConfirmDialog by remember { mutableStateOf(false) }
+
+    val showPasswordChangeDialog by userInfoViewModel.showPasswordChangeDialog.collectAsState()
+
+    val currentPasswordInvalid by userInfoViewModel.currentPasswordInvalid.collectAsState()
+
+    val affection by remember { mutableStateOf(77) }
+
+    var relationShip : String = when {
+        (affection < 30) -> "어색한 사이"
+        (affection < 50) -> "익숙해지는 사이"
+        (affection < 70) -> "정이 드는 사이"
+        (affection < 90) -> "마음을 여는 사이"
+        else -> "반려 사이"
+    }
 
     var plantName : String = ApplicationClass.sharedPreferencesUtil.getPlantName()!!
     var plantType : String = ApplicationClass.sharedPreferencesUtil.getPlantType()!!
@@ -170,11 +186,7 @@ fun UserInfoScreen(
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.surface
                         )
-                        Text(
-                            text = plantType,
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
+
 
                         Row(
                             modifier = Modifier
@@ -205,6 +217,15 @@ fun UserInfoScreen(
                                     .padding(start = 8.dp)
                             )
                         }
+                        Text(
+                            text = relationShip,
+                            modifier = Modifier
+                                .padding(start = 24.dp)
+                                .padding(top = 2.dp)
+                            ,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
 
                     }
                 }
@@ -262,10 +283,17 @@ fun UserInfoScreen(
                 onClick = { navToPlantInfo()  }
             )
 
+            SettingItemCard(
+                icon = ImageVector.vectorResource(id = R.drawable.sparkles),
+                title = "아카이브",
+                subtitle = "별이 된 식물과의 추억",
+                onClick = { navToPlantInfo()  }
+            )
+
 
             Text(text = "계정", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
 
-            ChangePasswordButton({})
+            ChangePasswordButton({userInfoViewModel.openChangePasswordDialog()})
 
             LogoutButton(onClick = onLogout)
 
@@ -290,6 +318,18 @@ fun UserInfoScreen(
                 {showWithdrawConfirmDialog = false},
                 {
                     userInfoViewModel.withdraw(Auth(ApplicationClass.sharedPreferencesUtil.getUserEmail()!!))
+                }
+            )
+        }
+
+        if(showPasswordChangeDialog) {
+
+            ChangePasswordDialog(
+                currentPasswordInvalid,
+                onDismiss = {userInfoViewModel.closeChangePasswordDialog()},
+                onConfirm = { cur, new ->
+
+                    userInfoViewModel.changePassword(cur, new)
                 }
             )
         }
@@ -432,7 +472,7 @@ fun WithdrawalDialog(
         Surface(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.5f), // 화면의 50% 차지
+                .fillMaxHeight(0.35f), // 화면의 50% 차지
             shape = RoundedCornerShape(24.dp),
             color = Color.White
         ) {

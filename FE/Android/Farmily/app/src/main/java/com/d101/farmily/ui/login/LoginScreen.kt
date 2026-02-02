@@ -1,5 +1,6 @@
 package com.d101.farmily.ui.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,12 +36,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d101.farmily.R
+import com.d101.farmily.data.remote.model.Auth
 import com.d101.farmily.data.remote.model.User
 import com.d101.farmily.ui.component.WideButton
+import com.d101.farmily.ui.dialog.ResetPasswordDialog
 import com.d101.farmily.ui.theme.borderGreen
 import com.d101.farmily.ui.theme.deepGreen
 import com.d101.farmily.ui.theme.middleGreen
@@ -62,11 +66,20 @@ fun LoginScreen(
     var attemptCount by remember { mutableIntStateOf(0) }
 
     val loginSuccess by loginViewModel.loginSuccess.collectAsState()
+    val showResetPasswordDialog by loginViewModel.showResetPasswordDialog.collectAsState()
 
     LaunchedEffect(loginSuccess) {
 
         if(loginSuccess) {
             onLoginSuccess()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        // ViewModel에서 emit(문자열)이 올 때마다 호출됨
+        loginViewModel.toastMessage.collect { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            // 여기서 변수를 다시 false로 바꿀 필요가 없음!
         }
     }
 
@@ -170,6 +183,7 @@ fun LoginScreen(
                                 text = "비밀번호를 입력하세요"
                             )
                         },
+                        visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
@@ -242,7 +256,7 @@ fun LoginScreen(
                                 modifier = Modifier
                                     .padding(start = 8.dp)
                                     .clickable {
-                                        navToJoinScreen()
+                                        loginViewModel.openResetPasswordDialog()
                                     },
                                 text = "비밀번호 찾기",
                                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 19.sp),
@@ -254,6 +268,20 @@ fun LoginScreen(
                 }
             }
 
+        }
+
+        if(showResetPasswordDialog) {
+            ResetPasswordDialog(
+                onDismiss = {
+                    loginViewModel.closeResetPasswordDialog()
+                },
+                onGetVerify = { email ->
+                    loginViewModel.getEmailVer(Auth(email = email))
+                },
+                onConfirm = { email, code, new ->
+                    loginViewModel.resetPassword(Auth(email,code,new))
+                }
+            )
         }
 
     }

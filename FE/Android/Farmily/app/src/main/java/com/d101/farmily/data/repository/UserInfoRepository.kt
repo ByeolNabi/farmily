@@ -12,4 +12,11 @@ class UserInfoRepository {
         if (response.isSuccessful) response.body() ?: MessageResponse("빈 메세지")
         else throw Exception("코드 요청 실패: ${response.code()}")
     }
+
+    suspend fun changePassword(auth : Auth) : Result<MessageResponse> = runCatching {
+
+        val response = RetrofitUtil.userService.changePassword(auth)
+        if (response.isSuccessful) response.body() ?: MessageResponse("빈 메세지")
+        else throw Exception("코드 요청 실패: ${response.code()}")
+    }
 }

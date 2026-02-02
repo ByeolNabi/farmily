@@ -7,14 +7,18 @@ import com.d101.farmily.base.ApplicationClass
 import com.d101.farmily.data.remote.model.Auth
 import com.d101.farmily.data.remote.model.User
 import com.d101.farmily.data.repository.LoginRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginRepository: LoginRepository = LoginRepository()
 ) : ViewModel() {
+
+    val userEmail = ApplicationClass.sharedPreferencesUtil.getUserEmail()
 
     private val _verifyDialog = MutableStateFlow(false)
     val verifyDialog : StateFlow<Boolean> = _verifyDialog.asStateFlow()
@@ -31,6 +35,19 @@ class LoginViewModel(
 
     private val _canJoin = MutableStateFlow(0)
     val canJoin : StateFlow<Int> = _canJoin.asStateFlow()
+
+    private val _showResetPasswordDialog = MutableStateFlow(false)
+    val showResetPasswordDialog : StateFlow<Boolean> = _showResetPasswordDialog.asStateFlow()
+
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
+
+    fun openResetPasswordDialog() {
+        _showResetPasswordDialog.value = true
+    }
+    fun closeResetPasswordDialog() {
+        _showResetPasswordDialog.value = false
+    }
 
     fun getEmailVer(auth : Auth) {
 
@@ -100,9 +117,28 @@ class LoginViewModel(
                     ApplicationClass.sharedPreferencesUtil.addRefreshToken(it.refreshToken)
                     ApplicationClass.sharedPreferencesUtil.addUserEmail(user.email)
                     _loginSuccess.value = true
+                    _toastMessage.emit("로그인이 완료되었습니다.")
                 }
                 .onFailure {
                     Log.d("Login", "login: fail $it ")
+                }
+        }
+    }
+
+    fun resetPassword(auth : Auth) {
+
+        viewModelScope.launch {
+
+            loginRepository.resetPassword(auth)
+                .onSuccess {
+
+                    _toastMessage.emit("비밀번호 재설정이 완료되었습니다!")
+                    closeResetPasswordDialog()
+                }
+                .onFailure {
+
+                    _toastMessage.emit("인증 코드가 잘못되었습니다.")
+                    Log.d("RSPW", "changePassword: 인증 코드 잘 못 됨")
                 }
         }
     }
