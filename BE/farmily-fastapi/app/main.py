@@ -12,6 +12,9 @@ from app.mqtt.handlers.sensor_handler import register_sensor_handler
 from app.mqtt.handlers.device_handler import register_device_event_handler
 from app.mqtt.handlers.jetson_handler import register_jetson_handler
 from app.mqtt.services.light_control_service import light_control_service
+from app.mqtt.services.sensor_aggregation_service import sensor_aggregation_service
+from app.core.jwt_utils import service_auth
+from app.mqtt.config import MVP_USER_ID
 
 
 @asynccontextmanager
@@ -32,10 +35,16 @@ async def lifespan(app: FastAPI):
         # Set MQTT client reference in light control service
         light_control_service.set_mqtt_client(mqtt_client)
         
+        # Initialize sensor aggregation service
+        sensor_aggregation_service.set_mqtt_client(mqtt_client)
+        
         # Register handlers
         register_sensor_handler(mqtt_client)        # Fixed telemetry topic
         register_device_event_handler(mqtt_client)  # Generic device events
         register_jetson_handler(mqtt_client)        # Jetson position tracking
+        
+        # Initialize service JWT for API calls (use MVP_USER_ID)
+        service_auth.set_user_id(MVP_USER_ID)
         
         logger.info("MQTT client connected and all handlers registered")
     except Exception as e:
