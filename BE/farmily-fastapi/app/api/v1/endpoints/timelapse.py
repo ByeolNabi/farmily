@@ -22,7 +22,6 @@ Service = Annotated[TimelapseService, Depends(get_service)]
 @router.get("", response_model=TimelapseListResponse, description="Get timelapse photos for a specific plant.")
 async def get_timelapse_list(
     service: Service,
-    current_user: CurrentUser,
     plant_id: int = Query(..., description="Filter by plant ID")
 ):
     """타임랩스 사진 목록 조회"""
