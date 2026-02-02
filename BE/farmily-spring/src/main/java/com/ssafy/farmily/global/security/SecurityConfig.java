@@ -18,6 +18,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,8 +36,9 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**", "/error").permitAll()
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
                 
-                // 포인트 및 애착 등급 API는 인증 필요 (JWT 또는 API Key)
+                // 포인트, 뱃지, 애착 등급 API는 인증 필요 (JWT 또는 API Key)
                 .requestMatchers("/plants/*/points").authenticated()
+                .requestMatchers("/plants/*/achievements").authenticated()
                 .requestMatchers("/plants/*/attachment-level").authenticated()
                 
                 // Swagger UI 경로 허용
@@ -45,6 +47,10 @@ public class SecurityConfig {
                 // 나머지는 인증 필요
                 .anyRequest().authenticated()
             )
+            
+            // 예외 처리 설정
+            .exceptionHandling(exception -> 
+                exception.authenticationEntryPoint(customAuthenticationEntryPoint))
             
             // 기기 인증 필터 추가
             .addFilterBefore(apiKeyAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

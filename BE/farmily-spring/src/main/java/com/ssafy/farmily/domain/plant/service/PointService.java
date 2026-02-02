@@ -1,7 +1,6 @@
 package com.ssafy.farmily.domain.plant.service;
 
-import com.ssafy.farmily.domain.plant.dto.AttachmentLevel;
-import com.ssafy.farmily.domain.plant.dto.AttachmentLevelResponse;
+
 import com.ssafy.farmily.domain.plant.dto.PointAction;
 import com.ssafy.farmily.domain.plant.entity.Plant;
 import com.ssafy.farmily.domain.plant.entity.PlantActivityLog;
@@ -30,6 +29,7 @@ public class PointService {
 
     private final PlantRepository plantRepository;
     private final PlantActivityLogRepository activityLogRepository;
+    private final com.ssafy.farmily.domain.achievement.service.AchievementService achievementService;
 
     private static final BigDecimal MAX_POINT = new BigDecimal("100");
     private static final BigDecimal MIN_WEIGHT = new BigDecimal("0.1");  // 최소 가중치 10%
@@ -87,6 +87,9 @@ public class PointService {
                 .build();
         activityLogRepository.save(activityLog);
 
+        // [NEW] 7. 뱃지 시스템 연동 (활동 카운트 증가 및 뱃지 체크)
+        achievementService.trackActivity(plantId, action.getActivityType().name());
+
         log.info("포인트 지급 완료 - 식물ID: {}, 최종점수: {}", plantId, plant.getLoveTemperature());
     }
 
@@ -100,21 +103,5 @@ public class PointService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "식물을 찾을 수 없습니다. ID: " + plantId));
         return plant.getLoveTemperature();
-    }
-
-    /**
-     * 식물의 애착 등급 조회
-     * @param plantId 식물 ID
-     * @return 애착 등급 정보
-     */
-    public AttachmentLevelResponse getAttachmentLevel(Long plantId) {
-        Plant plant = plantRepository.findById(plantId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "식물을 찾을 수 없습니다. ID: " + plantId));
-        
-        BigDecimal points = plant.getLoveTemperature();
-        AttachmentLevel level = AttachmentLevel.fromPoints(points);
-        
-        return AttachmentLevelResponse.from(level, points);
     }
 }
