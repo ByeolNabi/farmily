@@ -40,12 +40,6 @@ public class Plant {
     @Column(name = "health_checked_at")
     private LocalDateTime healthCheckedAt;
 
-    @Column(name = "low_temperature", precision = 5, scale = 2)
-    private BigDecimal lowTemperature;
-
-    @Column(name = "high_temperature", precision = 5, scale = 2)
-    private BigDecimal highTemperature;
-
     @Column(name = "love_temperature", precision = 5, scale = 2, nullable = false)
     private BigDecimal loveTemperature = BigDecimal.ZERO;  // 애착점수 (초기값 0)
 

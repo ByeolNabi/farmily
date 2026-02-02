@@ -16,8 +16,8 @@ spring:
     # 이유: 로컬에서 실행할 땐 터널(localhost)을 타야 하고,
     #       Docker(배포)에서는 docker-compose가 이 값을 'farmily-db'로 덮어씌워 줍니다.
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/farmily_db}
-    username: ${SPRING_DATASOURCE_USERNAME:ssafy}
-    password: ${SPRING_DATASOURCE_PASSWORD:djfudnsqlqjs1@}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   data:
     redis:
@@ -44,6 +44,4 @@ server:
 
 farmily:
   device:
-    api-key: ${DEVICE_API_KEY:farmily-secret-device-key-2026}
-
-
+    api-key: ${DEVICE_API_KEY}
