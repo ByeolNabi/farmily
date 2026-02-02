@@ -6,6 +6,7 @@ from pydantic import ValidationError
 
 from app.mqtt.schemas import MQTTHeader, SensorPayload
 from app.mqtt.config import Topics, check_sensor_status
+from app.mqtt.services.light_control_service import light_control_service
 
 
 async def handle_sensor_telemetry(topic: str, data: dict) -> None:
@@ -42,6 +43,9 @@ async def handle_sensor_telemetry(topic: str, data: dict) -> None:
         for key, value in status.items():
             if value != "normal":
                 logger.debug(f"[Telemetry] {device_id} {key} is {value}: {sensor_dict[key]}")
+        
+        # Forward illuminance to light control service
+        await light_control_service.process_illuminance(payload.illuminance)
                 
     except ValidationError as e:
         logger.error(f"[Telemetry] Invalid format: {e}")

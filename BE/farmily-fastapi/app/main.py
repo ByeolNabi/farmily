@@ -10,6 +10,8 @@ from app.core.config import settings
 from app.mqtt.client import mqtt_client
 from app.mqtt.handlers.sensor_handler import register_sensor_handler
 from app.mqtt.handlers.device_handler import register_device_event_handler
+from app.mqtt.handlers.jetson_handler import register_jetson_handler
+from app.mqtt.services.light_control_service import light_control_service
 
 
 @asynccontextmanager
@@ -26,9 +28,16 @@ async def lifespan(app: FastAPI):
     # Connect MQTT client
     try:
         await mqtt_client.connect()
-        register_sensor_handler(mqtt_client)      # Fixed telemetry topic
+        
+        # Set MQTT client reference in light control service
+        light_control_service.set_mqtt_client(mqtt_client)
+        
+        # Register handlers
+        register_sensor_handler(mqtt_client)        # Fixed telemetry topic
         register_device_event_handler(mqtt_client)  # Generic device events
-        logger.info("MQTT client connected and handlers registered")
+        register_jetson_handler(mqtt_client)        # Jetson position tracking
+        
+        logger.info("MQTT client connected and all handlers registered")
     except Exception as e:
         logger.error(f"Failed to connect MQTT: {e}")
     

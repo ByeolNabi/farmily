@@ -4,25 +4,41 @@ Contains topic definitions and plant threshold values.
 """
 
 # ============================================================
+# MVP Configuration (User ID 고정)
+# ============================================================
+
+MVP_USER_ID = 1  # 고정값, 나중에 수정 가능
+
+# Active Time (08:00 ~ 20:00)
+ACTIVE_TIME = {
+    "start_hour": 8,
+    "end_hour": 20,
+}
+
+# 조도 판단 설정
+ILLUMINANCE_CONFIG = {
+    "avg_window_sec": 1200,       # 20분 평균
+    "station_proximity_m": 0.2,   # 도착 판정 거리 (20cm)
+}
+
+
+# ============================================================
 # MQTT Topics
 # ============================================================
 
 class Topics:
     """MQTT topic constants."""
     
-    # Telemetry (Fixed Topic)
+    # Telemetry (Subscribe)
     SENSOR_ALL = "farmily/raspi/sensor/all"
+    JETSON_POS = "farmily/jetson/lidar/pos"          # 로봇 위치
     
-    # Unified device topic (Events, Commands)
-    # farmily/devices/{device_id}/event
+    # Device Events (Subscribe)
     DEVICE_ALL_SUB = "farmily/devices/+/event"
     
-    # Commands to Unity display
+    # Commands (Publish)
+    DEVICE_COMMAND = "farmily/devices/device_1/command"  # Jetson & Station
     UNITY_COMMAND = "farmily/unity/command"
-    
-    # Legacy support (Optional, can be removed if not needed)
-    # SENSOR_ALL = "farmily/raspi/sensor/all"
-    # SENSOR_EVENT = "farmily/raspi/event"
 
 
 # ============================================================

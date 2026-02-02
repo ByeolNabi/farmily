@@ -101,3 +101,87 @@ async def publish_event(
     await mqtt_client.publish(Topics.SENSOR_EVENT, message)
     
     logger.info(f"[Event] Published {event} with params: {params}")
+
+
+async def publish_move_to(
+    mqtt_client,
+    x: float,
+    y: float,
+    speed: float = 0.5,
+    device_id: str = "jetson_bot"
+) -> None:
+    """Publish MOVE_TO command to Jetson bot.
+    
+    Args:
+        mqtt_client: MQTTClient instance
+        x: Target x coordinate
+        y: Target y coordinate
+        speed: Movement speed (0.1 ~ 1.0)
+        device_id: Target device ID
+    """
+    header = MQTTHeader(
+        msg_id=str(uuid.uuid4()),
+        type="command",
+        device_id=device_id,
+        timestamp=datetime.now()
+    )
+    
+    payload = CommandPayload(
+        cmd="MOVE_TO",
+        params={"x": x, "y": y, "speed": speed}
+    )
+    
+    message = MQTTMessage[CommandPayload](header=header, payload=payload)
+    
+    await mqtt_client.publish(
+        Topics.DEVICE_COMMAND,
+        message.model_dump()
+    )
+    
+    logger.info(f"[Command] 🚗 MOVE_TO ({x}, {y}) speed={speed}")
+
+
+async def publish_control_light(
+    mqtt_client,
+    state: str,
+    brightness: int = 80,
+    start_delay: int = 60,
+    duration: int = 3600,
+    device_id: str = "raspi_station"
+) -> None:
+    """Publish CONTROL_LIGHT command to Raspi station.
+    
+    Args:
+        mqtt_client: MQTTClient instance
+        state: "ON" or "OFF"
+        brightness: Light brightness (0-100)
+        start_delay: Delay before turning on (seconds)
+        duration: How long to keep light on (seconds)
+        device_id: Target device ID
+    """
+    header = MQTTHeader(
+        msg_id=str(uuid.uuid4()),
+        type="command",
+        device_id=device_id,
+        timestamp=datetime.now()
+    )
+    
+    payload = CommandPayload(
+        cmd="CONTROL_LIGHT",
+        params={
+            "state": state,
+            "brightness": brightness,
+            "start_delay": start_delay,
+            "duration": duration
+        }
+    )
+    
+    message = MQTTMessage[CommandPayload](header=header, payload=payload)
+    
+    await mqtt_client.publish(
+        Topics.DEVICE_COMMAND,
+        message.model_dump()
+    )
+    
+    logger.info(f"[Command] 💡 CONTROL_LIGHT {state} brightness={brightness}")
+

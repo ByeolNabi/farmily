@@ -3,7 +3,7 @@ MQTT message schemas using Pydantic.
 Supports telemetry, command, and event message types.
 """
 from datetime import datetime
-from typing import Generic, TypeVar, Literal, Any
+from typing import Generic, TypeVar, Literal, Any, Optional
 from pydantic import BaseModel, Field
 import uuid
 
@@ -55,6 +55,35 @@ class WeatherUpdateParams(BaseModel):
 class ConditionUpdateParams(BaseModel):
     """Parameters for UPDATE_CONDITION command."""
     condition: Literal["HEALTHY", "SICK", "THIRSTY"]
+
+
+class MoveToParams(BaseModel):
+    """Parameters for MOVE_TO command (Jetson Bot)."""
+    x: float
+    y: float
+    speed: float = 0.5
+
+
+class ControlLightParams(BaseModel):
+    """Parameters for CONTROL_LIGHT command (Raspi Station)."""
+    state: Literal["ON", "OFF"]
+    brightness: int = 80
+    start_delay: int = 60    # seconds
+    duration: int = 3600     # seconds
+
+
+# ============================================================
+# Jetson Telemetry Payloads
+# ============================================================
+
+class JetsonPosPayload(BaseModel):
+    """Jetson robot position telemetry."""
+    device_id: str
+    x: float
+    y: float
+    theta: float
+    map_id: Optional[str] = None
+    timestamp: float
 
 
 # ============================================================
