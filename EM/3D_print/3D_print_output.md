@@ -13,7 +13,7 @@
 전체 구조를 지지하는 베이스 파트  
 전자 부품과 상단 외벽을 안정적으로 고정하기 위한 하단 프레임 역할을 함
 
-![하단부](3D_print_image/image.png)
+![하단부](image/image.png)
 
 ---
 
@@ -22,7 +22,7 @@
 상단을 감싸는 외벽 파트 중 하나  
 조립식 구조를 위해 여러 조각으로 분할하여 출력함
 
-![상단 외벽1](3D_print_image/image-1.png)
+![상단 외벽1](image/image-1.png)
 
 ---
 
@@ -31,7 +31,7 @@
 외벽의 다른 면을 구성하는 파트  
 하단부와 결합되어 전체 외형을 형성함 
 
-![상단 외벽2](3D_print_image/image-2.png)
+![상단 외벽2](image/image-2.png)
 
 ---
 
@@ -40,7 +40,7 @@
 상단 외벽의 마지막 파트  
 조립 시 전체 외벽이 하나의 구조로 이어지도록 설계됨
 
-![상단 외벽3](3D_print_image/image-3.png)
+![상단 외벽3](image/image-3.png)
 
 ---
 
@@ -49,7 +49,7 @@
 외부 전원 및 센서 배선을 통과시키기 위한 홀  
 조립 후에도 배선 정리가 가능하도록 위치를 고려해 설계함  
 
-![배선 연결 구멍](3D_print_image/image-4.png)
+![배선 연결 구멍](image/image-4.png)
 
 ---
 
@@ -58,7 +58,7 @@
 상단에 부착되는 LCD 화면 파트  
 정보 표시 및 UI 출력을 위한 위치로 설계됨
 
-![LCD 화면](3D_print_image/image-5.png)
+![LCD 화면](image/image-5.png)
 
 ---
 
@@ -67,7 +67,7 @@
 LCD를 지지하고 고정하기 위한 하단 구조물  
 화면 흔들림을 방지하고 안정적으로 결합되도록 설계함
 
-![LCD 화면 하단부](3D_print_image/image-6.png)
+![LCD 화면 하단부](image/image-6.png)
 
 ---
 
@@ -76,7 +76,7 @@ LCD를 지지하고 고정하기 위한 하단 구조물
 LCD를 보호하는 덮개와  
 카메라 장착을 동시에 고려한 상단 커버 파트
 
-![LCD 덮개 및 카메라 부착](3D_print_image/image-7.png)
+![LCD 덮개 및 카메라 부착](image/image-7.png)
 
 ---
 
@@ -85,5 +85,5 @@ LCD를 보호하는 덮개와
 모든 파트를 조립했을 때의 전체 예상 형태  
 센서, LCD, 카메라가 결합된 최종 외형을 확인할 수 있음
 
-![예상 모습1](3D_print_image/image-8.png)
-![예상 모습2](3D_print_image/image-9.png)
+![예상 모습1](image/image-8.png)
+![예상 모습2](image/image-9.png)
