@@ -31,10 +31,11 @@ class TimelapseRepository:
         """타임랩스 사진 정보 DB 저장"""
         self.db.add(timelapse)
         await self.db.flush()
+        await self.db.commit()  # <-- Commit added to persist data
         await self.db.refresh(timelapse)
         return timelapse
     
     async def delete_timelapse(self, timelapse: PlantTimelapse) -> None:
         """타임랩스 사진 정보 DB 삭제"""
         await self.db.delete(timelapse)
-        # flush는 service layer에서 commit할 때 처리됨
+        await self.db.commit()  # <-- Commit added to persist deletion
