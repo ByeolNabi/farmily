@@ -3,7 +3,7 @@ import jwt
 import datetime
 
 # Configuration
-BASE_URL = "http://localhost:8000/api/v1/auth/backdoor"
+BASE_URL = "http://i14d101.p.ssafy.io:8081/api/v1/auth/backdoor"
 SECRET_KEY = "your-super-secret-key-change-in-production" 
 
 def test_backdoor():
