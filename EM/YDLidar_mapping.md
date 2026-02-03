@@ -87,6 +87,31 @@ Node(
 )
 ```
 
+### Step 4: 맵 저장 (Map Saving)
+
+SLAM으로 그려진 지도를 추후 Nav2(자율주행)에서 사용하기 위해 파일로 저장했다.
+
+1. 맵 세이버 패키지 설치
+
+```Bash
+sudo apt install ros-humble-nav2-map-server
+```
+
+2. 저장 명령어 실행 SLAM이 실행 중인 상태에서 새 터미널을 열고, maps 디렉토리를 생성하여 저장했다.
+
+```Bash
+mkdir maps
+cd maps
+# 사용법: ros2 run nav2_map_server map_saver_cli -f [파일명]
+ros2 run nav2_map_server map_saver_cli -f my_room_map
+```
+
+3. 결과 파일
+
+- my_room_map.pgm: 지도의 실제 이미지 파일 (Occupancy Grid).
+
+- my_room_map.yaml: 지도의 해상도, 원점 좌표 등을 담은 메타데이터 파일.
+
 ## 4. 트러블슈팅 (Troubleshooting)
 
 Issue 1: 맵이 처음에만 뜨고 업데이트가 안 됨
