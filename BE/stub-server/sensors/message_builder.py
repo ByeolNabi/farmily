@@ -43,6 +43,20 @@ class MessageBuilder:
             }
         }, ensure_ascii=False)
 
+    def create_control_light(self, state, duration_sec=None):
+        """조명 제어 명령 생성"""
+        params = {"state": state}
+        if duration_sec is not None:
+            params["duration_sec"] = duration_sec
+            
+        return json.dumps({
+            "header": self._create_header("command"),
+            "payload": {
+                "cmd": "CONTROL_LIGHT",
+                "params": params
+            }
+        }, ensure_ascii=False)
+
 # --- 사용 예시 (Raspi - SmartFarm) ---
 farm_builder = MessageBuilder(device_id="Raspi_SmartFarm_01")
 
