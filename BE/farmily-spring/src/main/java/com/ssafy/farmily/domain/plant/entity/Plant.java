@@ -43,6 +43,13 @@ public class Plant {
     @Column(name = "love_temperature", precision = 5, scale = 2, nullable = false)
     private BigDecimal loveTemperature = BigDecimal.ZERO;  // 애착점수 (초기값 0)
 
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @Column(name = "station_point", length = 255)
+    private String stationPoint;
+
+
     @Column(name = "started_at")
     private LocalDateTime startedAt;
 
@@ -70,5 +77,6 @@ public class Plant {
         if (this.loveTemperature == null) {
             this.loveTemperature = BigDecimal.ZERO;
         }
+        this.isActive = true; // 기본값 true
     }
 }
