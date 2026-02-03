@@ -1,9 +1,12 @@
 import paho.mqtt.client as mqtt
 import time
 import sys
-import uuid
-from datetime import datetime
+import io
 from message_builder import MessageBuilder
+
+# Windows 터미널 한글 깨짐 방지
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # --- 설정 정보 ---
 BROKER_HOST = "i14d101.p.ssafy.io"
@@ -18,13 +21,19 @@ TOPIC_SENSOR = "farmily/raspi/sensor/all"
 TOPIC_JETSON = "farmily/jetson/lidar/pos"
 
 # --- MQTT 연결 설정 ---
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
         print(f"\n✅ MQTT 브로커 연결 성공! ({BROKER_HOST}:{BROKER_PORT})")
     else:
         print(f"\n❌ 연결 실패 (코드: {rc})")
 
-client = mqtt.Client(transport=TRANSPORT)
+# Paho MQTT v2.0 이상 대응 (CallbackAPIVersion 명시)
+try:
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, transport=TRANSPORT)
+except AttributeError:
+    # 이전 버전 대응
+    client = mqtt.Client(transport=TRANSPORT)
+
 client.tls_set()
 client.ws_set_options(path=PATH)
 client.on_connect = on_connect
@@ -39,9 +48,9 @@ except Exception as e:
 client.loop_start()
 
 # --- 빌더 인스턴스 ---
-# 용도별로 device_id를 다르게 설정하거나, 공통으로 사용해도 됨
+# 사용자가 보낸 예시 코드의 device_id 반영
 builder_raspi = MessageBuilder(device_id="raspi_sensors")
-builder_station = MessageBuilder(device_id="raspi_station")
+builder_station = MessageBuilder(device_id="raspi_station_led")
 builder_jetson = MessageBuilder(device_id="jetson_lidar")
 
 
@@ -51,10 +60,10 @@ def send_mqtt(topic, message, desc=""):
     info = client.publish(topic, message)
     info.wait_for_publish()
     if info.rc == mqtt.MQTT_ERR_SUCCESS:
-        print(f"📤 [전송] {desc}")
-        # print(f"   └ Topic: {topic}")
+        print(f"📤 [전송 완료] {desc}")
+        print(f"📄 내용: {message}")
     else:
-        print(f"❌ [실패] {desc}")
+        print(f"❌ [전송 실패] {desc}")
 
 def menu_events():
     while True:

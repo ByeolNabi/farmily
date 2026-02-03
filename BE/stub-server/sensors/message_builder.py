@@ -44,13 +44,16 @@ class MessageBuilder:
         }, ensure_ascii=False)
 
     def create_control_light(self, state, duration_sec=None):
-        """조명 제어 명령 생성"""
+        """조명 제어 명령 생성 (사용자 요청 형식 일치)"""
         params = {"state": state}
         if duration_sec is not None:
             params["duration_sec"] = duration_sec
             
         return json.dumps({
-            "header": self._create_header("command"),
+            "header": {
+                "type": "command",
+                "device_id": self.device_id
+            },
             "payload": {
                 "cmd": "CONTROL_LIGHT",
                 "params": params
