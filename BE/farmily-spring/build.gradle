@@ -54,6 +54,14 @@ dependencies {
 	// 3. Swagger (API 문서화)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4'
 
+
+	// 6. 유효성 검사 (Validation)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 7. MQTT & Integration
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	implementation 'org.springframework.integration:spring-integration-mqtt'
+	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 }
 
 tasks.named('test') {

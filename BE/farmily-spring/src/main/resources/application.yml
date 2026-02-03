@@ -45,3 +45,15 @@ server:
 farmily:
   device:
     api-key: ${DEVICE_API_KEY}
+
+  # MQTT 설정
+  mqtt:
+    # 기본값: 로컬(mosquitto), EC2는 환경변수로 덮어씀
+    broker-url: tcp://${MQTT_HOST:mosquitto}:${MQTT_PORT:1883}
+    client-id: farmily-spring-server
+    topic: robot/weather
+
+  # 날씨 API
+  weather:
+    api-key: ${OPENWEATHER_API_KEY}
+    url: https://api.openweathermap.org/data/2.5/weather
