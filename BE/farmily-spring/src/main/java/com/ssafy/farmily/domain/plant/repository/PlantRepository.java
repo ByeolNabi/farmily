@@ -13,4 +13,9 @@ public interface PlantRepository extends JpaRepository<Plant, Long> {
      * 사용자 ID로 식물 조회 (여러 개 있을 수 있음)
      */
     Optional<Plant> findByUserId(Long userId);
+
+    /**
+     * 활성화된 모든 식물 조회 (스케줄러용)
+     */
+    java.util.List<Plant> findByIsActiveTrue();
 }
