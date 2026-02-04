@@ -32,13 +32,33 @@ class RefPlantSpeciesDetailResponse(RefPlantSpeciesBase):
         if v is None:
             return None
         
-        # Check for psycopg2/SQLAlchemy Range object attributes
-        # Postgres int4range is canonically [ ) (inclusive lower, exclusive upper)
+        # 1. Handle string format like "[18, 29)" or "[18, 28]"
+        if isinstance(v, str):
+            try:
+                # Remove brackets/parentheses and split by comma
+                cleaned = v.strip()[1:-1]
+                parts = [p.strip() for p in cleaned.split(',')]
+                if len(parts) != 2:
+                    return None
+                
+                lower = int(parts[0])
+                upper = int(parts[1])
+                
+                # Handle inclusive/exclusive upper bound
+                # [18, 29) -> 18 to 28
+                # [18, 28] -> 18 to 28
+                if v.strip().endswith(')'):
+                    upper = upper - 1
+                
+                return {"min": lower, "max": upper}
+            except (ValueError, IndexError):
+                return None
+
+        # 2. Fallback for object with lower/upper attributes (psycopg2 Range)
         lower = getattr(v, 'lower', None)
         upper = getattr(v, 'upper', None)
         
         if lower is not None and upper is not None:
-            # Convert exclusive upper bound to inclusive max for UI
             return {"min": lower, "max": upper - 1}
             
         return v

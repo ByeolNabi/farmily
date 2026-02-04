@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional, List, TYPE_CHECKING
-from sqlalchemy import BigInteger, String, Text, Integer, Boolean, ForeignKey, text, func
+from decimal import Decimal
+from sqlalchemy import BigInteger, String, Text, Integer, Boolean, ForeignKey, text, func, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from geoalchemy2 import Geometry
 from app.core.database import Base
@@ -33,10 +34,10 @@ class Plant(Base):
     profile_image_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     health_status: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     health_checked_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
-    love_temperature: Mapped[int] = mapped_column(Integer, server_default=text("0"), nullable=False)
+    love_temperature: Mapped[Decimal] = mapped_column(Numeric(5, 2), server_default=text("0"), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, server_default=text("true"), nullable=True)
-    # Using SRID 0 as defined in db_init.sql
-    station_point = mapped_column(Geometry("POINT", srid=0), nullable=True)
+    # Using String to match Spring Boot's behavior (WKT format or "lat,lon")
+    station_point: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     started_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
     ended_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)

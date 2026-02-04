@@ -7,12 +7,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
-from geoalchemy2.functions import ST_X, ST_Y
 
 from app.core.database import get_db
 from app.models.plant import Plant
 from app.models.reference import RefPlantSpecies
 from app.mqtt.config import MVP_USER_ID
+from loguru import logger
 
 router = APIRouter(prefix="/internal", tags=["internal"])
 
@@ -58,21 +58,35 @@ async def get_plant_config(db: AsyncSession = Depends(get_db)):
     if not row:
         raise HTTPException(status_code=404, detail="No active plant found for user")
     
-    # Extract station coordinates from PostGIS point
+    # Extract station coordinates from String (WKT or "lat,lon")
     station_x = None
     station_y = None
     
-    if row.station_point is not None:
-        # Extract x, y from geometry
-        coord_stmt = select(
-            ST_X(Plant.station_point).label("x"),
-            ST_Y(Plant.station_point).label("y")
-        ).where(Plant.id == row.id)
-        coord_result = await db.execute(coord_stmt)
-        coord_row = coord_result.first()
-        if coord_row:
-            station_x = coord_row.x
-            station_y = coord_row.y
+    point_str = row.station_point
+    if point_str:
+        try:
+            point_str = point_str.strip()
+            # Case A: WKT "POINT(x y)"
+            if point_str.upper().startswith("POINT"):
+                # Extract content inside parentheses
+                start = point_str.find("(")
+                end = point_str.find(")")
+                if start != -1 and end != -1:
+                    wkt_content = point_str[start+1:end].strip()
+                    parts = wkt_content.split()
+                    if len(parts) >= 2:
+                        station_x = float(parts[0])
+                        station_y = float(parts[1])
+            
+            # Case B: "x,y" or "lat,lon"
+            elif "," in point_str:
+                parts = point_str.split(",")
+                if len(parts) >= 2:
+                    station_x = float(parts[0].strip())
+                    station_y = float(parts[1].strip())
+                    
+        except Exception as e:
+            logger.warning(f"[InternalAPI] Failed to parse station_point '{point_str}': {e}")
     
     return PlantConfigResponse(
         user_id=MVP_USER_ID,

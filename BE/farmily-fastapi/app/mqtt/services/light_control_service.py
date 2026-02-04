@@ -74,7 +74,6 @@ class LightControlService:
         from app.core.database import AsyncSessionLocal
         from app.models.plant import Plant
         from app.models.reference import RefPlantSpecies
-        from geoalchemy2.functions import ST_X, ST_Y
         
         try:
             async with AsyncSessionLocal() as db:
@@ -99,21 +98,36 @@ class LightControlService:
                 row = result.first()
                 
                 if row:
-                    # Extract coordinates
+                    # Extract coordinates from String (WKT or "lat,lon")
                     station_x = None
                     station_y = None
                     
-                    if row.station_point is not None:
-                        coord_stmt = select(
-                            ST_X(Plant.station_point).label("x"),
-                            ST_Y(Plant.station_point).label("y")
-                        ).where(Plant.id == row.id)
-                        coord_result = await db.execute(coord_stmt)
-                        coord_row = coord_result.first()
-                        if coord_row:
-                            station_x = coord_row.x
-                            station_y = coord_row.y
+                    point_str = row.station_point
+                    if point_str:
+                        try:
+                            point_str = point_str.strip()
+                            # Case A: WKT "POINT(x y)"
+                            if point_str.upper().startswith("POINT"):
+                                # Extract content inside parentheses
+                                start = point_str.find("(")
+                                end = point_str.find(")")
+                                if start != -1 and end != -1:
+                                    wkt_content = point_str[start+1:end].strip()
+                                    parts = wkt_content.split()
+                                    if len(parts) >= 2:
+                                        station_x = float(parts[0])
+                                        station_y = float(parts[1])
                             
+                            # Case B: "x,y" or "lat,lon"
+                            elif "," in point_str:
+                                parts = point_str.split(",")
+                                if len(parts) >= 2:
+                                    station_x = float(parts[0].strip())
+                                    station_y = float(parts[1].strip())
+                                    
+                        except Exception as e:
+                            logger.warning(f"[LightControl] Failed to parse station_point '{point_str}': {e}")
+
                     self._plant_config = {
                         "user_id": MVP_USER_ID,
                         "plant_id": row.id,
