@@ -112,40 +112,127 @@ def menu_controls():
             print("⚠️ 잘못된 선택")
 
 def menu_scenarios():
+
     while True:
+
         print("\n--- [3] 시나리오 테스트 (Simulation) ---")
+
         print("1. 🌙 낮은 조도 데이터 전송 (500 lux)")
+
         print("2. ☀️ 높은 조도 데이터 전송 (10000 lux)")
+
         print("3. 🚗 로봇 이동 (Station과 멀리)")
+
         print("4. 🏠 로봇 도착 (Station 근처)")
+
+        print("5. 🔄 시나리오 자동 실행 (낮은 조도 → 로봇 도착)")
+
         print("b. 🔙 뒤로가기")
+
         choice = input("선택 > ").strip().lower()
 
+
+
         if choice == '1':
+
             data = {"temperature": 25.0, "humidity": 60.0, "illuminance": 500.0, "soil_moisture": 45.0}
+
             msg = builder_raspi.create_telemetry(data)
+
             send_mqtt(TOPIC_SENSOR, msg, "Sensor: Low Light (500 lux)")
+
         elif choice == '2':
+
             data = {"temperature": 25.0, "humidity": 60.0, "illuminance": 10000.0, "soil_moisture": 45.0}
+
             msg = builder_raspi.create_telemetry(data)
+
             send_mqtt(TOPIC_SENSOR, msg, "Sensor: High Light (10000 lux)")
+
         elif choice == '3':
+
             data = {
+
                 "device_id": "farmily", "x": 10.0, "y": 10.0, "theta": 0.0,
+
                 "map_id": "ssafy_room_A", "timestamp": time.time()
+
             }
+
             msg = builder_jetson.create_telemetry(data)
+
             send_mqtt(TOPIC_JETSON, msg, "Robot: Far (10, 10)")
+
         elif choice == '4':
+
             data = {
+
                 "device_id": "farmily", "x": 0.1, "y": 0.1, "theta": 0.0,
+
                 "map_id": "ssafy_room_A", "timestamp": time.time()
+
             }
+
             msg = builder_jetson.create_telemetry(data)
+
             send_mqtt(TOPIC_JETSON, msg, "Robot: Arrived (0.1, 0.1)")
+
+        elif choice == '5':
+
+            print("\n🔄 시나리오 자동 실행 시작")
+
+            print("="*40)
+
+            
+
+            # Step 1: 낮은 조도 데이터 여러 번 전송
+
+            print("\n[Step 1] 낮은 조도 데이터 전송 (3회, 1초 간격)")
+
+            for i in range(3):
+
+                data = {"temperature": 25.0, "humidity": 60.0, "illuminance": 500.0, "soil_moisture": 45.0}
+
+                msg = builder_raspi.create_telemetry(data)
+
+                send_mqtt(TOPIC_SENSOR, msg, f"Sensor: Low Light ({i+1}/3)")
+
+                time.sleep(1)
+
+            
+
+            print("\n[Step 2] 로봇 귀환 중 위치 전송")
+
+            data = {"device_id": "farmily", "x": 5.0, "y": 5.0, "theta": 0.0, "map_id": "ssafy_room_A", "timestamp": time.time()}
+
+            msg = builder_jetson.create_telemetry(data)
+
+            send_mqtt(TOPIC_JETSON, msg, "Robot: Moving (5, 5)")
+
+            time.sleep(1)
+
+            
+
+            print("\n[Step 3] 로봇 Station 도착")
+
+            data = {"device_id": "farmily", "x": 0.1, "y": 0.1, "theta": 0.0, "map_id": "ssafy_room_A", "timestamp": time.time()}
+
+            msg = builder_jetson.create_telemetry(data)
+
+            send_mqtt(TOPIC_JETSON, msg, "Robot: Arrived (0.1, 0.1)")
+
+            
+
+            print("\n✅ 시나리오 완료!")
+
+
+
         elif choice == 'b':
+
             break
+
         else:
+
             print("⚠️ 잘못된 선택")
 
 # --- 메인 루프 ---

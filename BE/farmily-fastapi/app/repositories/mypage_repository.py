@@ -41,24 +41,24 @@ class MypageRepository:
         
         # 기본값으로 초기화
         stats = {
-            "petting_count": 0,
-            "watering_count": 0,
-            "talking_count": 0,
-            "praising_count": 0,
+            "touch_count": 0,
+            "water_count": 0,
+            "talk_count": 0,
+            "praise_count": 0,
             "diary_count": 0,
         }
         
         # DB에서 가져온 값으로 업데이트
         for count in counts:
-            if count.activity_type == PlantActionType.petting:
-                stats["petting_count"] = count.total_count or 0
-            elif count.activity_type == PlantActionType.watering:
-                stats["watering_count"] = count.total_count or 0
-            elif count.activity_type == PlantActionType.talking:
-                stats["talking_count"] = count.total_count or 0
-            elif count.activity_type == PlantActionType.praising:
-                stats["praising_count"] = count.total_count or 0
-            elif count.activity_type == PlantActionType.diary:
+            if count.activity_type == PlantActionType.TOUCH:
+                stats["touch_count"] = count.total_count or 0
+            elif count.activity_type == PlantActionType.WATER:
+                stats["water_count"] = count.total_count or 0
+            elif count.activity_type == PlantActionType.TALK:
+                stats["talk_count"] = count.total_count or 0
+            elif count.activity_type == PlantActionType.PRAISE:
+                stats["praise_count"] = count.total_count or 0
+            elif count.activity_type == PlantActionType.DIARY:
                 stats["diary_count"] = count.total_count or 0
         
         return stats
