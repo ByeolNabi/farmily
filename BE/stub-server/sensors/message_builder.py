@@ -60,6 +60,16 @@ class MessageBuilder:
             }
         }, ensure_ascii=False)
 
+    def create_v2_command(self, cmd, params):
+        """범용 명령 메시지 생성 (cmd, params 구조)"""
+        return json.dumps({
+            "header": self._create_header("command"),
+            "payload": {
+                "cmd": cmd,
+                "params": params
+            }
+        }, ensure_ascii=False)
+
 # --- 사용 예시 (Raspi - SmartFarm) ---
 farm_builder = MessageBuilder(device_id="Raspi_SmartFarm_01")
 

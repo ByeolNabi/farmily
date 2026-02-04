@@ -52,6 +52,7 @@ client.loop_start()
 builder_raspi = MessageBuilder(device_id="raspi_sensors")
 builder_station = MessageBuilder(device_id="raspi_station_led")
 builder_jetson = MessageBuilder(device_id="jetson_lidar")
+builder_unity = MessageBuilder(device_id="unity_display")
 
 
 # --- 기능 함수들 ---
@@ -235,6 +236,62 @@ def menu_scenarios():
 
             print("⚠️ 잘못된 선택")
 
+def menu_unity():
+    while True:
+        print("\n--- [4] 유니티 제어 (Unity) ---")
+        print("1. 🌦️ 날씨 변경 (UPDATE_WEATHER)")
+        print("2. 🌱 상태/행동 변경 (UPDATE_CONDITION)")
+        print("b. 🔙 뒤로가기")
+        choice = input("선택 > ").strip().lower()
+
+        if choice == '1':
+            print("\n 날씨 선택:")
+            print("1. ☀️ SUNNY")
+            print("2. 🌧️ RAINY")
+            print("3. ☁️ CLOUDY")
+            w_choice = input("선택 > ").strip()
+            weather_map = {'1': 'SUNNY', '2': 'RAINY', '3': 'CLOUDY'}
+            
+            if w_choice in weather_map:
+                weather = weather_map[w_choice]
+                msg = builder_unity.create_v2_command("UPDATE_WEATHER", {"weather": weather})
+                send_mqtt(TOPIC_COMMAND, msg, f"Weather -> {weather}")
+            else:
+                print("⚠️ 잘못된 선택")
+
+        elif choice == '2':
+            print("\n 상태(State) 선택:")
+            print("1. 🙂 HEALTHY")
+            print("2. 🤒 SICK")
+            print("3. 🥵 THIRSTY")
+            s_choice = input("선택 > ").strip()
+            state_map = {'1': 'HEALTHY', '2': 'SICK', '3': 'THIRSTY'}
+            
+            print("\n 이벤트(Event) 선택:")
+            print("1. 💧 WATER")
+            print("2. 👋 TOUCH")
+            print("3. ❌ NONE (이벤트 없음)")
+            e_choice = input("선택 > ").strip()
+            event_map = {'1': 'WATER', '2': 'TOUCH', '3': None}
+
+            if s_choice in state_map and e_choice in event_map:
+                state = state_map[s_choice]
+                event = event_map[e_choice]
+                params = {"state": state}
+                if event:
+                    params["event"] = event
+                
+                msg = builder_unity.create_v2_command("UPDATE_CONDITION", params)
+                desc = f"Condition -> State: {state}" + (f", Event: {event}" if event else "")
+                send_mqtt(TOPIC_COMMAND, msg, desc)
+            else:
+                print("⚠️ 잘못된 선택")
+
+        elif choice == 'b':
+            break
+        else:
+            print("⚠️ 잘못된 선택")
+
 # --- 메인 루프 ---
 try:
     time.sleep(1) # 연결 대기
@@ -245,6 +302,7 @@ try:
         print("1. 🔥 이벤트 발생 (물, 터치)")
         print("2. 💡 장치 제어 (조명)")
         print("3. 🧪 시나리오 시뮬레이션")
+        print("4. 🎮 유니티 제어")
         print("q. ❌ 종료")
         print("-" * 30)
         
@@ -256,6 +314,8 @@ try:
             menu_controls()
         elif main_choice == '3':
             menu_scenarios()
+        elif main_choice == '4':
+            menu_unity()
         elif main_choice == 'q':
             print("\n👋 종료합니다.")
             break
