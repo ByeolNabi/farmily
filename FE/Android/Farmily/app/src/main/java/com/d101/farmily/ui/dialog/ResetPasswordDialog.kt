@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -46,7 +45,6 @@ fun ResetPasswordDialog(
     onConfirm: (email : String, code : String, new : String) -> Unit // 이메일과 새 비밀번호 전달
 ) {
     var email by remember { mutableStateOf("") }
-    var authCode by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
@@ -55,7 +53,6 @@ fun ResetPasswordDialog(
 
     // 모든 조건이 충족되어야 '재설정' 버튼 활성화
     val isReady = email.isNotEmpty() &&
-            authCode.isNotEmpty() &&
             newPassword.isNotEmpty() &&
             newPassword == confirmPassword
 
@@ -147,8 +144,6 @@ fun ResetPasswordDialog(
 
                 }
 
-                Divider(modifier = Modifier.padding(vertical = 8.dp), color = Color.LightGray)
-
                 // 3. 새 비밀번호 입력
                 PasswordField(
                     value = newPassword,
@@ -177,7 +172,7 @@ fun ResetPasswordDialog(
 
                     Button(
                         onClick = { onGetVerify(email) },
-                        enabled = isReady,
+                        enabled = email.isNotEmpty(),
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp)
                     ) {

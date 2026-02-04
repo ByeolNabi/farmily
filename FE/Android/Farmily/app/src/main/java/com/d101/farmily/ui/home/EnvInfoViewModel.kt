@@ -17,14 +17,14 @@ class EnvInfoViewModel : ViewModel() {
 
     fun startMqtt() {
 
-        try {
-            if (mqttClient.state.isConnectedOrReconnect) {
-                Log.d("MQTT", "기존 연결 발견! 재연결을 위해 끊습니다.")
-                mqttClient.disconnect()
-            }
-        } catch (e: Exception) {
-            Log.e("MQTT", "연결 확인 중 에러: ${e.message}")
-        }
+//        try {
+//            if (mqttClient.state.isConnectedOrReconnect) {
+//                Log.d("MQTT", "기존 연결 발견! 재연결을 위해 끊습니다.")
+//                mqttClient.disconnect()
+//            }
+//        } catch (e: Exception) {
+//            Log.e("MQTT", "연결 확인 중 에러: ${e.message}")
+//        }
 
         client.connect().whenComplete { connAck, throwable ->
             if (throwable != null) {
@@ -47,7 +47,7 @@ class EnvInfoViewModel : ViewModel() {
             .topicFilter("farmily/raspi/sensor/all")
             .callback { publish ->
                 val payload = String(publish.payloadAsBytes)
-
+                Log.d("MQTT", "Raw Payload: $payload")
                 try {
                     val data: MqttResponse = jsonParser.decodeFromString(payload)
 
@@ -55,6 +55,8 @@ class EnvInfoViewModel : ViewModel() {
                     _envInfoList.value = data.payload.toEnvInfoList()
 
                 } catch (e: Exception) {
+
+                    Log.d("MQTT", "subscribeToTopic: ${e}")
                 }
 
 
@@ -65,7 +67,7 @@ class EnvInfoViewModel : ViewModel() {
 
                     Log.d("MQTT", "subscribeToTopic: failed ${throwable} + ${subAck}")
                 } else {
-                    Log.d("MQTT", "subscribeToTopic:  ${subAck}")
+                    Log.d("MQTT", "subscribeToTopic: 구독 성공했습니다.  ${subAck}")
                 }
             }
     }
