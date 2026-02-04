@@ -7,6 +7,8 @@ import com.ssafy.farmily.domain.plant.repository.PlantDiaryRepository;
 import com.ssafy.farmily.domain.plant.repository.PlantRepository;
 import com.ssafy.farmily.domain.user.entity.User;
 import com.ssafy.farmily.domain.user.repository.UserRepository;
+import com.ssafy.farmily.global.exception.AccessDeniedException;
+import com.ssafy.farmily.global.exception.ErrorCode;
 import com.ssafy.farmily.global.util.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -203,7 +205,7 @@ public class DiaryService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 식물을 찾을 수 없습니다."));
 
         if (!plant.getUserId().equals(user.getId())) {
-            throw new SecurityException("해당 식물에 대한 접근 권한이 없습니다.");
+            throw new AccessDeniedException(ErrorCode.PLANT_ACCESS_DENIED);
         }
     }
 

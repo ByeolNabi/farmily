@@ -59,9 +59,12 @@ public class DiaryController {
 
             @Parameter(description = "일기 본문 내용", required = true) @RequestParam("content") String content,
 
-            @Parameter(description = "기록 시점 (ISO 8601)", required = true) @RequestParam("happened_at") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime happenedAt,
+            @Parameter(description = "기록 시점 (ISO 8601, 없으면 현재 시간)") @RequestParam(value = "happened_at", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime happenedAt,
 
             @Parameter(description = "식물 ID", required = true) @RequestParam("plant_id") Long plantId) {
+        if (happenedAt == null) {
+            happenedAt = LocalDateTime.now();
+        }
         String email = authUtil.getCurrentEmail();
         DiaryCreateResponse response = diaryService.createDiary(email, plantId, content, happenedAt, image);
         return ResponseEntity.ok(response);
