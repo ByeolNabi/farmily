@@ -63,4 +63,9 @@ public class User {
         this.password = password;
         this.name = name;
     }
+
+    public void updateFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
