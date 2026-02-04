@@ -55,7 +55,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -64,7 +63,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d101.farmily.R
 import com.d101.farmily.base.ApplicationClass
-import com.d101.farmily.data.remote.model.AchievInfo
 import com.d101.farmily.data.remote.model.Auth
 import com.d101.farmily.data.remote.model.StatInfo
 import com.d101.farmily.ui.component.AchievBox
@@ -90,7 +88,7 @@ fun UserInfoScreen(
 
     val currentPasswordInvalid by userInfoViewModel.currentPasswordInvalid.collectAsState()
 
-    val affection by remember { mutableStateOf(77) }
+    val affection by userInfoViewModel.affection.collectAsState()
 
     var relationShip : String = when {
         (affection < 30) -> "어색한 사이"
@@ -123,13 +121,13 @@ fun UserInfoScreen(
         StatInfo("만난 지", "${interactions.daysTogether}")
     )
 
-    val achievements = listOf(
-        AchievInfo("첫 접촉", "fst"),
-        AchievInfo("첫 추억", "fca"),
-        AchievInfo("첫 식사", "fwa"),
-        AchievInfo("첫 대화", "fch"),
-        AchievInfo("첫 만남", "fme")
-    )
+    val achievements by userInfoViewModel.achievementList.collectAsState()
+
+    LaunchedEffect(Unit) {
+
+        userInfoViewModel.getAffection()
+        userInfoViewModel.getAchievements()
+    }
 
     LaunchedEffect(withdrawal) {
 
@@ -203,7 +201,7 @@ fun UserInfoScreen(
                                 modifier = Modifier.size(20.dp))
 
                             LinearProgressIndicator(
-                                progress = {0.77f},
+                                progress = {affection/100},
                                 modifier = Modifier
                                     .fillMaxHeight()
                                     .weight(1f)
@@ -211,7 +209,7 @@ fun UserInfoScreen(
                             )
 
                             Text(
-                                text = "77",
+                                text = "${affection.toInt()}",
                                 style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier
                                     .padding(start = 8.dp)
@@ -256,24 +254,55 @@ fun UserInfoScreen(
                 color = middleGreen)
 
 
-
-            LazyRow(
+            // 3 * 2 로 변경하자 그거 알자나
+//            LazyVerticalGrid(
+//                columns = GridCells.Fixed(3),
+//                //verticalArrangement = Arrangement.spacedBy(8.dp),
+//                //horizontalArrangement = Arrangement.spacedBy(8.dp),
+//                modifier = Modifier.fillMaxWidth()
+//                    .background(Color.White, RoundedCornerShape(24.dp))
+//                    .padding(horizontal = 8.dp)
+//            ) {
+//                items(achievements.toList()) { it ->
+//
+//                    AchievBox(
+//                        context,
+//                        item = it
+//                    )
+//                }
+//            }
+            Column(
                 modifier = Modifier.fillMaxWidth()
                     .background(Color.White, RoundedCornerShape(24.dp))
                     .padding(horizontal = 8.dp)
-                ,
-               ) {
-                items(achievements) { item ->
-                    AchievBox(
-                        context,
-                        item = item,
+            ){
+                achievements.chunked(3).forEach { rowItems ->
+                    Row(
                         modifier = Modifier
-                            .fillParentMaxWidth(0.2f)
-                    )
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                        //.background(Color.Red)
+                        ,
+                    ) {
+                        rowItems.forEach { item ->
+                            AchievBox(
+                                context,
+                                item = item,
+                                modifier = Modifier
+                                    .weight(1f)
+                            )
+                        }
+
+                    }
                 }
             }
 
-            Text(text = "일반", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
+
+            Text(
+                text = "일반",
+                style = MaterialTheme.typography.bodySmall,
+                color = middleGreen
+            )
 
 
             SettingItemCard(
@@ -283,15 +312,19 @@ fun UserInfoScreen(
                 onClick = { navToPlantInfo()  }
             )
 
-            SettingItemCard(
-                icon = ImageVector.vectorResource(id = R.drawable.sparkles),
-                title = "아카이브",
-                subtitle = "별이 된 식물과의 추억",
-                onClick = { navToPlantInfo()  }
+//            SettingItemCard(
+//                icon = ImageVector.vectorResource(id = R.drawable.sparkles),
+//                title = "아카이브",
+//                subtitle = "별이 된 식물과의 추억",
+//                onClick = { navToPlantInfo()  }
+//            )
+
+
+            Text(
+                text = "계정",
+                style = MaterialTheme.typography.bodySmall,
+                color = middleGreen
             )
-
-
-            Text(text = "계정", style = MaterialTheme.typography.labelLarge, color = Color.Gray)
 
             ChangePasswordButton({userInfoViewModel.openChangePasswordDialog()})
 

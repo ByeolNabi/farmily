@@ -86,4 +86,7 @@ dependencies {
     implementation("io.netty:netty-handler:4.1.48.Final")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+    // Coil Compose (이미지 로딩 핵심 라이브러리)
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }

@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.d101.farmily.base.ApplicationClass
+import com.d101.farmily.data.remote.model.Achievement
 import com.d101.farmily.data.remote.model.Auth
 import com.d101.farmily.data.remote.model.User
 import com.d101.farmily.data.repository.LoginRepository
+import com.d101.farmily.data.repository.PlantRepository
 import com.d101.farmily.data.repository.UserInfoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 class UserInfoViewModel(
     private val userInfoRepository : UserInfoRepository = UserInfoRepository(),
     private val loginRepository: LoginRepository = LoginRepository(),
+    private val plantRepository: PlantRepository = PlantRepository()
 ) : ViewModel() {
 
     val userEmail = ApplicationClass.sharedPreferencesUtil.getUserEmail()!!
@@ -27,6 +30,12 @@ class UserInfoViewModel(
 
     private val _showPasswordChangeDialog = MutableStateFlow(false)
     val showPasswordChangeDialog : StateFlow<Boolean> = _showPasswordChangeDialog.asStateFlow()
+
+    private val _affection = MutableStateFlow(0.0f)
+    val affection : StateFlow<Float> = _affection.asStateFlow()
+
+    private val _achievementList = MutableStateFlow<MutableList<Achievement?>>(mutableListOf(null, null ,null, null, null, null))
+    val achievementList : StateFlow<MutableList<Achievement?>> = _achievementList.asStateFlow()
 
     fun withdraw(auth: Auth) {
 
@@ -82,4 +91,60 @@ class UserInfoViewModel(
         }
     }
 
+    fun getAffection() {
+
+        viewModelScope.launch {
+
+            plantRepository.getAffection(2)
+                .onSuccess {
+
+                    _affection.value = it.affection
+                    Log.d("Affection", "getAffection: success ")
+                }
+                .onFailure {
+
+                    Log.d("Affection", "getAffection: failed $it")
+                }
+        }
+    }
+
+    fun getAchievements() {
+
+        viewModelScope.launch {
+
+            plantRepository.getAchievements(2)
+                .onSuccess {
+
+                    it.forEach { it ->
+
+                        when(it?.actionType) {
+
+                            TOUCH -> _achievementList.value[0] = it
+                            WATER -> _achievementList.value[1] = it
+                            TALK -> _achievementList.value[2] = it
+                            COMPLI -> _achievementList.value[3] = it
+                            DIARY -> _achievementList.value[4] = it
+                            else -> _achievementList.value[5] = it
+                        }
+                    }
+
+                    Log.d("Achievement", "getAchievements: success ${it}, + ${_achievementList.value}")
+                }
+                .onFailure {
+
+                    Log.d("Achievement", "getAchievements: failed $it")
+                }
+        }
+    }
+
+
+    companion object {
+
+        val TOUCH = "TOUCH"
+        val WATER = "WATER"
+        val TALK = "TALK"
+        val COMPLI = "PRAISE"
+        val DIARY = "DIARY"
+        val ANNIV = "ANNIVERSARY"
+    }
 }
