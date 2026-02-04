@@ -5,7 +5,7 @@
 
 -- 1. Users (10명)
 INSERT INTO users (id, email, password, name, profile_image_url, fcm_token) VALUES
-(1, 'farmer1@farmily.com', 'hashed_password_123', '김농부', 'https://example.com/profiles/user1.jpg', 'fcm_token_1'),
+(1, 'test@test.com', '$2a$10$oVDDfzKWtsseayGBFeKP/.MB11rjeJrjsqHBOBmTM35ij6in/sOoy', '김농부', 'https://example.com/profiles/user1.jpg', 'fcm_token_1'),
 (2, 'gardener2@farmily.com', 'hashed_password_456', '이정원', 'https://example.com/profiles/user2.jpg', 'fcm_token_2'),
 (3, 'plant_lover@gmail.com', 'pwd_789', '박초록', 'https://example.com/profiles/user3.jpg', 'fcm_token_3'),
 (4, 'botanist_choi@naver.com', 'pwd_abc', '최연구', 'https://example.com/profiles/user4.jpg', 'fcm_token_4'),
