@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/diaries")
+@RequestMapping("/diaries")
 @Tag(name = "Diary", description = "성장 일기 API")
 public class DiaryController {
 
