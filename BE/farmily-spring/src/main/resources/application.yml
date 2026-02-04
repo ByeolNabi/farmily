@@ -1,4 +1,8 @@
 spring:
+  config:
+    activate:
+      on-profile: default # 기본 프로필 (로컬 개발용)
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -12,21 +16,23 @@ spring:
             enable: true
 
   datasource:
-    # [수정 핵심] 기본값을 'farmily-db' -> 'localhost'로 변경!
-    # 이유: 로컬에서 실행할 땐 터널(localhost)을 타야 하고,
-    #       Docker(배포)에서는 docker-compose가 이 값을 'farmily-db'로 덮어씌워 줍니다.
+    # [핵심]
+    # 로컬: SSH 터널을 통해 내 컴퓨터 5433 포트가 -> EC2 5432로 연결됨
+    # 배포: 환경변수가 주입되어 farmily-db 컨테이너로 연결됨
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/farmily_db}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   data:
     redis:
-      # Redis도 터널링 쓴다면 localhost, 아니면 로컬에 켜둔 Redis 사용
+      # 로컬: SSH 터널을 통해 내 컴퓨터 6379 -> EC2 6379
       host: ${SPRING_REDIS_HOST:localhost}
       port: ${SPRING_REDIS_PORT:6379}
 
   jpa:
     hibernate:
+      # 로컬에선 update로 편하게 쓰고, 운영에선 validate 등을 권장하지만 일단 update 유지
       ddl-auto: update
     show-sql: true
     properties:
@@ -46,14 +52,13 @@ farmily:
   device:
     api-key: ${DEVICE_API_KEY}
 
-  # MQTT 설정
   mqtt:
-    # 기본값: 로컬(mosquitto), EC2는 환경변수로 덮어씀
-    broker-url: tcp://${MQTT_HOST:mosquitto}:${MQTT_PORT:1883}
-    client-id: farmily-spring-server
+    # [핵심] Nginx를 통하지 않고 터널링으로 직접 1883 포트에 꽂습니다.
+    # Nginx가 80/443을 잡고 있어도, 1883은 별도 포트라 터널링에 문제없습니다.
+    broker-url: tcp://${MQTT_HOST:localhost}:${MQTT_PORT:1883}
+    client-id: farmily-spring-local # 로컬이랑 서버랑 ID 겹치면 끊길 수 있어서 구분 추천
     topic: robot/weather
 
-  # 날씨 API
   weather:
     api-key: ${OPENWEATHER_API_KEY}
     url: https://api.openweathermap.org/data/2.5/weather

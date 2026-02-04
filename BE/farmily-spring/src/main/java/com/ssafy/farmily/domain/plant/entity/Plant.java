@@ -40,6 +40,7 @@ public class Plant {
     @Column(name = "health_checked_at")
     private LocalDateTime healthCheckedAt;
 
+    @Builder.Default
     @Column(name = "love_temperature", precision = 5, scale = 2, nullable = false)
     private BigDecimal loveTemperature = BigDecimal.ZERO;  // 애착점수 (초기값 0)
 
