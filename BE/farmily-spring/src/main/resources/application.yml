@@ -62,3 +62,10 @@ farmily:
   weather:
     api-key: ${OPENWEATHER_API_KEY}
     url: https://api.openweathermap.org/data/2.5/weather
+
+  s3:
+    endpoint: ${S3_ENDPOINT:http://localhost:9000}
+    region: ${S3_REGION:us-east-1}
+    access-key: ${S3_ACCESS_KEY}
+    secret-key: ${S3_SECRET_KEY}
+    bucket-name: ${S3_BUCKET_NAME:farmily-s}

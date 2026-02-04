@@ -35,6 +35,7 @@ public class SecurityConfig {
                 // 인증 불필요 (공개)
                 .requestMatchers("/auth/**", "/error").permitAll()
                 .requestMatchers("/api/care/disease-alert").permitAll() // Jetson에서 호출
+                .requestMatchers("/api/test/**").permitAll() // S3 업로드 테스트용
                 
                 // 포인트, 뱃지, 애착 등급 API는 인증 필요 (JWT 또는 API Key)
                 .requestMatchers("/plants/*/points").authenticated()
