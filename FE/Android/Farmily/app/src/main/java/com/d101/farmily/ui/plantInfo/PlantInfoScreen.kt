@@ -1,5 +1,6 @@
 package com.d101.farmily.ui.plantInfo
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +29,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,8 +45,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d101.farmily.R
 import com.d101.farmily.base.ApplicationClass
+import com.d101.farmily.data.remote.Request.PlantInfoRequest
 import com.d101.farmily.ui.component.WideButton
 import com.d101.farmily.ui.login.ButtonWide
 import com.d101.farmily.ui.theme.borderGreen
@@ -57,12 +62,33 @@ fun PlantInfoScreen(
 
     val context = LocalContext.current
 
+    val plantInfoViewModel : PlantInfoViewModel = viewModel()
+
+    var plantSpeciesId by remember { mutableStateOf(-1) }
     var plantType by remember { mutableStateOf("") }
     var plantNickName by remember { mutableStateOf("") }
 
     var expanded by remember { mutableStateOf(false) }
 
     val OPTIONS = listOf("몬스테라", "장미", "다육이", "스투키", "상추")
+
+    val plantSpecies by plantInfoViewModel.plantSpecies.collectAsState()
+
+    LaunchedEffect(Unit) {
+
+        plantInfoViewModel.getPlantSpecies()
+        plantInfoViewModel.enrollSuccess.collect{
+            if(it) {
+                ApplicationClass.sharedPreferencesUtil.addPlantName(plantNickName)
+                ApplicationClass.sharedPreferencesUtil.addPlantType(plantType)
+
+                navToMain()
+            } else {
+
+                Toast.makeText(context, "식물 종류를 확인해 주세요", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -135,6 +161,7 @@ fun PlantInfoScreen(
                             value = plantType,
                             onValueChange = {
                                 plantType = it
+                                plantSpeciesId = -1
                             },
                             label = {
                                 Text(
@@ -175,11 +202,12 @@ fun PlantInfoScreen(
                                 .heightIn(max = 220.dp),
                             //offset = DpOffset(x = 0.dp, y = 10.dp)// 배경색은 보통 흰색 권장
                         ) {
-                            OPTIONS.forEach { option ->
+                            plantSpecies.forEach { option ->
                                 DropdownMenuItem(
-                                    text = { Text(option) },
+                                    text = { Text(option.name) },
                                     onClick = {
-                                        plantType = option // 선택한 값을 텍스트 필드에 넣기
+                                        plantType = option.name // 선택한 값을 텍스트 필드에 넣기
+                                        plantSpeciesId = option.id
                                         expanded = false
                                         }
                                 )
@@ -234,10 +262,22 @@ fun PlantInfoScreen(
                         if(plantType.isEmpty() || plantNickName.isEmpty()) {
 
                         } else {
-                            ApplicationClass.sharedPreferencesUtil.addPlantName(plantNickName)
-                            ApplicationClass.sharedPreferencesUtil.addPlantType(plantType)
 
-                            navToMain()
+                            if(plantSpeciesId == -1) {
+
+                                plantSpecies.forEach {
+                                    if (it.name == plantType) {
+                                        plantSpeciesId = it.id
+                                    }
+                                }
+                            }
+
+                            plantInfoViewModel.enrollPlant(
+                                PlantInfoRequest(
+                                    speciesId = plantSpeciesId,
+                                    nickname = plantNickName
+                                )
+                            )
                         }
 
 

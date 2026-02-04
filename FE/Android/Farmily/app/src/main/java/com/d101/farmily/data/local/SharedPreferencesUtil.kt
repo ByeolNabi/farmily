@@ -15,6 +15,7 @@ class SharedPreferencesUtil (context: Context) {
     val REFRESH_TOKEN = "refreshToken"
     val PLANT_NAME = "plantName"
     val PLANT_TYPE = "plantType"
+    val PLANT_ID = "plantId"
 
     val USER_EMAIL = "userEmail"
 
@@ -128,6 +129,22 @@ class SharedPreferencesUtil (context: Context) {
         preferences.edit { remove(PLANT_TYPE) }
     }
 
+    fun addPlantId(id : Int) {
+
+        preferences.edit {
+            putInt(PLANT_ID, id)
+        }
+    }
+
+    fun getPlantId() : Int? {
+
+        return preferences.getInt(PLANT_ID, 0)
+    }
+
+    fun deletePlantId() {
+        preferences.edit { remove(PLANT_ID) }
+    }
+
     fun addUserEmail(type : String) {
 
         preferences.edit {
@@ -146,9 +163,9 @@ class SharedPreferencesUtil (context: Context) {
 
     //add
 
-    //delete
-
     //get
+
+    //delete
 
     ////////////////
 }

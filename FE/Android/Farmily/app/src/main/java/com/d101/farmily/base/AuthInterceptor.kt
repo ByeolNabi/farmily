@@ -20,6 +20,15 @@ class AuthInterceptor: Interceptor  {
             //Log.d(TAG, "JWT 토큰 주입 완료")
         }
 
-        return chain.proceed(builder.build())
+        val response = chain.proceed(builder.build())
+
+        //return chain.proceed(builder.build())
+
+        if (response.code == 401) {
+            ApplicationClass.handleLogout()
+        }
+
+        return response
     }
+
 }
