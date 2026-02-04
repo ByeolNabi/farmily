@@ -137,4 +137,14 @@ public class UserService {
         User user = userRepository.findByEmail(email).orElseThrow();
         return jwtUtil.createToken(email, user.getId());
     }
+
+    /**
+     * FCM 토큰 업데이트
+     */
+    @Transactional
+    public void updateFcmToken(String email, String fcmToken) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        user.updateFcmToken(fcmToken);
+    }
 }

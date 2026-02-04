@@ -79,9 +79,20 @@ public class UserController {
         return Map.of("message", "비밀번호가 재설정되었습니다.");
     }
 
+    /**
+     * FCM 토큰 업데이트
+     */
+    @PutMapping("/api/user/fcm-token")
+    public Map<String, String> updateFcmToken(@RequestBody FcmTokenRequest request) {
+        String email = authUtil.getCurrentEmail();
+        userService.updateFcmToken(email, request.fcmToken());
+        return Map.of("message", "FCM 토큰이 업데이트되었습니다.");
+    }
+
     public record SignupRequest(String email, String password, String name) {}
     public record LoginRequest(String email, String password) {}
     public record PasswordChangeRequest(String newPassword) {}  // 로그인한 사용자의 비밀번호 변경
     public record PasswordResetRequest(String email, String code, String newPassword) {}  // 비밀번호 찾기 (이메일 인증)
     public record ReissueRequest(String email, String refreshToken) {}
+    public record FcmTokenRequest(String fcmToken) {}
 }
