@@ -67,7 +67,7 @@ class PlantActivityLog(Base):
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    type: Mapped[PlantActionType] = mapped_column(Enum(PlantActionType, name="plant_action_type"), nullable=False)
+    type: Mapped[PlantActionType] = mapped_column(String(20), nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
     
     # Relationships
@@ -86,7 +86,7 @@ class PlantActivityCounts(Base):
     plant_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("plant.id", ondelete="CASCADE"), nullable=False
     )
-    activity_type: Mapped[PlantActionType] = mapped_column(Enum(PlantActionType, name="plant_action_type"), nullable=False)
+    activity_type: Mapped[PlantActionType] = mapped_column(String(20), nullable=False)
     total_count: Mapped[Optional[int]] = mapped_column(Integer, default=0, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
 

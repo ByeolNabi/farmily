@@ -58,10 +58,10 @@ class MypageService:
         )
         
         activity_stats_schema = ActivityStatsSchema(
-            petting_count=activity_stats["petting_count"],
-            watering_count=activity_stats["watering_count"],
-            talking_count=activity_stats["talking_count"],
-            praising_count=activity_stats["praising_count"],
+            touch_count=activity_stats["touch_count"],
+            water_count=activity_stats["water_count"],
+            talk_count=activity_stats["talk_count"],
+            praise_count=activity_stats["praise_count"],
             diary_count=activity_stats["diary_count"],
         )
         

@@ -15,10 +15,10 @@ class PlantInfoSchema(BaseModel):
 
 class ActivityStatsSchema(BaseModel):
     """행위별 누적 활동 통계"""
-    petting_count: int = Field(0, description="쓰다듬기 누적 횟수")
-    watering_count: int = Field(0, description="물주기 누적 횟수")
-    talking_count: int = Field(0, description="대화하기 누적 횟수")
-    praising_count: int = Field(0, description="칭찬하기 누적 횟수")
+    touch_count: int = Field(0, description="쓰다듬기 누적 횟수")
+    water_count: int = Field(0, description="물주기 누적 횟수")
+    talk_count: int = Field(0, description="대화하기 누적 횟수")
+    praise_count: int = Field(0, description="칭찬하기 누적 횟수")
     diary_count: int = Field(0, description="사진 일기 기록 누적 횟수")
 
 

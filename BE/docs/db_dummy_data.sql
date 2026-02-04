@@ -27,12 +27,12 @@ SELECT setval('ref_plant_species_id_seq', (SELECT MAX(id) FROM ref_plant_species
 
 -- 3. ref_achievement (생략 - 기존 유지)
 INSERT INTO ref_achievement (id, name, description, icon_url, action_type, required_count) VALUES
-(1, '첫 쓰다듬기', '처음으로 식물을 쓰다듬었어요!', 'https://example.com/icons/petting_1.png', 'petting', 1),
-(2, '다정한 손길', '식물을 10번 쓰다듬었어요', 'https://example.com/icons/petting_10.png', 'petting', 10),
-(5, '첫 물주기', '처음으로 물을 주었어요!', 'https://example.com/icons/watering_1.png', 'watering', 1),
-(9, '첫 칭찬', '처음으로 식물을 칭찬했어요!', 'https://example.com/icons/praising_1.png', 'praising', 1),
-(12, '첫 대화', '처음으로 식물과 대화했어요!', 'https://example.com/icons/talking_1.png', 'talking', 1),
-(15, '첫 일기', '처음으로 식물 일기를 작성했어요!', 'https://example.com/icons/diary_1.png', 'diary', 1);
+(1, '첫 쓰다듬기', '처음으로 식물을 쓰다듬었어요!', 'https://example.com/icons/petting_1.png', 'TOUCH', 1),
+(2, '다정한 손길', '식물을 10번 쓰다듬었어요', 'https://example.com/icons/petting_10.png', 'TOUCH', 10),
+(5, '첫 물주기', '처음으로 물을 주었어요!', 'https://example.com/icons/watering_1.png', 'WATER', 1),
+(9, '첫 칭찬', '처음으로 식물을 칭찬했어요!', 'https://example.com/icons/praising_1.png', 'PRAISE', 1),
+(12, '첫 대화', '처음으로 식물과 대화했어요!', 'https://example.com/icons/talking_1.png', 'TALK', 1),
+(15, '첫 일기', '처음으로 식물 일기를 작성했어요!', 'https://example.com/icons/diary_1.png', 'DIARY', 1);
 
 SELECT setval('ref_achievement_id_seq', (SELECT MAX(id) FROM ref_achievement));
 

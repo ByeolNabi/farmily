@@ -12,11 +12,11 @@ if TYPE_CHECKING:
     from app.models.plant_log import PlantAchievement, PlantHealthLog
 
 class PlantActionType(str, enum.Enum):
-    petting = "petting"
-    watering = "watering"
-    praising = "praising"
-    talking = "talking"
-    diary = "diary"
+    TOUCH = "TOUCH"
+    WATER = "WATER"
+    TALK = "TALK"
+    PRAISE = "PRAISE"
+    DIARY = "DIARY"
 
 class RefPlantSpecies(Base):
     __tablename__ = "ref_plant_species"
@@ -43,7 +43,7 @@ class RefAchievement(Base):
     name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     icon_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
-    action_type: Mapped[Optional[PlantActionType]] = mapped_column(Enum(PlantActionType, name="plant_action_type"), nullable=True)
+    action_type: Mapped[Optional[PlantActionType]] = mapped_column(String(20), nullable=True)
     required_count: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now(), nullable=False)
 
