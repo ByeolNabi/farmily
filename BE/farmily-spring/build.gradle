@@ -63,7 +63,11 @@ dependencies {
 	implementation 'org.springframework.integration:spring-integration-mqtt'
 	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 
-	// 8. Firebase Cloud Messaging (FCM)
+	// 8. AWS S3 (MinIO 호환)
+	implementation 'software.amazon.awssdk:s3:2.25.16'
+	implementation 'software.amazon.awssdk:sts:2.25.16'
+
+	// 9. Firebase Cloud Messaging (FCM)
 	implementation 'com.google.firebase:firebase-admin:9.2.0'
 }
 
