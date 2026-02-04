@@ -61,6 +61,7 @@ class MoveToParams(BaseModel):
     """Parameters for MOVE_TO command (Jetson Bot)."""
     x: float
     y: float
+    theta: float
     speed: float = 0.5
 
 

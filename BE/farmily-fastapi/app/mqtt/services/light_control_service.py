@@ -261,7 +261,7 @@ class LightControlService:
         station_y = self._plant_config.get("station_y", 0)
         
         from app.mqtt.publishers.command_publisher import publish_move_to
-        await publish_move_to(self._mqtt_client, station_x, station_y)
+        await publish_move_to(self._mqtt_client, station_x, station_y, theta=0.0)
         
         self._state = ServiceState.RETURNING
         logger.info(f"[LightControl] MOVE_TO sent, state → RETURNING")

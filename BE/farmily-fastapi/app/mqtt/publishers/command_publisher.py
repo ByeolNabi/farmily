@@ -107,7 +107,7 @@ async def publish_move_to(
     mqtt_client,
     x: float,
     y: float,
-    speed: float = 0.5,
+    theta: float,
     device_id: str = "jetson_bot"
 ) -> None:
     """Publish MOVE_TO command to Jetson bot.
@@ -116,7 +116,7 @@ async def publish_move_to(
         mqtt_client: MQTTClient instance
         x: Target x coordinate
         y: Target y coordinate
-        speed: Movement speed (0.1 ~ 1.0)
+        theta: Target angle (theta)
         device_id: Target device ID
     """
     header = MQTTHeader(
@@ -128,7 +128,7 @@ async def publish_move_to(
     
     payload = CommandPayload(
         cmd="MOVE_TO",
-        params={"x": x, "y": y, "speed": speed}
+        params={"x": x, "y": y, "theta": theta}
     )
     
     message = MQTTMessage[CommandPayload](header=header, payload=payload)
@@ -138,7 +138,7 @@ async def publish_move_to(
         message.model_dump()
     )
     
-    logger.info(f"[Command] 🚗 MOVE_TO ({x}, {y}) speed={speed}")
+    logger.info(f"[Command] 🚗 MOVE_TO ({x}, {y}, theta={theta})")
 
 
 async def publish_control_light(

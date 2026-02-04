@@ -5,6 +5,7 @@ from app.api.v1.endpoints import diaries
 from app.api.v1.endpoints import mypage
 from app.api.v1.endpoints import timelapse
 from app.api.v1.endpoints import internal
+from app.api.v1.endpoints import controls
 
 router = APIRouter()
 
@@ -14,4 +15,5 @@ router.include_router(diaries.router, prefix="/diaries", tags=["Diaries"])
 router.include_router(mypage.router, prefix="/pages/mypage", tags=["Pages"])
 router.include_router(timelapse.router, prefix="/timelapse", tags=["Timelapse"])
 router.include_router(internal.router, tags=["Internal"])
+router.include_router(controls.router, prefix="/controls", tags=["Controls"])
 
