@@ -20,7 +20,6 @@ var mqttjsPlugin = {
         client.subscribe(topics);
       }
       client.on("message", function (incomingTopic, message) {
-        console.log("Received message:", incomingTopic, message.toString());
         SendMessage("mqttResponse", "GetData", message.toString());
       });
     });
