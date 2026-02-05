@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeParseException;
 @RestController
 @RequestMapping("/timelapse")
 @RequiredArgsConstructor
+@Slf4j
 @Tag(name = "Timelapse", description = "타임랩스 API")
 public class TimelapseController {
 
@@ -77,7 +79,10 @@ public class TimelapseController {
             TimelapseCreateResponse response = timelapseService.createTimelapse(plantId, image, createdAt);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 저장에 실패했습니다.");
+            log.error("타임랩스 생성 실패: plantId={}, fileName={}, error={}",
+                    plantId, image.getOriginalFilename(), e.getMessage(), e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "이미지 저장에 실패했습니다: " + e.getMessage());
         }
     }
 
