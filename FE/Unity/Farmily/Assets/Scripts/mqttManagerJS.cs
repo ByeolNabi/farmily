@@ -6,7 +6,12 @@ using TMPro;
 public class mqttManagerJS : MonoBehaviour
 {
     public string brokerAdress = "wss://i14d101.p.ssafy.io:443/mqtt";
-    public string topicSub = "farmily/raspi/sensor/all";
+    // public string topicSub = "farmily/raspi/sensor/all";
+    var topics = [
+        "farmily/raspi/sensor/all",
+        "farmily/devices/device_1/weather",
+    ];
+    
     public TextMeshProUGUI temperatureText;
     public TextMeshProUGUI humidityText;
     public TextMeshProUGUI illuminanceText;

@@ -5,15 +5,20 @@ var mqttjsPlugin = {
     topic: "",
   },
 
-  mqttConnect: function (brokerAddress, topicSub) {
+  mqttConnect: function (brokerAddress, topicSubCsv) {
     console.log("Connecting to broker");
     var client = mqtt.connect(UTF8ToString(brokerAddress));
-    var topic = UTF8ToString(topicSub);
-    console.log(topic);
+    
+    var topics = UTF8ToString(topicSubCsv)
+      .split(",")
+      .map(function (t) { return t.trim();})
+      .filter(function (t) { return t.length > 0;});
 
     client.on("connect", function () {
       console.log("Connected");
-      client.subscribe(topic);
+      if(topics.length > 0){
+        client.subscribe(topics);
+      }
       client.on("message", function (incomingTopic, message) {
         console.log("Received message:", incomingTopic, message.toString());
         SendMessage("mqttResponse", "GetData", message.toString());
