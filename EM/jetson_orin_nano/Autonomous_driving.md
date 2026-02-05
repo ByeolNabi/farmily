@@ -404,3 +404,72 @@ local_costmap:
 5. Navigation: 위 파라미터를 사용하여 Nav2 실행
 
 이제 RViz2에서 `Nav2 Goal`을 찍으면 로봇이 조향을 꺾어가며 목적지로 이동할 것입니다.
+
+---
+
+## 🚀 통합 실행 파일 (`bringup.launch.py`)
+이 파일은 하드웨어 구동, TF 발행, 오도메트리 계산을 한 번에 실행합니다.
+`~/ros2_ws/src/my_robot_nav/launch/` 폴더에 저장하세요.
+
+```python
+import os
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    # 1. YDLidar 실행 (패키지 설치 필수)
+    lidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(get_package_share_directory('ydlidar_ros2_driver'), 'launch', 'ydlidar_launch.py')
+        ])
+    )
+
+    # 2. PCA9685 모터 제어 노드
+    motor_controller = Node(
+        package='my_robot_nav',
+        executable='ackermann_controller',
+        name='ackermann_controller',
+        output='screen'
+    )
+
+    # 3. Static TF 발행 (Robot 중심 -> Lidar 위치)
+    # 실제 로봇의 센서 위치에 맞춰 '0.1 0 0.15' 부분을 수정하세요.
+    static_tf = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        arguments=['0.1', '0', '0.15', '0', '0', '0', 'base_link', 'laser_frame']
+    )
+
+    # 4. RF2O 오도메트리 실행
+    rf2o_odom = Node(
+        package='rf2o_laser_odometry',
+        executable='rf2o_laser_odometry_node',
+        name='rf2o_laser_odometry',
+        output='screen',
+        parameters=[{
+            'laser_scan_topic': '/scan',
+            'odom_topic': '/odom',
+            'publish_tf': True,
+            'base_frame_id': 'base_link',
+            'odom_frame_id': 'odom',
+            'freq': 10.0
+        }]
+    )
+
+    return LaunchDescription([
+        lidar_launch,
+        motor_controller,
+        static_tf,
+        rf2o_odom
+    ])
+```
+
+### ⚠️ 구현 시 주의사항
+- 조향 각도 보정: ackermann_controller.py의 STEER_CENTER 값을 조절하여 로봇이 직진하도록 미세 조정하세요.
+
+- 오도메트리 안정성: 엔코더가 없으므로 로봇의 최대 속도(desired_linear_vel)를 0.2m/s 이하로 설정하여 Lidar 매칭이 깨지지 않게 하세요.
+
+- 전원 분리: Jetson 보드와 모터 전원을 분리하여 전압 강하로 인한 보드 꺼짐을 방지하세요.
