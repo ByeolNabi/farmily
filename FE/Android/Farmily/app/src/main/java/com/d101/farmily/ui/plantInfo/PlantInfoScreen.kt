@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d101.farmily.R
 import com.d101.farmily.base.ApplicationClass
@@ -73,6 +74,18 @@ fun PlantInfoScreen(
     val OPTIONS = listOf("몬스테라", "장미", "다육이", "스투키", "상추")
 
     val plantSpecies by plantInfoViewModel.plantSpecies.collectAsState()
+
+    val filteredOptions = remember(plantType, plantSpecies) {
+        if (plantType.isEmpty()) {
+            plantSpecies
+        } else {
+            plantSpecies.filter { option ->
+                // 직접 포함되거나, 레벤슈타인 거리가 2 이하인 경우(살짝 틀려도 허용)
+                option.name.contains(plantType, ignoreCase = true) ||
+                        getLevenshteinDistance(option.name, plantType) <= 2
+            }.sortedBy { getLevenshteinDistance(it.name, plantType) } // 유사도 순 정렬
+        }
+    }
 
     LaunchedEffect(Unit) {
 
@@ -162,6 +175,7 @@ fun PlantInfoScreen(
                             onValueChange = {
                                 plantType = it
                                 plantSpeciesId = -1
+                                expanded = it.isNotEmpty() && plantSpeciesId == -1
                             },
                             label = {
                                 Text(
@@ -195,14 +209,15 @@ fun PlantInfoScreen(
                         }
 
                         DropdownMenu(
-                            expanded = expanded,
+                            expanded = expanded && filteredOptions.isNotEmpty(),
                             onDismissRequest = { expanded = false },
+                            properties = PopupProperties(focusable = false),
                             modifier = Modifier.background(Color.White)
-                                //.fillMaxWidth()
+                                .fillMaxWidth(0.5f)
                                 .heightIn(max = 220.dp),
                             //offset = DpOffset(x = 0.dp, y = 10.dp)// 배경색은 보통 흰색 권장
                         ) {
-                            plantSpecies.forEach { option ->
+                            filteredOptions.forEach { option ->
                                 DropdownMenuItem(
                                     text = { Text(option.name) },
                                     onClick = {
@@ -290,4 +305,18 @@ fun PlantInfoScreen(
 
     }
 
+}
+
+fun getLevenshteinDistance(s1: String, s2: String): Int {
+    val dp = Array(s1.length + 1) { IntArray(s2.length + 1) }
+    for (i in 0..s1.length) dp[i][0] = i
+    for (j in 0..s2.length) dp[0][j] = j
+
+    for (i in 1..s1.length) {
+        for (j in 1..s2.length) {
+            val cost = if (s1[i - 1] == s2[j - 1]) 0 else 1
+            dp[i][j] = minOf(dp[i - 1][j] + 1, minOf(dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost))
+        }
+    }
+    return dp[s1.length][s2.length]
 }

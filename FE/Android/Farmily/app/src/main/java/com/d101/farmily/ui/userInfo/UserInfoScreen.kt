@@ -179,11 +179,28 @@ fun UserInfoScreen(
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
-                        Text(
-                            text = plantName,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.surface
-                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                            ,
+                        ) {
+                            Text(
+                                text = plantName,
+                                style = MaterialTheme.typography.titleLarge,
+                                color = MaterialTheme.colorScheme.surface
+                            )
+                            Text(
+                                text = "우리 만난 지 1004일💚",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.surface,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    //.padding(end = 20.dp)
+                                ,
+                                textAlign = TextAlign.End
+                            )
+                        }
+
 
 
                         Row(
