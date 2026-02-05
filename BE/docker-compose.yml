@@ -36,6 +36,9 @@ services:
       - farmily-network
 
   # 3. Spring Boot
+
+  # ./gradlew clean build -x test
+  # docker compose up -d --force-recreate spring
   spring:
     image: eclipse-temurin:17-jre-alpine
     container_name: farmily-spring
