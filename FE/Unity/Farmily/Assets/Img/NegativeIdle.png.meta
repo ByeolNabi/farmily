@@ -1,0 +1,1222 @@
+fileFormatVersion: 2
+guid: 29fc8628f0c41eb48a37c4bca4b5ad69
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6207368918808328519
+    second: NegativeIdle_0
+  - first:
+      213: -3684293526785022224
+    second: NegativeIdle_1
+  - first:
+      213: 5792489158356743369
+    second: NegativeIdle_2
+  - first:
+      213: -2996093790420976995
+    second: NegativeIdle_3
+  - first:
+      213: 887781061784263542
+    second: NegativeIdle_4
+  - first:
+      213: -4969511594039490940
+    second: NegativeIdle_5
+  - first:
+      213: 3723861446032298028
+    second: NegativeIdle_6
+  - first:
+      213: -8783383066708914667
+    second: NegativeIdle_7
+  - first:
+      213: -226335441473539034
+    second: NegativeIdle_8
+  - first:
+      213: -5215140128535777373
+    second: NegativeIdle_9
+  - first:
+      213: 6496678332130510734
+    second: NegativeIdle_10
+  - first:
+      213: 3619491992131789814
+    second: NegativeIdle_11
+  - first:
+      213: 685341404759362328
+    second: NegativeIdle_12
+  - first:
+      213: 857590240900446563
+    second: NegativeIdle_13
+  - first:
+      213: 2610739989990523091
+    second: NegativeIdle_14
+  - first:
+      213: -342565133006202088
+    second: NegativeIdle_15
+  - first:
+      213: -6169867012652953257
+    second: NegativeIdle_16
+  - first:
+      213: 8741265150574502449
+    second: NegativeIdle_17
+  - first:
+      213: 171948118405616724
+    second: NegativeIdle_18
+  - first:
+      213: 6014407976334260922
+    second: NegativeIdle_19
+  - first:
+      213: -4924460557158441219
+    second: NegativeIdle_20
+  - first:
+      213: -743138815325186143
+    second: NegativeIdle_21
+  - first:
+      213: -1039875486083037140
+    second: NegativeIdle_22
+  - first:
+      213: -1459349436961126069
+    second: NegativeIdle_23
+  - first:
+      213: -8119502698180163243
+    second: NegativeIdle_24
+  - first:
+      213: -6686003586148947999
+    second: NegativeIdle_25
+  - first:
+      213: 3472754825120649816
+    second: NegativeIdle_26
+  - first:
+      213: -5523452954234148514
+    second: NegativeIdle_27
+  - first:
+      213: 3141110779579191067
+    second: NegativeIdle_28
+  - first:
+      213: 4033607849442446127
+    second: NegativeIdle_29
+  - first:
+      213: -4514510263183891509
+    second: NegativeIdle_30
+  - first:
+      213: -804251623219372568
+    second: NegativeIdle_31
+  - first:
+      213: -2511764173448733509
+    second: NegativeIdle_32
+  - first:
+      213: -4344951930272795737
+    second: NegativeIdle_33
+  - first:
+      213: -6790512975778357187
+    second: NegativeIdle_34
+  - first:
+      213: -2091495502495193872
+    second: NegativeIdle_35
+  - first:
+      213: -5521821771058978323
+    second: NegativeIdle_36
+  - first:
+      213: -6863411809785338979
+    second: NegativeIdle_37
+  - first:
+      213: 890778984135433413
+    second: NegativeIdle_38
+  - first:
+      213: 3398523318085845854
+    second: NegativeIdle_39
+  - first:
+      213: -3527474041094036793
+    second: NegativeIdle_40
+  - first:
+      213: 4840298162662421486
+    second: NegativeIdle_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NegativeIdle_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 3698
+        width: 399
+        height: 638
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 749fe53c421052650800000000000000
+      internalID: 6207368918808328519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_1
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 3698
+        width: 399
+        height: 641
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f625bfbe82cedcc0800000000000000
+      internalID: -3684293526785022224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_2
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 3698
+        width: 399
+        height: 642
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c4b729133e036050800000000000000
+      internalID: 5792489158356743369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_3
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 3698
+        width: 398
+        height: 641
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a3434529cbb66d0800000000000000
+      internalID: -2996093790420976995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_4
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 3698
+        width: 397
+        height: 639
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b58f90c28025c00800000000000000
+      internalID: 887781061784263542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_5
+      rect:
+        serializedVersion: 2
+        x: 2079
+        y: 3698
+        width: 396
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 486471ae88fb80bb0800000000000000
+      internalID: -4969511594039490940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_6
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 2968
+        width: 398
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20178b5140dda330800000000000000
+      internalID: 3723861446032298028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_7
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 2968
+        width: 397
+        height: 621
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51e42ae13a72b1680800000000000000
+      internalID: -8783383066708914667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_8
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 2968
+        width: 398
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62473ea7d15ebdcf0800000000000000
+      internalID: -226335441473539034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_9
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 2968
+        width: 399
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af6db02fa910a7b0800000000000000
+      internalID: -5215140128535777373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_10
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 2968
+        width: 400
+        height: 612
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e87cd9ea586d82a50800000000000000
+      internalID: 6496678332130510734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_11
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 2968
+        width: 400
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f3e26a3ac40b3230800000000000000
+      internalID: 3619491992131789814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_12
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2237
+        width: 400
+        height: 618
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b8c846062d28900800000000000000
+      internalID: 685341404759362328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_13
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 2237
+        width: 399
+        height: 621
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36976b7c7c5c6eb00800000000000000
+      internalID: 857590240900446563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_14
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 2237
+        width: 398
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0ca4840363b3420800000000000000
+      internalID: 2610739989990523091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_15
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 2237
+        width: 398
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b1bb693d6fe3bf0800000000000000
+      internalID: -342565133006202088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_16
+      rect:
+        serializedVersion: 2
+        x: 1668
+        y: 2237
+        width: 398
+        height: 619
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7519b6f24aa306aa0800000000000000
+      internalID: -6169867012652953257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_17
+      rect:
+        serializedVersion: 2
+        x: 2083
+        y: 2237
+        width: 397
+        height: 616
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 132ae7b57563f4970800000000000000
+      internalID: 8741265150574502449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_18
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 1507
+        width: 397
+        height: 615
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4541d5517e1e26200800000000000000
+      internalID: 171948118405616724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_19
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1507
+        width: 397
+        height: 616
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abafda35038777350800000000000000
+      internalID: 6014407976334260922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_20
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 1507
+        width: 398
+        height: 616
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe1624d63dc8abb0800000000000000
+      internalID: -4924460557158441219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_21
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 1507
+        width: 398
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a7dcbd4f27dfa5f0800000000000000
+      internalID: -743138815325186143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_22
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 1500
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c28426141ce9191f0800000000000000
+      internalID: -1039875486083037140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_23
+      rect:
+        serializedVersion: 2
+        x: 1663
+        y: 1507
+        width: 399
+        height: 612
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4904c64b695fbbe0800000000000000
+      internalID: -1459349436961126069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_24
+      rect:
+        serializedVersion: 2
+        x: 1758
+        y: 1500
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5594522a05bb15f80800000000000000
+      internalID: -8119502698180163243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_25
+      rect:
+        serializedVersion: 2
+        x: 2075
+        y: 1507
+        width: 399
+        height: 608
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e7aa90992b8633a0800000000000000
+      internalID: -6686003586148947999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_26
+      rect:
+        serializedVersion: 2
+        x: 2174
+        y: 1504
+        width: 23
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852175f2d14b13030800000000000000
+      internalID: 3472754825120649816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_27
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 777
+        width: 398
+        height: 606
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e59aa497dc0c853b0800000000000000
+      internalID: -5523452954234148514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_28
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 777
+        width: 400
+        height: 602
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1fc7f89c97779b20800000000000000
+      internalID: 3141110779579191067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_29
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 777
+        width: 400
+        height: 602
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2b8e35d7f04af730800000000000000
+      internalID: 4033607849442446127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_30
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 777
+        width: 399
+        height: 607
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc3a114a5dc3951c0800000000000000
+      internalID: -4514510263183891509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_31
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 774
+        width: 399
+        height: 612
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ed5af7e869b6d4f0800000000000000
+      internalID: -804251623219372568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_32
+      rect:
+        serializedVersion: 2
+        x: 2078
+        y: 766
+        width: 397
+        height: 626
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc190acacb642dd0800000000000000
+      internalID: -2511764173448733509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_33
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 32
+        width: 398
+        height: 632
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a331fd6d31a3b3c0800000000000000
+      internalID: -4344951930272795737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_34
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 29
+        width: 398
+        height: 636
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d30ec0c1d6043c1a0800000000000000
+      internalID: -6790512975778357187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_35
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 25
+        width: 398
+        height: 640
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f46274fbe389f2e0800000000000000
+      internalID: -2091495502495193872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_36
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 47
+        width: 398
+        height: 616
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de1e207ea5c8e53b0800000000000000
+      internalID: -5521821771058978323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_37
+      rect:
+        serializedVersion: 2
+        x: 1510
+        y: 17
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d93268aa25340c0a0800000000000000
+      internalID: -6863411809785338979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_38
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 47
+        width: 398
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc96ca34ceac5c00800000000000000
+      internalID: 890778984135433413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_39
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 47
+        width: 398
+        height: 609
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e53836f93faf92f20800000000000000
+      internalID: 3398523318085845854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_40
+      rect:
+        serializedVersion: 2
+        x: 1926
+        y: 11
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2ad2a8c05eb0fc0800000000000000
+      internalID: -3527474041094036793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NegativeIdle_41
+      rect:
+        serializedVersion: 2
+        x: 2344
+        y: 1
+        width: 40
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee33870b8813c2340800000000000000
+      internalID: 4840298162662421486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      NegativeIdle_0: 6207368918808328519
+      NegativeIdle_1: -3684293526785022224
+      NegativeIdle_10: 6496678332130510734
+      NegativeIdle_11: 3619491992131789814
+      NegativeIdle_12: 685341404759362328
+      NegativeIdle_13: 857590240900446563
+      NegativeIdle_14: 2610739989990523091
+      NegativeIdle_15: -342565133006202088
+      NegativeIdle_16: -6169867012652953257
+      NegativeIdle_17: 8741265150574502449
+      NegativeIdle_18: 171948118405616724
+      NegativeIdle_19: 6014407976334260922
+      NegativeIdle_2: 5792489158356743369
+      NegativeIdle_20: -4924460557158441219
+      NegativeIdle_21: -743138815325186143
+      NegativeIdle_22: -1039875486083037140
+      NegativeIdle_23: -1459349436961126069
+      NegativeIdle_24: -8119502698180163243
+      NegativeIdle_25: -6686003586148947999
+      NegativeIdle_26: 3472754825120649816
+      NegativeIdle_27: -5523452954234148514
+      NegativeIdle_28: 3141110779579191067
+      NegativeIdle_29: 4033607849442446127
+      NegativeIdle_3: -2996093790420976995
+      NegativeIdle_30: -4514510263183891509
+      NegativeIdle_31: -804251623219372568
+      NegativeIdle_32: -2511764173448733509
+      NegativeIdle_33: -4344951930272795737
+      NegativeIdle_34: -6790512975778357187
+      NegativeIdle_35: -2091495502495193872
+      NegativeIdle_36: -5521821771058978323
+      NegativeIdle_37: -6863411809785338979
+      NegativeIdle_38: 890778984135433413
+      NegativeIdle_39: 3398523318085845854
+      NegativeIdle_4: 887781061784263542
+      NegativeIdle_40: -3527474041094036793
+      NegativeIdle_41: 4840298162662421486
+      NegativeIdle_5: -4969511594039490940
+      NegativeIdle_6: 3723861446032298028
+      NegativeIdle_7: -8783383066708914667
+      NegativeIdle_8: -226335441473539034
+      NegativeIdle_9: -5215140128535777373
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

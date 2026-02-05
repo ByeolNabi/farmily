@@ -1,181 +1,130 @@
 fileFormatVersion: 2
-guid: b82682a6ca248e04389a215563f80391
+guid: a8fa724c6be86c44cb6f4a972836600a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2759569974536068438
-    second: DRINK_0
+      213: -559891767521609505
+    second: sprite-max-px-36_0
   - first:
-      213: 4163925814016044229
-    second: DRINK_1
+      213: 8978482991889411218
+    second: sprite-max-px-36_1
   - first:
-      213: 8226454138998553234
-    second: DRINK_2
+      213: 6225159237468366818
+    second: sprite-max-px-36_2
   - first:
-      213: 9086928335975415116
-    second: DRINK_3
+      213: 4168308074919118270
+    second: sprite-max-px-36_3
   - first:
-      213: -7087332465057477345
-    second: DRINK_4
+      213: -1191742853797991935
+    second: sprite-max-px-36_4
   - first:
-      213: 2705731137349893049
-    second: DRINK_5
+      213: -7108674735564688232
+    second: sprite-max-px-36_5
   - first:
-      213: 1362133825947403936
-    second: DRINK_6
+      213: 5681870728840486296
+    second: sprite-max-px-36_6
   - first:
-      213: -2004265122068502464
-    second: DRINK_7
+      213: -3441301618350577064
+    second: sprite-max-px-36_7
   - first:
-      213: 4689972609020482539
-    second: DRINK_8
+      213: 6105848705498509197
+    second: sprite-max-px-36_8
   - first:
-      213: -8506955572711358133
-    second: DRINK_9
+      213: -5360733299624736971
+    second: sprite-max-px-36_9
   - first:
-      213: -6214435060692818623
-    second: DRINK_10
+      213: -7103566090655573579
+    second: sprite-max-px-36_10
   - first:
-      213: -4931223704876409848
-    second: DRINK_11
+      213: 604167391591031431
+    second: sprite-max-px-36_11
   - first:
-      213: -2960208088237567246
-    second: DRINK_12
+      213: -7057510863843343795
+    second: sprite-max-px-36_12
   - first:
-      213: -1674733221210470060
-    second: DRINK_13
+      213: 3511259643986778992
+    second: sprite-max-px-36_13
   - first:
-      213: -6173070384699572197
-    second: DRINK_14
+      213: 4382637789654610958
+    second: sprite-max-px-36_14
   - first:
-      213: -4518241630790955398
-    second: DRINK_15
+      213: 7493560802790473759
+    second: sprite-max-px-36_15
   - first:
-      213: 5453332693547601529
-    second: DRINK_16
+      213: 7941241816753974590
+    second: sprite-max-px-36_16
   - first:
-      213: -2532163879805884280
-    second: DRINK_17
+      213: -4278447453235856779
+    second: sprite-max-px-36_17
   - first:
-      213: -3937886086317754284
-    second: DRINK_18
+      213: -2175334648018392308
+    second: sprite-max-px-36_18
   - first:
-      213: 3535339990881111195
-    second: DRINK_19
+      213: 2086644418779575091
+    second: sprite-max-px-36_19
   - first:
-      213: -6109184700828860138
-    second: DRINK_20
+      213: 5043294268029998694
+    second: sprite-max-px-36_20
   - first:
-      213: 7670435249684726930
-    second: DRINK_21
+      213: -8959460656864383220
+    second: sprite-max-px-36_21
   - first:
-      213: -3180270472711137062
-    second: DRINK_22
+      213: -2076075799393233312
+    second: sprite-max-px-36_22
   - first:
-      213: -1282092524341033321
-    second: DRINK_23
+      213: 7049034973073245378
+    second: sprite-max-px-36_23
   - first:
-      213: 843191162052751627
-    second: DRINK_24
+      213: -1465053395404005987
+    second: sprite-max-px-36_24
   - first:
-      213: 6184049817098295662
-    second: DRINK_25
+      213: -2078295053089169803
+    second: sprite-max-px-36_25
   - first:
-      213: 1040589344974112877
-    second: DRINK_26
+      213: -4268562778595845945
+    second: sprite-max-px-36_26
   - first:
-      213: -3816947029363453544
-    second: DRINK_27
+      213: 4813589462049250487
+    second: sprite-max-px-36_27
   - first:
-      213: -2223835456846726240
-    second: DRINK_28
+      213: -5221959740686221271
+    second: sprite-max-px-36_28
   - first:
-      213: 4517359409722209281
-    second: DRINK_29
+      213: -3724956567296943385
+    second: sprite-max-px-36_29
   - first:
-      213: 6438152118677546801
-    second: DRINK_30
+      213: -3167726652231237471
+    second: sprite-max-px-36_30
   - first:
-      213: 857945444866868324
-    second: DRINK_31
+      213: -7264476641956176947
+    second: sprite-max-px-36_31
   - first:
-      213: -2294808444195477433
-    second: DRINK_32
+      213: -2499589357308247101
+    second: sprite-max-px-36_32
   - first:
-      213: 6175905688017256811
-    second: DRINK_33
+      213: -9007641470269934177
+    second: sprite-max-px-36_33
   - first:
-      213: -6876606506946971419
-    second: DRINK_34
+      213: 8362880780425358536
+    second: sprite-max-px-36_34
   - first:
-      213: -6610627465762824897
-    second: DRINK_35
+      213: 6061364629357859661
+    second: sprite-max-px-36_35
   - first:
-      213: -3203127754509479838
-    second: DRINK_36
+      213: 3697885597436402343
+    second: sprite-max-px-36_36
   - first:
-      213: -5652535154793693642
-    second: DRINK_37
+      213: -7714326569647025565
+    second: sprite-max-px-36_37
   - first:
-      213: -1388454998132883000
-    second: DRINK_38
+      213: 4290512852294349865
+    second: sprite-max-px-36_38
   - first:
-      213: -7666127512478339454
-    second: DRINK_39
+      213: 2832978785931995774
+    second: sprite-max-px-36_39
   - first:
-      213: 3046254700240083952
-    second: DRINK_40
-  - first:
-      213: -344821407109448717
-    second: DRINK_41
-  - first:
-      213: -9184201347763225004
-    second: DRINK_42
-  - first:
-      213: -4489429004056106170
-    second: DRINK_43
-  - first:
-      213: 7252960640491719916
-    second: DRINK_44
-  - first:
-      213: -1762979516168432789
-    second: DRINK_45
-  - first:
-      213: 3479927880971799773
-    second: DRINK_46
-  - first:
-      213: 7341703476070769187
-    second: DRINK_47
-  - first:
-      213: -6940051564333708143
-    second: DRINK_48
-  - first:
-      213: -6633651082675486450
-    second: DRINK_49
-  - first:
-      213: 2268195850730977281
-    second: DRINK_50
-  - first:
-      213: 7820781756573087079
-    second: DRINK_51
-  - first:
-      213: 1202252728584156992
-    second: DRINK_52
-  - first:
-      213: -3604865045341631018
-    second: DRINK_53
-  - first:
-      213: -1497187928388968655
-    second: DRINK_54
-  - first:
-      213: 4568709568023883570
-    second: DRINK_55
-  - first:
-      213: 930584712767466052
-    second: DRINK_56
-  - first:
-      213: 1061359071116032871
-    second: DRINK_57
+      213: 1006551164408038646
+    second: sprite-max-px-36_40
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -219,7 +168,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -284,1277 +233,793 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DRINK_0
+      name: Drink_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 2565
-        width: 13
-        height: 16
+        x: 0
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aa2a1fe9ab904b9d0800000000000000
-      internalID: -2759569974536068438
+      spriteID: 535c85cdf3c19024bb892220e2e48bab
+      internalID: 202758663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_1
+      name: Drink_1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 2551
-        width: 271
-        height: 433
+        x: 400
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5cc6187677c39c930800000000000000
-      internalID: 4163925814016044229
+      spriteID: 4fbd7200e4372a74a96eb8f580797aa8
+      internalID: 1697286480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_2
+      name: Drink_2
       rect:
         serializedVersion: 2
-        x: 348
-        y: 2565
-        width: 13
-        height: 16
+        x: 800
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 29afc0c247c3a2270800000000000000
-      internalID: 8226454138998553234
+      spriteID: d62b10d69fa587c46adf22844f0ac8f9
+      internalID: -1917440918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_3
+      name: Drink_3
       rect:
         serializedVersion: 2
-        x: 352
-        y: 2551
-        width: 270
-        height: 431
+        x: 1200
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c4dfe3d4d214b1e70800000000000000
-      internalID: 9086928335975415116
+      spriteID: 775edc93adcfb9145abc05b0017c6c39
+      internalID: -2008932152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_4
+      name: Drink_4
       rect:
         serializedVersion: 2
-        x: 682
-        y: 2565
-        width: 13
-        height: 16
+        x: 1600
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f1dc72f5cacb4ad90800000000000000
-      internalID: -7087332465057477345
+      spriteID: 6c8e1bb1410ed004983883a2c5043ecc
+      internalID: -1779218493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_5
+      name: Drink_5
       rect:
         serializedVersion: 2
-        x: 685
-        y: 2551
-        width: 270
-        height: 427
+        x: 2000
+        y: 2660
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9bb34734220bc8520800000000000000
-      internalID: 2705731137349893049
+      spriteID: 05094dcd7da8463418f6db1c0be35655
+      internalID: -153595934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_6
+      name: Drink_6
       rect:
         serializedVersion: 2
-        x: 1016
-        y: 2565
-        width: 13
-        height: 16
+        x: 0
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0a683207f7547e210800000000000000
-      internalID: 1362133825947403936
+      spriteID: 0bf8cf0451169a44da1a6c5a26a23bf3
+      internalID: 215752574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_7
+      name: Drink_7
       rect:
         serializedVersion: 2
-        x: 1019
-        y: 2551
-        width: 272
-        height: 418
+        x: 400
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 048e6639d7b6f24e0800000000000000
-      internalID: -2004265122068502464
+      spriteID: 1c316fa94d5ba3746aa60b2a8f376cc0
+      internalID: 167041535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_8
+      name: Drink_8
       rect:
         serializedVersion: 2
-        x: 1350
-        y: 2565
-        width: 13
-        height: 16
+        x: 800
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: be35af64d31261140800000000000000
-      internalID: 4689972609020482539
+      spriteID: f37732a784be4f1498ec213bea4bfd94
+      internalID: -371440496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_9
+      name: Drink_9
       rect:
         serializedVersion: 2
-        x: 1353
-        y: 2551
-        width: 272
-        height: 417
+        x: 1200
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b4182887af831f980800000000000000
-      internalID: -8506955572711358133
+      spriteID: 3551b20054de5f34fa3e6a3df85dce0e
+      internalID: -1617930578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_10
+      name: Drink_10
       rect:
         serializedVersion: 2
-        x: 1684
-        y: 2565
-        width: 13
-        height: 16
+        x: 1600
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 145ebafdc34e1c9a0800000000000000
-      internalID: -6214435060692818623
+      spriteID: acb9dd1d47858fb4ab5ebaa4bd7b5252
+      internalID: 349516783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_11
+      name: Drink_11
       rect:
         serializedVersion: 2
-        x: 1687
-        y: 2551
-        width: 276
-        height: 417
+        x: 2000
+        y: 2128
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 80c1bdaca26c09bb0800000000000000
-      internalID: -4931223704876409848
+      spriteID: e215c3801b458734692f80cb4c7f8cdd
+      internalID: 273848205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_12
+      name: Drink_12
       rect:
         serializedVersion: 2
-        x: 14
-        y: 2067
-        width: 13
-        height: 16
+        x: 0
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2f29c577d6a3be6d0800000000000000
-      internalID: -2960208088237567246
+      spriteID: 7dc7c2629206dbd4384c1518c05baf78
+      internalID: 1166567049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_13
+      name: Drink_13
       rect:
         serializedVersion: 2
-        x: 17
-        y: 2053
-        width: 273
-        height: 417
+        x: 400
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4594438220722c8e0800000000000000
-      internalID: -1674733221210470060
+      spriteID: 274843471f00ad14893fcb75b422c0a8
+      internalID: -1543671696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_14
+      name: Drink_14
       rect:
         serializedVersion: 2
-        x: 348
-        y: 2067
-        width: 13
-        height: 16
+        x: 800
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b108f720139d45aa0800000000000000
-      internalID: -6173070384699572197
+      spriteID: 59aee1cc94ed8c14eaa98cdcbdc6ec56
+      internalID: 890899461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_15
+      name: Drink_15
       rect:
         serializedVersion: 2
-        x: 349
-        y: 2053
-        width: 275
-        height: 422
+        x: 1200
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a7ec25bec2bfb41c0800000000000000
-      internalID: -4518241630790955398
+      spriteID: 1f800ec8a03cc9e439f72a818f268252
+      internalID: 1902554240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_16
+      name: Drink_16
       rect:
         serializedVersion: 2
-        x: 682
-        y: 2053
-        width: 276
-        height: 425
+        x: 1600
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 97ecde811312eab40800000000000000
-      internalID: 5453332693547601529
+      spriteID: c911aaaf67d3482408a49d2d62ab0adb
+      internalID: 1355053068
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_17
+      name: Drink_17
       rect:
         serializedVersion: 2
-        x: 1015
-        y: 2053
-        width: 276
-        height: 427
+        x: 2000
+        y: 1596
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 88868170e52fbdcd0800000000000000
-      internalID: -2532163879805884280
+      spriteID: e917e5018c7b4c140853a180b64edbb8
+      internalID: 1832700437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_18
+      name: Drink_18
       rect:
         serializedVersion: 2
-        x: 1347
-        y: 2053
-        width: 278
-        height: 432
+        x: 0
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 458b313e771d959c0800000000000000
-      internalID: -3937886086317754284
+      spriteID: 9e15d07f9f5532c4a9c850149f64e267
+      internalID: -517544681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_19
+      name: Drink_19
       rect:
         serializedVersion: 2
-        x: 1680
-        y: 2053
-        width: 278
-        height: 434
+        x: 400
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b9c83bc9dfc001130800000000000000
-      internalID: 3535339990881111195
+      spriteID: bca08b1c03eb2fc47aad02fc7cac1a22
+      internalID: -672796413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_20
+      name: Drink_20
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1555
-        width: 279
-        height: 434
+        x: 800
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 61148d7e1e0d73ba0800000000000000
-      internalID: -6109184700828860138
+      spriteID: 13317b4e75461394292fbb1294e30bde
+      internalID: 1315806009
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_21
+      name: Drink_21
       rect:
         serializedVersion: 2
-        x: 342
-        y: 1555
-        width: 281
-        height: 433
+        x: 1200
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 294c71a483cd27a60800000000000000
-      internalID: 7670435249684726930
+      spriteID: 01e75a4214260ad499d6c90ec141f875
+      internalID: -495943064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_22
+      name: Drink_22
       rect:
         serializedVersion: 2
-        x: 675
-        y: 1555
-        width: 282
-        height: 429
+        x: 1600
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ad89368dad86dd3d0800000000000000
-      internalID: -3180270472711137062
+      spriteID: f80950aac84f1644d958d4dec120d6eb
+      internalID: -224697702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_23
+      name: Drink_23
       rect:
         serializedVersion: 2
-        x: 1009
-        y: 1555
-        width: 282
-        height: 427
+        x: 2000
+        y: 1064
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 796087554a7153ee0800000000000000
-      internalID: -1282092524341033321
+      spriteID: f9311e109fbdaa144b972ac4815dd2a4
+      internalID: 1958707142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_24
+      name: Drink_24
       rect:
         serializedVersion: 2
-        x: 1343
-        y: 1555
-        width: 282
-        height: 424
+        x: 0
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b0137ebf4ed93bb00800000000000000
-      internalID: 843191162052751627
+      spriteID: b15420489a6e56b4b837c9745a3a2256
+      internalID: 1074168276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_25
+      name: Drink_25
       rect:
         serializedVersion: 2
-        x: 1677
-        y: 1555
-        width: 282
-        height: 422
+        x: 400
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e69967d4b8822d550800000000000000
-      internalID: 6184049817098295662
+      spriteID: d0da64234d171544e9d89776211beb56
+      internalID: 1069930633
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_26
+      name: Drink_26
       rect:
         serializedVersion: 2
-        x: 8
-        y: 1057
-        width: 281
-        height: 422
+        x: 800
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d680d38fe7ae07e00800000000000000
-      internalID: 1040589344974112877
+      spriteID: e90eaf1b821fdbe47aff661db33c8b3b
+      internalID: 1942702726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_27
+      name: Drink_27
       rect:
         serializedVersion: 2
-        x: 343
-        y: 1057
-        width: 280
-        height: 422
+        x: 1200
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8911f4c56ea770bc0800000000000000
-      internalID: -3816947029363453544
+      spriteID: b6ad7351b32ca894b9ec38073f1655e9
+      internalID: -10059872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_28
+      name: Drink_28
       rect:
         serializedVersion: 2
-        x: 678
-        y: 1057
-        width: 279
-        height: 422
+        x: 1600
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0ab7bb33f695321e0800000000000000
-      internalID: -2223835456846726240
+      spriteID: 9014152e54aa05f42b26a7c3a194e091
+      internalID: -1527322304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_29
+      name: Drink_29
       rect:
         serializedVersion: 2
-        x: 1015
-        y: 1057
-        width: 276
-        height: 425
+        x: 2000
+        y: 532
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 104b24bf272e0be30800000000000000
-      internalID: 4517359409722209281
+      spriteID: 0b5753ba874392040b0b97b81207b72a
+      internalID: 1773596505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_30
+      name: Drink_30
       rect:
         serializedVersion: 2
-        x: 1350
-        y: 1071
-        width: 13
-        height: 16
+        x: 0
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 13724bbbd39e85950800000000000000
-      internalID: 6438152118677546801
+      spriteID: 249458aeed795f0449739ec02565cedc
+      internalID: 1388499698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_31
+      name: Drink_31
       rect:
         serializedVersion: 2
-        x: 1352
-        y: 1057
-        width: 273
-        height: 427
+        x: 400
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 46444f526d808eb00800000000000000
-      internalID: 857945444866868324
+      spriteID: 3e0cf9987a199594ebb6a116cfb02ecd
+      internalID: 1267822842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_32
+      name: Drink_32
       rect:
         serializedVersion: 2
-        x: 1684
-        y: 1071
-        width: 13
-        height: 16
+        x: 800
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7486920e0e33720e0800000000000000
-      internalID: -2294808444195477433
+      spriteID: e8d065c8177f2eb4f9894c15e1b35ade
+      internalID: 489117610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_33
+      name: Drink_33
       rect:
         serializedVersion: 2
-        x: 1691
-        y: 1057
-        width: 268
-        height: 428
+        x: 1200
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b61459c708935b550800000000000000
-      internalID: 6175905688017256811
+      spriteID: 3586f16f238eb014faaadd501afa5611
+      internalID: -2048079177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_34
+      name: Drink_34
       rect:
         serializedVersion: 2
-        x: 14
-        y: 573
-        width: 13
-        height: 16
+        x: 1600
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5e83945d0d26190a0800000000000000
-      internalID: -6876606506946971419
+      spriteID: 822802822eb413f4e90633917f5de84b
+      internalID: 85366971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DRINK_35
+      name: Drink_35
       rect:
         serializedVersion: 2
-        x: 25
-        y: 559
-        width: 264
-        height: 430
+        x: 2000
+        y: 0
+        width: 400
+        height: 532
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f3d14c038555244a0800000000000000
-      internalID: -6610627465762824897
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_36
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 573
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 260944637443c83d0800000000000000
-      internalID: -3203127754509479838
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_37
-      rect:
-        serializedVersion: 2
-        x: 362
-        y: 559
-        width: 267
-        height: 432
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63e3d12a9392e81b0800000000000000
-      internalID: -5652535154793693642
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_38
-      rect:
-        serializedVersion: 2
-        x: 682
-        y: 573
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8c18ca919873bbce0800000000000000
-      internalID: -1388454998132883000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_39
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 559
-        width: 271
-        height: 431
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28e21efe4a17c9590800000000000000
-      internalID: -7666127512478339454
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_40
-      rect:
-        serializedVersion: 2
-        x: 1016
-        y: 573
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0fb9c279288764a20800000000000000
-      internalID: 3046254700240083952
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_41
-      rect:
-        serializedVersion: 2
-        x: 1030
-        y: 559
-        width: 273
-        height: 429
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3fb7a46d1c2f63bf0800000000000000
-      internalID: -344821407109448717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_42
-      rect:
-        serializedVersion: 2
-        x: 1350
-        y: 573
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 45eb8e0c8892b8080800000000000000
-      internalID: -9184201347763225004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_43
-      rect:
-        serializedVersion: 2
-        x: 1364
-        y: 559
-        width: 277
-        height: 425
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 64b66e85b1852b1c0800000000000000
-      internalID: -4489429004056106170
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_44
-      rect:
-        serializedVersion: 2
-        x: 1684
-        y: 573
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cec06625641b7a460800000000000000
-      internalID: 7252960640491719916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_45
-      rect:
-        serializedVersion: 2
-        x: 1698
-        y: 559
-        width: 278
-        height: 426
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b639d708873a887e0800000000000000
-      internalID: -1762979516168432789
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_46
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 75
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ddc4d4568ff2b4030800000000000000
-      internalID: 3479927880971799773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_47
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 61
-        width: 278
-        height: 428
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 322e279d968f2e560800000000000000
-      internalID: 7341703476070769187
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_48
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 75
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 19ccef84fdbffaf90800000000000000
-      internalID: -6940051564333708143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_49
-      rect:
-        serializedVersion: 2
-        x: 362
-        y: 61
-        width: 277
-        height: 429
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e010e35ac7980f3a0800000000000000
-      internalID: -6633651082675486450
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_50
-      rect:
-        serializedVersion: 2
-        x: 682
-        y: 75
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 108b5dbdb104a7f10800000000000000
-      internalID: 2268195850730977281
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_51
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 61
-        width: 271
-        height: 433
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 765f462429ff88c60800000000000000
-      internalID: 7820781756573087079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_52
-      rect:
-        serializedVersion: 2
-        x: 1016
-        y: 75
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 047b081ac724fa010800000000000000
-      internalID: 1202252728584156992
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_53
-      rect:
-        serializedVersion: 2
-        x: 1029
-        y: 61
-        width: 268
-        height: 435
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6dd80353752f8fdc0800000000000000
-      internalID: -3604865045341631018
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_54
-      rect:
-        serializedVersion: 2
-        x: 1350
-        y: 75
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 13f5f56f28be83be0800000000000000
-      internalID: -1497187928388968655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_55
-      rect:
-        serializedVersion: 2
-        x: 1358
-        y: 61
-        width: 269
-        height: 436
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 23fedf36521576f30800000000000000
-      internalID: 4568709568023883570
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_56
-      rect:
-        serializedVersion: 2
-        x: 1671
-        y: 75
-        width: 26
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 44ae9e5add91aec00800000000000000
-      internalID: 930584712767466052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DRINK_57
-      rect:
-        serializedVersion: 2
-        x: 1685
-        y: 61
-        width: 274
-        height: 435
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 76b720da374babe00800000000000000
-      internalID: 1061359071116032871
+      spriteID: 6b333e5c6b726ed499bd3461cb374e84
+      internalID: 93007233
       vertices: []
       indices: 
       edges: []
@@ -1563,7 +1028,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ba56b2fa1e0f5bf4d99080c06efdf6a1
     internalID: 0
     vertices: []
     indices: 
@@ -1571,66 +1036,46 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":400.0,"y":532.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      DRINK_0: -2759569974536068438
-      DRINK_1: 4163925814016044229
-      DRINK_10: -6214435060692818623
-      DRINK_11: -4931223704876409848
-      DRINK_12: -2960208088237567246
-      DRINK_13: -1674733221210470060
-      DRINK_14: -6173070384699572197
-      DRINK_15: -4518241630790955398
-      DRINK_16: 5453332693547601529
-      DRINK_17: -2532163879805884280
-      DRINK_18: -3937886086317754284
-      DRINK_19: 3535339990881111195
-      DRINK_2: 8226454138998553234
-      DRINK_20: -6109184700828860138
-      DRINK_21: 7670435249684726930
-      DRINK_22: -3180270472711137062
-      DRINK_23: -1282092524341033321
-      DRINK_24: 843191162052751627
-      DRINK_25: 6184049817098295662
-      DRINK_26: 1040589344974112877
-      DRINK_27: -3816947029363453544
-      DRINK_28: -2223835456846726240
-      DRINK_29: 4517359409722209281
-      DRINK_3: 9086928335975415116
-      DRINK_30: 6438152118677546801
-      DRINK_31: 857945444866868324
-      DRINK_32: -2294808444195477433
-      DRINK_33: 6175905688017256811
-      DRINK_34: -6876606506946971419
-      DRINK_35: -6610627465762824897
-      DRINK_36: -3203127754509479838
-      DRINK_37: -5652535154793693642
-      DRINK_38: -1388454998132883000
-      DRINK_39: -7666127512478339454
-      DRINK_4: -7087332465057477345
-      DRINK_40: 3046254700240083952
-      DRINK_41: -344821407109448717
-      DRINK_42: -9184201347763225004
-      DRINK_43: -4489429004056106170
-      DRINK_44: 7252960640491719916
-      DRINK_45: -1762979516168432789
-      DRINK_46: 3479927880971799773
-      DRINK_47: 7341703476070769187
-      DRINK_48: -6940051564333708143
-      DRINK_49: -6633651082675486450
-      DRINK_5: 2705731137349893049
-      DRINK_50: 2268195850730977281
-      DRINK_51: 7820781756573087079
-      DRINK_52: 1202252728584156992
-      DRINK_53: -3604865045341631018
-      DRINK_54: -1497187928388968655
-      DRINK_55: 4568709568023883570
-      DRINK_56: 930584712767466052
-      DRINK_57: 1061359071116032871
-      DRINK_6: 1362133825947403936
-      DRINK_7: -2004265122068502464
-      DRINK_8: 4689972609020482539
-      DRINK_9: -8506955572711358133
+      Drink_0: 202758663
+      Drink_1: 1697286480
+      Drink_10: 349516783
+      Drink_11: 273848205
+      Drink_12: 1166567049
+      Drink_13: -1543671696
+      Drink_14: 890899461
+      Drink_15: 1902554240
+      Drink_16: 1355053068
+      Drink_17: 1832700437
+      Drink_18: -517544681
+      Drink_19: -672796413
+      Drink_2: -1917440918
+      Drink_20: 1315806009
+      Drink_21: -495943064
+      Drink_22: -224697702
+      Drink_23: 1958707142
+      Drink_24: 1074168276
+      Drink_25: 1069930633
+      Drink_26: 1942702726
+      Drink_27: -10059872
+      Drink_28: -1527322304
+      Drink_29: 1773596505
+      Drink_3: -2008932152
+      Drink_30: 1388499698
+      Drink_31: 1267822842
+      Drink_32: 489117610
+      Drink_33: -2048079177
+      Drink_34: 85366971
+      Drink_35: 93007233
+      Drink_4: -1779218493
+      Drink_5: -153595934
+      Drink_6: 215752574
+      Drink_7: 167041535
+      Drink_8: -371440496
+      Drink_9: -1617930578
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,13 +7,17 @@ using System;
 public class mqttManagerJS : MonoBehaviour
 {
     public string brokerAdress = "wss://i14d101.p.ssafy.io:443/mqtt";
-    // public string topicSub = "farmily/raspi/sensor/all";
+
     private readonly string[] topics = {
         "farmily/raspi/sensor/all",
         "farmily/devices/device_1/weather",
+        "farmily/devices/device_1/state",
+        "farmily/devices/device_1/event",
     };
     
     public static event Action<string> WeatherChanged;
+    public static event Action<string> StateChanged;
+    public static event Action<string> DeviceEventReceived;
 
     public TextMeshProUGUI temperatureText;
     public TextMeshProUGUI humidityText;
@@ -41,9 +45,22 @@ public class mqttManagerJS : MonoBehaviour
 
         // weather 메시지 처리
         if(data.header.type == "weather" && data.payload.@params != null){
-            Debug.Log("Weather message: " + data.payload.@params.weather);
+            // Debug.Log("Weather message: " + data.payload.@params.weather);
             WeatherChanged?.Invoke(data.payload.@params.weather);
             return;
+        }
+
+        // state 메시지 처리 - idle
+        if(data.header.type == "condition" && data.payload.@params != null){
+            StateChanged?.Invoke(data.payload.@params.state);
+            return;
+        }
+
+        // event 메시지 처리 - 물 줬을 때, 쓰다듬었을 때 
+        if (data.header.type == "event" && !string.IsNullOrEmpty(data.payload.@event))
+        {
+                DeviceEventReceived?.Invoke(data.payload.@event);
+                return;
         }
 
         // sensor 메시지 처리 - 온도, 습도, 조도, 토양 습도
@@ -70,6 +87,8 @@ public class mqttManagerJS : MonoBehaviour
 
             return;
         }
+
+        
     }
 
     [System.Serializable]
@@ -92,7 +111,8 @@ public class mqttManagerJS : MonoBehaviour
     private class MqttPayload
     {   
         public string cmd;
-        public WeatherParams @params;
+        public PayloadParams @params;
+        public string @event;
 
         public float temperature;
         public float humidity;
@@ -101,9 +121,9 @@ public class mqttManagerJS : MonoBehaviour
     }
 
     [System.Serializable]
-    private class WeatherParams
+    private class PayloadParams
     {
         public string weather;
-        public int plantId;
+        public string state; // POSITIVE, NEGATIVE
     }
 }
