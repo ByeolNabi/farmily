@@ -1065,6 +1065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 900000001}
   - component: {fileID: 900000002}
+  - component: {fileID: 900000003}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1146,6 +1147,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &900000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b401bcbeb1e79074cb14540a998d5f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeatherBackgroundApplier
+  backgroundRenderer: {fileID: 900000002}
+  sunnySprite: {fileID: -1955448553306655712, guid: 303cab7e06c9b65479af63529812e320, type: 3}
+  cloudySprite: {fileID: -5293616587367949868, guid: 191f475a62321204e98256dc0dac7af0, type: 3}
+  rainySprite: {fileID: 6182525838415827640, guid: 739a4c52bef28d148a5b9c587bca9a6d, type: 3}
+  snowySprite: {fileID: -8194447044665921384, guid: 82da90f2875877b478e5abc0af5f8d9e, type: 3}
 --- !u!1 &910000000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,7 +1921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::mqttManagerJS
   brokerAdress: wss://i14d101.p.ssafy.io:443/mqtt
-  topicSub: farmily/raspi/sensor/all
   temperatureText: {fileID: 14736987}
   humidityText: {fileID: 59316993}
   illuminanceText: {fileID: 102708194}
