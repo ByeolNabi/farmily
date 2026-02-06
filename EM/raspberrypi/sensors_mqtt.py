@@ -71,7 +71,13 @@ def init_bh1750():
     time.sleep(0.2)
 
 def read_lux():
-    data = BUS.read_i2c_block_data(BH1750_ADDR, CONT_H_RES_MODE, 2)
+    BUS.write_byte(BH1750_ADDR, CONT_H_RES_MODE)  # 0x10
+    time.sleep(0.18) 
+
+    data = BUS.read_i2c_block_data(BH1750_ADDR, 0x00, 2)
+    if len(data) < 2:
+        return None
+
     raw = (data[0] << 8) | data[1]
     return round(raw / 1.2, 1)
 
@@ -79,7 +85,7 @@ def read_lux():
 # SOIL via MCP3008
 # =====================
 
-SOIL_CH = 0 
+SOIL_CH = 1
 SPI_BUS = 0
 SPI_DEV = 0          
 
@@ -150,7 +156,7 @@ try:
             "temperature": temp,
             "humidity": hum,
             "illuminance": lux,
-            "soil": soil
+            "soil_moisture": soil_reverse
         }
 
         info = client.publish(TOPIC, build_msg(payload))
