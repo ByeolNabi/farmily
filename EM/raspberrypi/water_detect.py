@@ -15,9 +15,10 @@ WS_PATH = "/mqtt"
 TRANSPORT = "websockets"
 
 SUB_TOPIC = "farmily/raspi/sensor/all"
-PUB_TOPIC = "farmily/raspi/event/water"
 
-DEVICE_ID = "raspi_sensors"  
+PUB_TOPIC = "farmily/devices/device_1/event"
+
+DEVICE_ID = "raspi_sensors"
 
 # =====================
 # Water detection (Queue)
@@ -26,9 +27,9 @@ QSIZE = 10
 FRONT_N = 3
 BACK_N = 3
 
-DELTA_TH = 100
-MIN_BASELINE = 200
-COOLDOWN_SEC = 90
+DELTA_TH = 50
+MIN_BASELINE = 10
+COOLDOWN_SEC = 10
 
 q = deque(maxlen=QSIZE)
 last_event_ts = 0
@@ -116,11 +117,12 @@ def on_message(client, userdata, message):
 
     # event
     if watering:
-        info = client.publish(PUB_TOPIC, build_event())
+        payload = build_event()
+        info = client.publish(PUB_TOPIC, payload)
         if info.rc != 0:
             print(f"Publish FAIL rc={info.rc}", flush=True)
         else:
-            print(f"[PUBLISHED] WATER_DETECTED", flush=True)
+            print(f"[PUBLISHED] {PUB_TOPIC} -> WATER_DETECTED", flush=True)
 
 # =====================
 # main

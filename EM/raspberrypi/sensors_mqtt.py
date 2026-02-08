@@ -54,7 +54,6 @@ def read_dht():
             _dht_err_printed = True
         return last_temp, last_hum
 
-
 # =====================
 # BH1750
 # =====================
@@ -105,7 +104,6 @@ def clamp(v, lo, hi):
 SOIL_DRY = 900
 SOIL_WET = 350
 
-
 # =====================
 # MQTT (WSS)
 # =====================
@@ -130,7 +128,6 @@ def build_msg(payload: dict) -> str:
         "payload": payload
     }, ensure_ascii=False)
 
-
 # =====================
 # start
 # =====================
@@ -150,13 +147,13 @@ try:
         lux = read_lux()
         temp, hum = read_dht()
         soil = read_soil_raw_10bit()
-        soil_reverse = 1023 - soil
+        soil_reverse = (1023 - soil) / 1023 * 100
 
         payload = {
             "temperature": temp,
             "humidity": hum,
             "illuminance": lux,
-            "soil_moisture": soil_reverse
+            "soil_moisture": round(soil_reverse, 1)
         }
 
         info = client.publish(TOPIC, build_msg(payload))
@@ -164,7 +161,7 @@ try:
         if info.rc != 0:
             print(f"Publish FAIL rc={info.rc}", flush=True)
 
-        print(f"temp={temp} hum={hum} lux={lux} soil={soil_reverse}", flush=True)
+        print(f"temp={temp} hum={hum} lux={lux} soil={soil_reverse:.1f}", flush=True)
         time.sleep(2)
 
 except KeyboardInterrupt:

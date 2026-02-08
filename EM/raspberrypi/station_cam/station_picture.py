@@ -13,7 +13,7 @@ DEVICE_ID = "rsapi_station"
 
 # server upload endpoint
 # ex: http://i14d101.p.ssafy.io:8080/farmily/raspi/cam
-HTTP_URL = "http://i14d101.p.ssafy.io:8081/api/v1/timelapse"
+HTTP_URL = "http://i14d101.p.ssafy.io:8080/timelapse?plant_id=2"
 
 # save picture
 SAVE_DIR = "/home/ssafy/station_cam/shots"

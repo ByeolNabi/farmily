@@ -22,7 +22,7 @@ def read_touch() -> int:
 BROKER_HOST = "i14d101.p.ssafy.io"
 BROKER_PORT = 443
 PATH = "/mqtt"
-TOPIC = "farmily/raspi/sensor/touch"
+TOPIC = "farmily/devices/device_1/event"
 TRANSPORT = "websockets"
 DEVICE_ID = "raspi_touch"
 
@@ -33,7 +33,7 @@ def build_message(payload: dict) -> str:
     return json.dumps({
         "header": {
             "msg_id": str(uuid.uuid4()),
-            "type": "telemetry",
+            "type": "event",
             "device_id": DEVICE_ID,
             "timestamp": datetime.datetime.now().isoformat()
         },
@@ -52,8 +52,9 @@ print("Try Broker Connecting")
 client.connect(BROKER_HOST, BROKER_PORT, 60)
 client.loop_start()
 
-SEND_INTERVAL_SEC = 10.0
+SEND_INTERVAL_SEC = 3.0
 last_sent_ts = 0.0
+
 
 try:
     while True:
@@ -63,10 +64,10 @@ try:
 
         # touch==1 10sec transfer
         if touch_val == 1 and (now - last_sent_ts) >= SEND_INTERVAL_SEC:
-            message = build_message({"touch": 1})
+            message = build_message({"event": "TOUCH_DETECTED"})
             info = client.publish(TOPIC, message)
             last_sent_ts = now
-            print(f"touch=1 sent (rc={info.rc})")
+            print(f"touch event sent (rc={info.rc})")
 
         time.sleep(0.05)
 
